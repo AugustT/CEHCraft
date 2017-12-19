@@ -16,21 +16,8 @@ rm(list = ls())
 
 library(CEHcraft)
 
-setwd('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft')
+dir.create('worlds', showWarnings = FALSE)
 
-elev_25 <- raster::raster(file.path('base_layers','uk_elev25.tif'))
-lcm <- raster::raster(file.path('base_layers','landcover_composite_map.tif'))
-
-elev_cr <- crop_layer(postcode = 'OX108BB',
-                      radius_m = 5000,
-                      layer = elev_25)
-
-lcm_cr <- crop_layer(postcode = 'OX108BB',
-                     radius_m = 5000,
-                     layer = lcm)
-
-dev.new()
-par(mfrow = c(1, 2))
-raster::plot(elev_cr, main = 'elevation')
-raster::plot(lcm_cr, main = 'landcover')
+postcode_map(postcode = 'Ox1 3Pw', 
+             outputDir = 'worlds')
 ```
