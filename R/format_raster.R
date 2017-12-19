@@ -62,6 +62,10 @@ format_raster <- function(lcm,
   lcm_class[lcm_class$LCLU_Name == "Saline lagoons", "EUNIS2_CODE"] <- 999
   lcm_class[lcm_class$LCLU_Name == "Suburban", "EUNIS2_CODE"] <- 251
   lcm_class[lcm_class$LCLU_Name == "Non woodland-Urban", "EUNIS2_CODE"] <- 251
+  lcm_class[lcm_class$LCLU_Name == "Neutral grassland", "EUNIS2_CODE"] <- 131
+  lcm_class[lcm_class$LCLU_Name == "gr (Improved grassland)", "EUNIS2_CODE"] <- 132
+  lcm_class[lcm_class$LCLU_Name == "Lowland meadows", "EUNIS2_CODE"] <- 133
+  
   
   lcm <- round(raster::as.matrix(lcm), digits = 3)
   
