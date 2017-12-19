@@ -1,0 +1,10 @@
+Package: CEHcraft
+Type: Package
+Title: Minecraft maps from CEH data
+Version: 0.1
+Date: 2017-12-19
+Author: Tom August, Gary Powney, Reto Schmucki
+Maintainer: Tom August <tomaug@ceh.ac.uk>
+Description: Create Minecraft maps from CEH data
+License: GPL
+RoxygenNote: 6.0.1
