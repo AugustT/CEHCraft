@@ -62,7 +62,7 @@ block_id_lookup = {
     23 : (m.Cobblestone.ID, m.Cobblestone.blockData, 3), # inland limestone rock 
     24 : (m.Farmland.ID, 7, 0), # arable/agricultral land
     25 : (1, 6, 2), # Urban 
-    251 : (1, 2, 2), # Suburban
+    251 : (1, 5, 2), # Suburban
     26 : (1, 2, 2), # windfarm
     27 : (56, 0, 2), # Quarry
     29 : (m.Farmland.ID, 7, 0), # beetroot
@@ -75,8 +75,12 @@ block_id_lookup = {
     36 : (m.Farmland.ID, 7, 0), # spring wheat
     37 : (m.Farmland.ID, 7, 0), # winter barley
     38 : (m.Farmland.ID, 7, 0), # winter wheat
+    131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
+    132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
+    133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
     999 : (m.NoteBlock.ID, m.NoteBlock.blockData, 1), # unknown
 }
+
 
 #block_id_lookup = {
 #    0 : (m.Grass.ID, None, 2),
@@ -369,6 +373,9 @@ for x, row in enumerate(elevation):
             if choice2 < 0.25:
                 world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
                 world.setBlockDataAt(x, elev + 1, z, 1)
+            if choice2 > 0.2499999:
+                world.setBlockAt(x, elev + 1, z , 31)
+                world.setBlockDataAt(x, elev + 1, z, 1)
             if random.random() < 0.05: # add birds
                 Parrot = Entity.Create('Parrot')
                 Entity.setpos(Parrot, (x, actual_y + 3, z))
@@ -381,6 +388,9 @@ for x, row in enumerate(elevation):
                 tree_pick = random.choice([0, 1, 2, 3, 4, 5])
                 world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
                 world.setBlockDataAt(x, elev + 1, z, tree_pick)
+            if choice2 > 0.2499999:
+                world.setBlockAt(x, elev + 1, z , 31)
+                world.setBlockDataAt(x, elev + 1, z, 1)
             if random.random() < 0.05: # add birds
                 Parrot = Entity.Create('Parrot')
                 Entity.setpos(Parrot, (x, actual_y + 3, z))
@@ -393,6 +403,9 @@ for x, row in enumerate(elevation):
                 tree_pick = random.choice([0, 1, 2, 3, 4, 5])
                 world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
                 world.setBlockDataAt(x, elev + 1, z, tree_pick)
+            if choice2 > 0.2499999:
+                world.setBlockAt(x, elev + 1, z , 31)
+                world.setBlockDataAt(x, elev + 1, z, 1)
             if random.random() < 0.05: # add birds
                 Parrot = Entity.Create('Parrot')
                 Entity.setpos(Parrot, (x, actual_y + 3, z))
@@ -428,16 +441,16 @@ for x, row in enumerate(elevation):
             world.setBlockDataAt(x, elev + 1, z, 7)
         
         if my_id == 35: # Farm - spring barley
-            world.setBlockAt(x, elev + 1, z , 175)
-            world.setBlockDataAt(x, elev + 1, z, 2)
+            world.setBlockAt(x, elev + 1, z , m.Crops.ID)
+            world.setBlockDataAt(x, elev + 1, z, 1)
         
         if my_id == 36: # Farm - spring wheat
             world.setBlockAt(x, elev + 1, z , m.Crops.ID)
-            world.setBlockDataAt(x, elev + 1, z, 2)
+            world.setBlockDataAt(x, elev + 1, z, 5)
         
         if my_id == 37: # Farm - winter barley
-            world.setBlockAt(x, elev + 1, z , 175)
-            world.setBlockDataAt(x, elev + 1, z, 6)
+            world.setBlockAt(x, elev + 1, z , m.Crops.ID)
+            world.setBlockDataAt(x, elev + 1, z, 3)
         
         if my_id == 38: # Farm - winter wheat
             world.setBlockAt(x, elev + 1, z , m.Crops.ID)
@@ -448,11 +461,11 @@ for x, row in enumerate(elevation):
             # set height width and depth randomly
             pH = random.random()
             if pH < 0.2:
-                H = 10
+                H = 12
             elif pH < 0.6:
-                H = 8
+                H = 10
             else:
-                H = 6
+                H = 8
                 
             pW = random.random()
             if pW < 0.2:
@@ -475,7 +488,7 @@ for x, row in enumerate(elevation):
                 MatPres = [] # empty array to get materials present
                 
                 for nY in range(actual_y + 1, actual_y + H + 2): # Loop through and see what is there
-                    for nX in range(x - W - 2, x + W + 2): # extend x and y to allow 'streets'
+                    for nX in range(x - W - 1, x + W + 1): # extend x and y to allow 'streets'
                         for nZ in range(z - D - 1, z + D + 1):
                              MatPres.append(world.blockAt(nX,nY,nZ))
                              
@@ -488,7 +501,7 @@ for x, row in enumerate(elevation):
                         # set block type for level
                         if nY == max(range(actual_y + 1, actual_y + H + 1)): # Roof
                             blockType = random.choice([(44,0), (44,1), (44,5)])
-                        elif nY - actual_y  == 2 or nY - actual_y == 4 or nY - actual_y == 6: # Windows level
+                        elif nY - actual_y == 2 or nY - actual_y == 4 or nY - actual_y == 6 or nY - actual_y == 8 or nY - actual_y == 10: # Windows level
                             blockType = (m.Glass.ID, 0)
                         else: # Wall
                             blockType = wallMat
@@ -515,12 +528,12 @@ for x, row in enumerate(elevation):
                                 
                                 blockType = bT
                 else: # urban but we can't put a house
-                    if random.random() < 0.01: # Add a cat
+                    if random.random() < 0.05: # Add a cat
                         Cat = Entity.Create('Ocelot')
                         Entity.setpos(Cat, (x, actual_y + 2, z)) # Where to put it
                         Cat['CatType'] = nbt.TAG_Int(random.choice([1,2,3])) # What kind of cat
                         world.addEntity(Cat) # Add it
-                    if random.random() < 0.1: # Add a person
+                    if random.random() < 0.15: # Add a person
                         Villager = Entity.Create('Villager')
                         Entity.setpos(Villager, (x, actual_y + 2, z)) # Where to put it
                         Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
@@ -532,7 +545,7 @@ for x, row in enumerate(elevation):
             # set height width and depth randomly
             pH = random.random()
             if pH < 0.2:
-                H = 6
+                H = 3
             elif pH < 0.6:
                 H = 4
             else:
@@ -565,13 +578,13 @@ for x, row in enumerate(elevation):
                              
                 if all(item == 0 for item in MatPres): # If we have space to build the house
                     
-                    wallMat = random.choice([(43,2), (125,5), (125,3)])
+                    wallMat = random.choice([(43,2), (5,0), (5,2)])
                     
                     for nY in range(actual_y - 1, actual_y + H + 1): # Loop through and build the house
                         
                         # set block type for level
                         if nY == max(range(actual_y + 1, actual_y + H + 1)): # Roof
-                            blockType = random.choice([(126,1), (126,3), (126,5)])
+                            blockType = random.choice([(126,1), (126,5), (126,4)])
                         elif nY - actual_y  == 2 or nY - actual_y == 4 or nY - actual_y == 6: # Windows level
                             blockType = (m.Glass.ID, 0)
                         else: # Wall
@@ -604,7 +617,7 @@ for x, row in enumerate(elevation):
                         Entity.setpos(Cat, (x, actual_y + 2, z)) # Where to put it
                         Cat['CatType'] = nbt.TAG_Int(random.choice([1,2,3])) # What kind of cat
                         world.addEntity(Cat) # Add it
-                    if random.random() < 0.02: # Add a person
+                    if random.random() < 0.075: # Add a person
                         Villager = Entity.Create('Villager')
                         Entity.setpos(Villager, (x, actual_y + 2, z)) # Where to put it
                         Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
@@ -621,6 +634,52 @@ for x, row in enumerate(elevation):
                     world.setBlockDataAt(x, elev + 1, z, 0)
         else: pass
       
+        if my_id == 131: # neutral grassland
+            choice = random.random()
+            if choice < 0.2:
+                if choice < 0.1:
+                    world.setBlockAt(x, elev + 1, z , 38.1)
+                    world.setBlockDataAt(x, elev + 1, z, 0)
+                else:
+                    world.setBlockAt(x, elev + 1, z , 38.3)
+                    world.setBlockDataAt(x, elev + 1, z, 0)
+            if random.random() < 0.01: # add Sheep
+                Sheep = Entity.Create('Sheep')
+                Entity.setpos(Sheep, (x, actual_y + 3, z))
+                Sheep['Variant'] = nbt.TAG_Int(random.choice([0]))
+                world.addEntity(Sheep)
+        
+        if my_id == 13: # improved grassland #1
+            if random.random() < 0.01: # add Pig
+                Pig = Entity.Create('Pig')
+                Entity.setpos(Pig, (x, actual_y + 3, z))
+                Pig['Variant'] = nbt.TAG_Int(random.choice([0]))
+                world.addEntity(Pig)        
+        else: pass
+    
+        if my_id == 132: # improved grassland #2
+            if random.random() < 0.01: # add Cow
+                Cow = Entity.Create('Cow')
+                Entity.setpos(Cow, (x, actual_y + 3, z))
+                Cow['Variant'] = nbt.TAG_Int(random.choice([0]))
+                world.addEntity(Cow) 
+        else: pass
+    
+        if my_id == 133: # lowland meadows
+            choice = random.random()
+            if choice < 0.02:
+                if choice < 0.008: # add horse
+                    Horse = Entity.Create('Horse')
+                    Entity.setpos(Horse, (x, actual_y + 3, z))
+                    Horse['Variant'] = nbt.TAG_Int(random.choice([0]))
+                    world.addEntity(Horse)
+                else:
+                    # add rabbit
+                    Rabbit = Entity.Create('Rabbit')
+                    Entity.setpos(Rabbit, (x, actual_y + 3, z))
+                    Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
+                    world.addEntity(Rabbit)
+                
 #        world.setBlockAt(x, elev + 1, z , m.Crops.ID)
 #        world.setBlockDataAt(x, elev + 1, z, 7)
 
