@@ -32,7 +32,7 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
   out_filename <- name
   dtm_filename <- enquote(normalizePath(dtm))
   lcm_filename <- enquote(normalizePath(lcm))
-  tf <- tempfile(fileext = '.txt')
+  tf <- enquote(normalizePath(tempfile(fileext = '.txt')))
   # cat(tf, '\n')
   
   args = c(worlddir, out_filename, dtm_filename, lcm_filename, tf)
