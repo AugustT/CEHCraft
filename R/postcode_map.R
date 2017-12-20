@@ -23,6 +23,10 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   
   postcode <- toupper(gsub(' ', '', postcode))
   
+  cat('\n\n##########################',
+      '\nBuilding world for', postcode,
+      '\n##########################\n\n')
+  
   cat('Cropping dtm...')
   elev_cr <- crop_layer(postcode = postcode,
                         radius_m = radius,
