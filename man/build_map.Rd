@@ -5,7 +5,7 @@
 \title{Convert formatted rasters to minecraft worlds}
 \usage{
 build_map(lcm, dtm, name = gsub("^dtm-", "", gsub(".csv$", "",
-  basename(dtm))), outDir = ".")
+  basename(dtm))), outDir = ".", verbose = FALSE)
 }
 \arguments{
 \item{lcm}{Character, path to formatted lcm}
@@ -16,6 +16,8 @@ build_map(lcm, dtm, name = gsub("^dtm-", "", gsub(".csv$", "",
 from the input files by default.}
 
 \item{outDir}{Character, the location the save the results, usually a temporary location}
+
+\item{verbose}{Should python progress be printed. This is a bit buggy.}
 }
 \value{
 Path to the minecraft map
