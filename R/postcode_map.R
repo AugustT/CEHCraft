@@ -8,6 +8,7 @@
 #' @param postcode Character, valid UK postcode to centre map on.
 #' @param radius Numeric, radius of the map in meters
 #' @param outputDir Character, path to output directory
+#' @param verbose Should python progress be printed. This is a bit buggy.
 #'  
 #' @export
 #' 
@@ -17,7 +18,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                           dtm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif'),
                           postcode = 'OX108BB',
                           radius = 2500,
-                          outputDir = '.'){
+                          outputDir = '.',
+                          verbose = FALSE){
   
   postcode <- toupper(gsub(' ', '', postcode))
   
@@ -42,6 +44,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   cat('Creating Minecraft World\n')  
   map_path <- build_map(lcm = formatted_maps[[1]],
                         dtm = formatted_maps[[2]],
-                        outDir = outputDir)
+                        outDir = outputDir,
+                        verbose = verbose)
   
 }

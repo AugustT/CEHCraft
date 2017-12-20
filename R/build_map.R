@@ -9,12 +9,14 @@
 #' @param name Character, the name of the map, ususally the location. The name of the world is taken
 #' from the input files by default.
 #' @param outDir Character, the location the save the results, usually a temporary location
+#' @param verbose Should python progress be printed. This is a bit buggy.
 #'  
 #' @export
 #' 
 #' @return Path to the minecraft map
 
-build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(dtm))), outDir = '.'){
+build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(dtm))),
+                      outDir = '.', verbose = FALSE){
   
   # get quotes correct
   enquote <- function(x){
@@ -42,36 +44,39 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
   
   # cat(paste(command, allArgs), collapse = ' ')
   
+  wait <- ifelse(verbose, yes = FALSE, no = TRUE)
+  
   output <- system2(command,
                     args = allArgs, 
-                    wait = FALSE)
-  
-  e <- FALSE
-  n_lines <- 1
-  Sys.sleep(3)
-  while(!e){
-    
-    if(file.exists(tf)){
+                    wait = wait)
+  if(verbose){
+    e <- FALSE
+    n_lines <- 1
+    Sys.sleep(3)
+    while(!e){
       
-      suppressWarnings({log <- readLines(tf)})
-      if(n_lines <= length(log)){
+      if(file.exists(tf)){
         
-        cat('\n')
-        cat(paste(log[n_lines:length(log)], collapse = '\n'))
-        if(any(grepl('^Saved [[:digit:]]+ chunks.$', log))) e <- TRUE
+        suppressWarnings({log <- readLines(tf)})
+        if(n_lines <= length(log)){
+          
+          cat('\n')
+          cat(paste(log[n_lines:length(log)], collapse = '\n'))
+          if(any(grepl('^Saved [[:digit:]]+ chunks.$', log))) e <- TRUE
+          n_lines <- length(log) + 1
+          
+        }
+        
+        if(any(grepl('error', tolower(log)))) e <- TRUE
+        if(any(grepl('^Could not load', tolower(log)))) e <- TRUE
+        
         n_lines <- length(log) + 1
         
       }
       
-      if(any(grepl('error', tolower(log)))) e <- TRUE
-      if(any(grepl('^Could not load', tolower(log)))) e <- TRUE
-      
-      n_lines <- length(log) + 1
+      Sys.sleep(0.5)
       
     }
-    
-    Sys.sleep(0.5)
-    
   }
   
   return(file.path(outDir, out_filename))
