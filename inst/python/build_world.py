@@ -314,7 +314,7 @@ for x, row in enumerate(elevation):
 #            world.addEntity(Chicken)
             
         # Add in if statements as you like for various special cases for placing materials
-if block_id == m.WaterActive.ID:
+        if block_id == m.WaterActive.ID:
             # Carve a little channel for active water so it doesn't overflow.
             start_at -= 1
 #            stop_at -= 1
