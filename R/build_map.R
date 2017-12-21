@@ -32,7 +32,7 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
   out_filename <- name
   dtm_filename <- enquote(normalizePath(dtm))
   lcm_filename <- enquote(normalizePath(lcm))
-  tf <- enquote(normalizePath(tempfile(fileext = '.txt')))
+  tf <- tempfile(fileext = '.txt')
   # cat(tf, '\n')
   
   args = c(worlddir, out_filename, dtm_filename, lcm_filename, tf)
@@ -77,6 +77,10 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
       Sys.sleep(0.5)
       
     }
+  } else {
+    
+    cat('\nFollow progress by viewing the log file: ', tf)
+    
   }
   
   return(file.path(outDir, out_filename))

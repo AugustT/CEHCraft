@@ -25,11 +25,23 @@ format_raster <- function(lcm,
   # Set the y scaling to be the same as the x and y
   dtm <- round(raster::as.matrix(dtm)/(25/exagerate_elevation))
   
+  # set NA values (I have found these in the sea) to the min
+  dtm[is.na(dtm)] <- min(dtm, na.rm = TRUE)
+  
   # flip lat for minecraft #
   dtm <- dtm[, rev(1:ncol(dtm))]
   
-  # Set the minimum height to be 5
+  # Set the minimum height
   dtm <- (dtm -  min(dtm)) + 63
+  
+  # If the max height is >250 try a couple of things
+  if(max(dtm) > 250){ # First make the whole thing lower
+    dtm <- (dtm -  min(dtm)) + 5
+    if(max(dtm) > 250){ # second, rescale so that it fits
+      multiplier <- 250/max(dtm)
+      dtm <- round(dtm * multiplier)
+    }
+  }
   
   # Write it out
   dtm_path <- file.path(outDir, paste0('dtm-', name, '.csv'))
