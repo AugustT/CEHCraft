@@ -43,6 +43,9 @@ format_raster <- function(lcm,
     }
   }
   
+  cat('\nMinimum height: ', min(dtm))
+  cat('\nMaximum height: ', max(dtm))
+  
   # Write it out
   dtm_path <- file.path(outDir, paste0('dtm-', name, '.csv'))
   write.table(dtm, file = dtm_path,
