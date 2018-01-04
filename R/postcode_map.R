@@ -8,6 +8,7 @@
 #' @param postcode Character, valid UK postcode to centre map on.
 #' @param radius Numeric, radius of the map in meters
 #' @param outputDir Character, path to output directory
+#' @param exagerate_elevation The factor by which elevation should be exaggerated
 #' @param verbose Should python progress be printed. This is a bit buggy.
 #'  
 #' @export
@@ -19,6 +20,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                           postcode = 'OX108BB',
                           radius = 2500,
                           outputDir = '.',
+                          exagerate_elevation = 2,
                           verbose = FALSE){
   
   postcode <- toupper(gsub(' ', '', postcode))
@@ -42,7 +44,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   rm(list = c('dtm_raster', 'lcm_raster'))
 
   cat('Formatting maps...')  
-  formatted_maps <- format_raster(lcm = lcm_cr, dtm = elev_cr, name = postcode)
+  formatted_maps <- format_raster(lcm = lcm_cr, dtm = elev_cr,
+                                  name = postcode, exagerate_elevation = exagerate_elevation)
   cat('done\n')
   
   cat('Creating Minecraft World\n')  

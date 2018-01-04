@@ -7,7 +7,8 @@
 
   postcode_map(lcm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif"),
   dtm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif"),
-  postcode = "OX108BB", radius = 2500, outputDir = ".", verbose = FALSE)
+  postcode = "OX108BB", radius = 2500, outputDir = ".",
+  exagerate_elevation = 2, verbose = FALSE)
 }
 \arguments{
 \item{lcm_raster}{lcm raster. Defaults to files on W drive}
@@ -19,6 +20,8 @@
 \item{radius}{Numeric, radius of the map in meters}
 
 \item{outputDir}{Character, path to output directory}
+
+\item{exagerate_elevation}{The factor by which elevation should be exaggerated}
 
 \item{verbose}{Should python progress be printed. This is a bit buggy.}
 }
