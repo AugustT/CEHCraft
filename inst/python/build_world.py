@@ -301,7 +301,7 @@ def buildWorld(x, z):
 
   # Don't fill up the whole map from bedrock, just draw a shell.
   # this means there is a big cavern under everything... i think
-  start_at = max(1, actual_y - depth - 10)
+  start_at = max(1, actual_y - depth - y_min)
 
   # If we were going to optimize this code, this is where the
   # optimization would go. Lay down the stone in big slabs and
