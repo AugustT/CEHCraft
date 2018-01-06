@@ -1,0 +1,347 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Frequently Asked Questions &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Windows Newbie Guide" href="win_tut/windowsguide.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="win_tut/windowsguide.html" title="Windows Newbie Guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#general-questions" id="id3">General Questions</a><ul>
+<li><a class="reference internal" href="#does-the-overviewer-work-with-mod-blocks" id="id4">Does the Overviewer work with mod blocks?</a></li>
+<li><a class="reference internal" href="#can-i-view-overviewer-maps-without-having-an-internet-connection" id="id5">Can I view Overviewer maps without having an internet connection?</a></li>
+<li><a class="reference internal" href="#when-my-map-expands-i-see-remnants-of-another-zoom-level" id="id6">When my map expands, I see remnants of another zoom level</a></li>
+<li><a class="reference internal" href="#you-ve-added-a-new-feature-or-changed-textures-but-it-s-not-showing-up-on-my-map" id="id7">You’ve added a new feature or changed textures, but it’s not showing up on my map!</a></li>
+<li><a class="reference internal" href="#the-background-color-of-the-map-is-black-and-i-don-t-like-it" id="id8">The background color of the map is black, and I don’t like it!</a></li>
+<li><a class="reference internal" href="#i-downloaded-the-windows-version-but-when-i-double-click-it-the-window-closes-real-fast" id="id9">I downloaded the Windows version but when I double-click it, the window closes real fast.</a></li>
+<li><a class="reference internal" href="#the-overviewer-is-eating-up-all-my-memory" id="id10">The Overviewer is eating up all my memory!</a></li>
+<li><a class="reference internal" href="#how-can-i-log-the-overviewer-s-output-to-a-file" id="id11">How can I log The Overviewer’s output to a file?</a></li>
+<li><a class="reference internal" href="#i-ve-deleted-some-sections-of-my-world-but-they-still-appear-in-the-map" id="id12">I’ve deleted some sections of my world but they still appear in the map</a></li>
+<li><a class="reference internal" href="#my-map-is-zoomed-out-so-far-that-it-looks-almost-blank" id="id13">My map is zoomed out so far that it looks (almost) blank</a></li>
+<li><a class="reference internal" href="#i-want-to-put-manual-poi-definitions-or-other-parts-of-my-config-into-a-seperate-file" id="id14">I want to put manual POI definitions or other parts of my config into a seperate file</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="general-questions">
+<h2><a class="toc-backref" href="#id3">General Questions</a><a class="headerlink" href="#general-questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="does-the-overviewer-work-with-mod-blocks">
+<h3><a class="toc-backref" href="#id4">Does the Overviewer work with mod blocks?</a><a class="headerlink" href="#does-the-overviewer-work-with-mod-blocks" title="Permalink to this headline">¶</a></h3>
+<p>The Overviewer will render the world, but none of the blocks added by mods
+will be visible. Currently, the blocks Overviewer supports are hardcoded, and
+because there is no official Minecraft modding API as of the time of writing,
+supporting mod blocks is not trivial.</p>
+</div>
+<div class="section" id="can-i-view-overviewer-maps-without-having-an-internet-connection">
+<h3><a class="toc-backref" href="#id5">Can I view Overviewer maps without having an internet connection?</a><a class="headerlink" href="#can-i-view-overviewer-maps-without-having-an-internet-connection" title="Permalink to this headline">¶</a></h3>
+<p>Not at the moment. The Overviewer relies on the Google maps API to display
+maps, which your browser needs to load from Google. However, switching away
+from Google Maps is something that will most likely be looked into in the
+future.</p>
+</div>
+<div class="section" id="when-my-map-expands-i-see-remnants-of-another-zoom-level">
+<h3><a class="toc-backref" href="#id6">When my map expands, I see remnants of another zoom level</a><a class="headerlink" href="#when-my-map-expands-i-see-remnants-of-another-zoom-level" title="Permalink to this headline">¶</a></h3>
+<p>When your map expands (“Your map seems to have expanded beyond its previous
+bounds”) you may see tiles at a zoom level that shouldn’t be there, usually
+around the borders. This is probably not a bug, but is typically caused by
+copying the map tiles from their render destination to another location (such as
+a web server).</p>
+<p>When you’re copying the rendered map, you need to be sure files that <em>don’t</em>
+exist in the source are <em>deleted</em> in the destination.</p>
+<p>Explanation: When Overviewer re-arranges tiles to make room for another zoom
+level, it moves some tiles tiles at a particular zoom level and places them at a
+higher zoom level. The tiles that used to be at that zoom level should no longer
+exist there, but if you’re copying tiles, there is no mechanism to <em>delete</em>
+those files at the copy destination.</p>
+<p>If that explanation doesn’t make full sense, then just know that you must do one
+of the following:</p>
+<ul class="simple">
+<li>Render the tiles directly to the destination</li>
+<li>Copy the tiles from the render destination in a way that deletes extra files,
+such as using <code class="docutils literal"><span class="pre">rsync</span></code> with <code class="docutils literal"><span class="pre">--delete</span></code></li>
+<li>Erase and re-copy the files at the final destination when the map expands.
+Map expansions double the width and height of the map, so you will eventually
+hit a map size that is unlikely to need another level.</li>
+</ul>
+</div>
+<div class="section" id="you-ve-added-a-new-feature-or-changed-textures-but-it-s-not-showing-up-on-my-map">
+<h3><a class="toc-backref" href="#id7">You’ve added a new feature or changed textures, but it’s not showing up on my map!</a><a class="headerlink" href="#you-ve-added-a-new-feature-or-changed-textures-but-it-s-not-showing-up-on-my-map" title="Permalink to this headline">¶</a></h3>
+<p>Some new features will only show up in newly-rendered areas. Use the
+<a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> option to update the entire map. If you have a really
+large map and don’t want to re-render everything, take a look at
+the <a class="reference internal" href="config.html#rerenderprob"><span class="std std-ref">rerenderprob</span></a> configuration option.</p>
+</div>
+<div class="section" id="the-background-color-of-the-map-is-black-and-i-don-t-like-it">
+<h3><a class="toc-backref" href="#id8">The background color of the map is black, and I don’t like it!</a><a class="headerlink" href="#the-background-color-of-the-map-is-black-and-i-don-t-like-it" title="Permalink to this headline">¶</a></h3>
+<p>You can change the background color by specifying a new one in the configuration
+file. See the <a class="reference internal" href="config.html"><span class="doc">The Configuration File</span></a> page for more details.</p>
+</div>
+<div class="section" id="i-downloaded-the-windows-version-but-when-i-double-click-it-the-window-closes-real-fast">
+<h3><a class="toc-backref" href="#id9">I downloaded the Windows version but when I double-click it, the window closes real fast.</a><a class="headerlink" href="#i-downloaded-the-windows-version-but-when-i-double-click-it-the-window-closes-real-fast" title="Permalink to this headline">¶</a></h3>
+<p>The Overviewer is a command line program and must be run from a command line. It
+is necessary to become at least a little familiar with a command line to run The
+Overviewer (if you have no interest in this, perhaps this isn’t the mapping
+program for you). A brief guide is provided on the
+<a class="reference internal" href="win_tut/windowsguide.html"><span class="doc">Windows Newbie Guide</span></a> page.</p>
+<p>Unfortunately, A full tutorial of the Windows command line is out of scope for this
+documentation; consult the almighty Google for tutorials and information on
+the Windows command line. (If you would like to contribute a short tutorial to
+these docs, please do!)</p>
+<p>Batch files are another easy way to run the Overviewer without messing with
+command lines, but information on how to do this has also not been written.</p>
+<p>On a related note, we also welcome contributions for a graphical interface for
+the Overviewer.</p>
+</div>
+<div class="section" id="the-overviewer-is-eating-up-all-my-memory">
+<h3><a class="toc-backref" href="#id10">The Overviewer is eating up all my memory!</a><a class="headerlink" href="#the-overviewer-is-eating-up-all-my-memory" title="Permalink to this headline">¶</a></h3>
+<p>We have written The Overviewer with memory efficiency in mind. On even the
+largest worlds we have at our disposal to test with, it should not be taking
+more than a gigabyte or two. It varies of course, that number is only an
+estimate, but most computers with a reasonable amount of RAM should run just
+fine.</p>
+<p>If you are seeing exorbitant memory usage, then it is likely either a bug or a
+subtly corrupted world. Please file an issue or come talk to us on IRC so we can
+take a look! See <a class="reference internal" href="index.html#help"><span class="std std-ref">Help</span></a>.</p>
+</div>
+<div class="section" id="how-can-i-log-the-overviewer-s-output-to-a-file">
+<h3><a class="toc-backref" href="#id11">How can I log The Overviewer’s output to a file?</a><a class="headerlink" href="#how-can-i-log-the-overviewer-s-output-to-a-file" title="Permalink to this headline">¶</a></h3>
+<p>If you are on a UNIX-like system like MacOSX or Linux, you can use shell redirection
+to write the output into a file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">myconfig</span><span class="o">.</span><span class="n">py</span> <span class="o">&gt;</span> <span class="n">renderlog</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>What this does is redirect the previous commands standard output to the file “renderlog.log”,
+and redirect the standard error to the standard output. The file will be overwritten each time
+you run this command line; to simply append the output to the file, use two greater than signs:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">myconfig</span><span class="o">.</span><span class="n">py</span> <span class="o">&gt;&gt;</span> <span class="n">renderlog</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="i-ve-deleted-some-sections-of-my-world-but-they-still-appear-in-the-map">
+<span id="cropping-faq"></span><h3><a class="toc-backref" href="#id12">I’ve deleted some sections of my world but they still appear in the map</a><a class="headerlink" href="#i-ve-deleted-some-sections-of-my-world-but-they-still-appear-in-the-map" title="Permalink to this headline">¶</a></h3>
+<p>Okay, so making edits to your world in e.g. worldedit has some caveats,
+especially regarding deleting sections of your world.</p>
+<p>This faq also applies to using the <a class="reference internal" href="config.html#crop"><span class="std std-ref">crop</span></a> option.</p>
+<p>Under normal operation with vanilla Minecraft and no external tools fiddling
+with the world, Overviewer performs correctly, rendering areas that have
+changed, and everything is good.</p>
+<p>Often with servers one user will travel reeeeally far out and cause a lot of
+extra work for the server and for The Overviewer, so you may be tempted to
+delete parts of your map. This can cause problems, so read on to learn what you
+can do about it.</p>
+<p>First some explanation: Until recently (Mid May 2012) The Overviewer did not
+have any facility for detecting parts of the map that should no longer exist.
+Remember that the map is split into small tiles. When Overviewer starts up, the
+first thing it does is calculate which tiles should exist and which should be
+updated. This means it does not check or even look at tiles that should not
+exist. This means that parts of your world which have been deleted will hang
+around on your map because Overviewer won’t even look at those tiles and notice
+they shouldn’t be there. You may even see strange artifacts around the border as
+tiles that should exist get updated.</p>
+<p>Now, with the <a class="reference internal" href="running.html#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> option, The Overviewer <em>will</em> look for and
+remove tiles that should no longer exist. So you can render your map once with
+that option and all those extra tiles will get removed automatically. However,
+this is only half of the solution. The other half is making sure the tiles along
+the border are re-rendered, or else it will look like your map is being cut off.</p>
+<p>Explanation: The tiles next to the ones that were removed are tiles that should
+continue to exist, but parts of them have chunks that no longer exist. Those
+tiles then should be re-rendered to show that. However, since tile updates are
+triggered by the chunk last-modified timestamp changing, and the chunks that
+still exist have <em>not</em> been updated, those tiles will not get re-rendered.</p>
+<p>The consequence of this is that your map will end up looking cut-off around the
+new borders that were created by the parts you deleted. You can fix this one of
+two ways.</p>
+<ol class="arabic simple">
+<li>You can run a render with <a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a>. This has the unfortunate
+side-effect of re-rendering <em>everything</em> and doing much more work than is
+necessary.</li>
+<li>Manually navigate the tile directory hierarchy and manually delete tiles
+along the edge. Then run once again with <a class="reference internal" href="running.html#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> to re-render
+the tiles you just deleted. This may not be as bad as it seems. Remember each
+zoom level divides the world into 4 quadrants: 0, 1, 2, and 3 are the upper
+left, upper right, lower left, and lower right. It shouldn’t be too hard to
+navigate it manually to find the parts of the map that need re-generating.</li>
+<li>The third non-option is to not worry about it. The problem will fix itself if
+people explore near there, because that will force that part of the map to
+update.</li>
+</ol>
+</div>
+<div class="section" id="my-map-is-zoomed-out-so-far-that-it-looks-almost-blank">
+<h3><a class="toc-backref" href="#id13">My map is zoomed out so far that it looks (almost) blank</a><a class="headerlink" href="#my-map-is-zoomed-out-so-far-that-it-looks-almost-blank" title="Permalink to this headline">¶</a></h3>
+<p>We see this quite a bit, and seems to stem from a bug in the Minecraft terrain
+generation.</p>
+<p>Explanation: Minecraft generates chunks of your world as it needs them. When
+Overviewer goes to render your map, it looks at how big the world is, and
+calculates how big the maps needs to be in order to fit it all in.
+Occasionally, we see that Minecraft has generated a few chunks of the world
+extremely far away from the main part of the world. These erroneous chunks have
+most likely not been explored <a class="footnote-reference" href="#id2" id="id1">[*]</a> and should not exist.</p>
+<p>There are two solutions. The preferred is to delete the offending chunks. Open
+up your region folder of your world and look at the region file names. They are
+numbered <code class="docutils literal"><span class="pre">r.##.##.mcr</span></code> where <code class="docutils literal"><span class="pre">##</span></code> is a number. The two numbers indicate the
+coordinates of that region file. Look for region files with coordinates much
+larger in magnitude than any others. Most likely you will find around 1–3
+region files with coordinates much larger than any others. Delete or otherwise
+remove those files, and re-render your map.</p>
+<p>The other option is to use the <a class="reference internal" href="config.html#crop"><span class="std std-ref">crop</span></a> option to tell Overviewer not
+to render all of your map, but instead to only render the specified region.</p>
+<p>As always, if you need assistance, come chat with us on <a class="reference internal" href="index.html#help"><span class="std std-ref">irc</span></a>.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>They could also have been triggered by an accidential teleport where the coordinates were typed in manually.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="i-want-to-put-manual-poi-definitions-or-other-parts-of-my-config-into-a-seperate-file">
+<h3><a class="toc-backref" href="#id14">I want to put manual POI definitions or other parts of my config into a seperate file</a><a class="headerlink" href="#i-want-to-put-manual-poi-definitions-or-other-parts-of-my-config-into-a-seperate-file" title="Permalink to this headline">¶</a></h3>
+<p>This can be achieved by creating a module and then importing it in
+your config.  First, create a file containing your markers
+definitions. We’ll call it <code class="docutils literal"><span class="pre">manualmarkers.py</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mymarkers</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;town&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Pillowcastle&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;town&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">70</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;brownotopia&#39;</span> <span class="p">}]</span>
+</pre></div>
+</div>
+<p>The final step is to import the very basic module you’ve just created
+into your config.  In your config, do the following</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/wherever/your/manualmarkers/is/&quot;</span><span class="p">)</span> <span class="c1"># Replace this with your path to manualmarkers.py,</span>
+                                                    <span class="c1"># so python can find it</span>
+
+<span class="kn">from</span> <span class="nn">manualmarkers</span> <span class="k">import</span> <span class="o">*</span>                         <span class="c1"># import our markers</span>
+
+<span class="c1"># all the usual config stuff goes here</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;myrender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;title&quot;</span> <span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;world&quot;</span> <span class="p">:</span> <span class="s2">&quot;someworld&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;manualpois&quot;</span> <span class="p">:</span> <span class="n">mymarkers</span><span class="p">,</span>                         <span class="c1"># IMPORTANT! Variable name from manualmarkers.py</span>
+    <span class="c1"># and here goes the list of the filters, etc.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now you should be all set.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#general-questions">General Questions</a><ul>
+<li><a class="reference internal" href="#does-the-overviewer-work-with-mod-blocks">Does the Overviewer work with mod blocks?</a></li>
+<li><a class="reference internal" href="#can-i-view-overviewer-maps-without-having-an-internet-connection">Can I view Overviewer maps without having an internet connection?</a></li>
+<li><a class="reference internal" href="#when-my-map-expands-i-see-remnants-of-another-zoom-level">When my map expands, I see remnants of another zoom level</a></li>
+<li><a class="reference internal" href="#you-ve-added-a-new-feature-or-changed-textures-but-it-s-not-showing-up-on-my-map">You’ve added a new feature or changed textures, but it’s not showing up on my map!</a></li>
+<li><a class="reference internal" href="#the-background-color-of-the-map-is-black-and-i-don-t-like-it">The background color of the map is black, and I don’t like it!</a></li>
+<li><a class="reference internal" href="#i-downloaded-the-windows-version-but-when-i-double-click-it-the-window-closes-real-fast">I downloaded the Windows version but when I double-click it, the window closes real fast.</a></li>
+<li><a class="reference internal" href="#the-overviewer-is-eating-up-all-my-memory">The Overviewer is eating up all my memory!</a></li>
+<li><a class="reference internal" href="#how-can-i-log-the-overviewer-s-output-to-a-file">How can I log The Overviewer’s output to a file?</a></li>
+<li><a class="reference internal" href="#i-ve-deleted-some-sections-of-my-world-but-they-still-appear-in-the-map">I’ve deleted some sections of my world but they still appear in the map</a></li>
+<li><a class="reference internal" href="#my-map-is-zoomed-out-so-far-that-it-looks-almost-blank">My map is zoomed out so far that it looks (almost) blank</a></li>
+<li><a class="reference internal" href="#i-want-to-put-manual-poi-definitions-or-other-parts-of-my-config-into-a-seperate-file">I want to put manual POI definitions or other parts of my config into a seperate file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="win_tut/windowsguide.html"
+                        title="previous chapter">Windows Newbie Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributing.html"
+                        title="next chapter">Contributing</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="win_tut/windowsguide.html" title="Windows Newbie Guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

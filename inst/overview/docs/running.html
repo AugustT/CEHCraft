@@ -1,0 +1,425 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Running the Overviewer &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Configuration File" href="config.html" />
+    <link rel="prev" title="Building the Overviewer from Source" href="building.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="config.html" title="The Configuration File"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="building.html" title="Building the Overviewer from Source"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="running-the-overviewer">
+<h1>Running the Overviewer<a class="headerlink" href="#running-the-overviewer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rendering-your-first-map">
+<h2>Rendering your First Map<a class="headerlink" href="#rendering-your-first-map" title="Permalink to this headline">¶</a></h2>
+<p>Overviewer is a command-line application, and so it needs to be run from the
+command line. If you installed Overviewer from a package manager, the command is
+<code class="docutils literal"><span class="pre">overviewer.py</span></code>. If you downloaded it manually, open a terminal window and
+navigate to wherever you downloaded Overviewer. For pre-compiled Windows builds,
+the command is <code class="docutils literal"><span class="pre">overviewer.exe</span></code>. For other systems, it’s <code class="docutils literal"><span class="pre">overviewer.py</span></code>.</p>
+<p>What follows in this section is a few examples to get you started. For full
+usage, see the <a class="reference internal" href="#usage"><span class="std std-ref">Usage</span></a> section.</p>
+<p>So, let’s render your first map! Let’s say you want to render your single player
+world called “My World”. Let’s also say you want to save it c:mcmap. You
+would type into your command prompt the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">exe</span> <span class="s2">&quot;My World&quot;</span> <span class="n">c</span><span class="p">:</span>\<span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>If you’re on Linux or a Mac, you could do something like one of the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="s2">&quot;My World&quot;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="s2">&quot;My World&quot;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>Those will look for a single player world by that name. You can also specify the
+path to the world you want to render. This is useful for rendering servers.</p>
+<p>Let’s say you have a server installed in /home/username/mcserver. This command
+will render the default dimension (in the case of Bukkit multiworld servers, the
+default world is used. You can also specify the directory to the specific world
+you want to render).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcserver</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>After you enter one of the commands, The Overviewer should start rendering your
+map. When the render is done, open up <em>index.html</em> using your web-browser of
+choice.  Pretty cool, huh? You can even upload this map to a web server to share
+with others! Simply upload the entire folder to a web server and point your
+users to index.html!</p>
+<p>Incremental updates are just as easy, and a lot faster. If you go and change
+something inside your world, run the command again and The Overviewer will
+automatically re-render only what’s needed.</p>
+<div class="section" id="specifying-a-different-rendermode">
+<h3>Specifying a different rendermode<a class="headerlink" href="#specifying-a-different-rendermode" title="Permalink to this headline">¶</a></h3>
+<p>There are a few built-in rendermodes for you to choose from. Each will render
+your map differently. For example, if you want smooth lighting (which looks
+really good), you would add <code class="docutils literal"><span class="pre">--rendermodes=smooth-lighting</span></code> to your command.
+e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">rendermodes</span><span class="o">=</span><span class="n">smooth</span><span class="o">-</span><span class="n">lighting</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcserver</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>The rendermodes you have to choose from are:</p>
+<ul class="simple">
+<li>normal (the default)</li>
+<li>lighting</li>
+<li>smooth-lighting</li>
+<li>cave</li>
+</ul>
+<p>You can specify more than one. Just separate them with a comma!</p>
+</div>
+</div>
+<div class="section" id="usage">
+<span id="id1"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>For this section, we assume the executable is <code class="docutils literal"><span class="pre">overviewer.py</span></code>. Replace that
+with <code class="docutils literal"><span class="pre">overviewer.exe</span></code> for windows.</p>
+<p>Overviewer usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">--</span><span class="n">rendermodes</span><span class="o">=...</span><span class="p">]</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Output</span> <span class="n">Dir</span><span class="o">&gt;</span>
+<span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span><span class="o">=&lt;</span><span class="n">config</span> <span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The first form is for basic or quick renderings without having to create a
+config file. It is intentionally limited because the amount of configuration was
+becoming unmanageable for the command line.</p>
+<p>The second, preferred usage involves creating a configuration file which
+specifies all the options including what to render, where to place the output,
+and all the settings. See <a class="reference internal" href="config.html#configfile"><span class="std std-ref">The Configuration File</span></a> for details on that.</p>
+<p>For example, on Windows if your Minecraft server runs out of <code class="docutils literal"><span class="pre">c:\server\</span></code> and you want
+to put the rendered map in <code class="docutils literal"><span class="pre">c:\mcmap\</span></code>, run this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">exe</span> <span class="n">c</span><span class="p">:</span>\<span class="n">server</span>\<span class="n">world</span> <span class="n">c</span><span class="p">:</span>\<span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>For Mac or Linux builds from source, you would run something like this with the
+current directory in the top level of the source tree:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">minecraft</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">world</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">minecraft</span><span class="o">/</span><span class="n">mcmap</span>
+</pre></div>
+</div>
+<p>The first render can take a while, depending on the size of your world.</p>
+<div class="section" id="options">
+<span id="id2"></span><h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>The following options change the way The Overviewer generates or updates the
+map, and are intended to be things you only have to use in special situations.
+You should not normally have to specify these options; the default is
+typically correct.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-no-tile-checks">
+<code class="descname">--no-tile-checks</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-no-tile-checks" title="Permalink to this definition">¶</a></dt>
+<dd><p>With this option, The Overviewer will determine which tiles to render by
+looking at the saved last-render timestamp and comparing it to the
+last-modified time of the chunks of the world. It builds a tree of tiles
+that need updating and renders only those tiles.</p>
+<p>This option does not do <em>any</em> checking of tile mtimes on disk, and thus is
+the cheapest option: only rendering what needs updating while minimising
+disk IO.</p>
+<p>The caveat is that the <em>only</em> thing to trigger a tile update is if Minecraft
+updates a chunk. Any other reason a tile may have for needing re-rendering
+is not detected. This means that changes in your render configuration will
+not be reflected in your world except in updated chunks. It could also cause
+problems if the system clock of the machine running Minecraft is not stable.</p>
+<p><strong>This option is the default</strong> unless <a class="reference internal" href="#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> or
+<a class="reference internal" href="#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> is in effect.  This option conflicts with
+<a class="reference internal" href="#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> and <a class="reference internal" href="#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-check-tiles">
+<code class="descname">--check-tiles</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-check-tiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces The Overviewer to check each tile on disk and check to make sure it
+is up to date. This also checks for tiles that shouldn’t exist and deletes
+them.</p>
+<p>This is functionally equivalent to <a class="reference internal" href="#cmdoption-no-tile-checks"><code class="xref std std-option docutils literal"><span class="pre">--no-tile-checks</span></code></a> with the
+difference that each tile is individually checked. It is therefore useful if
+the tiles are not consistent with the last-render timestamp that is
+automatically stored. This option was designed to handle the case where the
+last render was interrupted – some tiles have been updated but others
+haven’t, so each one is checked before it is rendered.</p>
+<p>This is slightly slower than <a class="reference internal" href="#cmdoption-no-tile-checks"><code class="xref std std-option docutils literal"><span class="pre">--no-tile-checks</span></code></a> due to the
+additional disk-io involved in reading tile mtimes from the filesystem</p>
+<p>Since this option also checks for erroneous tiles, <strong>It is also useful after
+you delete sections of your map, e.g. with worldedit, to delete tiles that
+should no longer exist.</strong> Overviewer greatly overestimates tiles to be
+rendered and time needed to complete.</p>
+<p>The caveats with this option are the same as for <a class="reference internal" href="#cmdoption-no-tile-checks"><code class="xref std std-option docutils literal"><span class="pre">--no-tile-checks</span></code></a>
+with the additional caveat that tile timestamps in the filesystem must be
+preserved. If you copy tiles or make changes to them with an external tool
+that modifies mtimes of tiles, it could cause problems with this option.</p>
+<p>This option is automatically activated when The Overviewer detects the last
+render was interrupted midway through. This option conflicts with
+<a class="reference internal" href="#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> and <a class="reference internal" href="#cmdoption-no-tile-checks"><code class="xref std std-option docutils literal"><span class="pre">--no-tile-checks</span></code></a></p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-forcerender">
+<code class="descname">--forcerender</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-forcerender" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces The Overviewer to re-render every tile regardless of whether it
+thinks it needs updating or not. It does no tile mtime checks, and therefore
+ignores the last render time of the world, the last modification times of
+each chunk, and the filesystem mtimes of each tile. It unconditionally
+renders every tile that exists.</p>
+<p>The caveat with this option is that it does <em>no</em> checks, period. Meaning it
+will not detect tiles that do exist, but shouldn’t (this can happen if your
+world shrinks for some reason. For that specific case,
+<a class="reference internal" href="#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> is actually the appropriate mode).</p>
+<p>This option is useful if you have changed a render setting and wish to
+re-render every tile with the new settings.</p>
+<p>This option is automatically activated for first-time renders. This option
+conflicts with <a class="reference internal" href="#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> and <a class="reference internal" href="#cmdoption-no-tile-checks"><code class="xref std std-option docutils literal"><span class="pre">--no-tile-checks</span></code></a></p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-genpoi">
+<code class="descname">--genpoi</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-genpoi" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t use this flag without first reading <a class="reference internal" href="signs.html#signsmarkers"><span class="std std-ref">Signs and Markers</span></a>!</p>
+</div>
+<p>Generates the POI markers for your map. This option does not do any tile/map
+generation, and ONLY generates markers. See <a class="reference internal" href="signs.html#signsmarkers"><span class="std std-ref">Signs and Markers</span></a> on how to
+configure POI options.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-p">
+<code class="descname">-p</code><code class="descclassname"> &lt;procs&gt;</code><code class="descclassname">, </code><code class="descname">--processes</code><code class="descclassname"> &lt;procs&gt;</code><a class="headerlink" href="#cmdoption-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>This specifies the number of worker processes to spawn on the local machine
+to do work. It defaults to the number of CPU cores you have, if not
+specified.</p>
+<p>This option can also be specified in the config file as <a class="reference internal" href="config.html#processes"><span class="std std-ref">processes</span></a></p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-skip-scan">
+<code class="descname">--skip-scan</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-skip-scan" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t use this flag without first reading <a class="reference internal" href="signs.html#signsmarkers"><span class="std std-ref">Signs and Markers</span></a>!</p>
+</div>
+<p>When generating POI markers, this option prevents scanning for entities and
+tile entities, and only creates the markers specified in the config file.
+This considerably speeds up the POI marker generation process if no entities
+or tile entities are being used for POI markers. See <a class="reference internal" href="signs.html#signsmarkers"><span class="std std-ref">Signs and Markers</span></a> on
+how to configure POI options.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-v">
+<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate a more verbose logging format and turn on debugging output. This
+can be quite noisy but also gives a lot more info on what The Overviewer is
+doing.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-q">
+<code class="descname">-q</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--quiet</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns off one level of logging for quieter output. You can specify this more
+than once. One <code class="docutils literal"><span class="pre">-q</span></code> will suppress all INFO lines. Two will suppress all
+INFO and WARNING lines. And so on for ERROR and CRITICAL log messages.</p>
+<p>If <a class="reference internal" href="#cmdoption-v"><code class="xref std std-option docutils literal"><span class="pre">--verbose</span></code></a> is given, then the first <code class="docutils literal"><span class="pre">-q</span></code> will counteract
+the DEBUG lines, but not the more verbose logging format. Thus, you can
+specify <code class="docutils literal"><span class="pre">-v</span> <span class="pre">-q</span></code> to get only INFO logs and higher (no DEBUG) but with the
+more verbose logging format.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-update-web-assets">
+<code class="descname">--update-web-assets</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-update-web-assets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update web assets, including custom assets, without starting a render.
+This won’t update overviewerConfig.js, but will recreate overviewer.js</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="installing-the-textures">
+<span id="installing-textures"></span><h2>Installing the Textures<a class="headerlink" href="#installing-the-textures" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This procedure has changed with Minecraft 1.6’s Resource Pack update. The
+latest versions of Overviewer are not compatible with Minecraft 1.5 client
+resources.</p>
+</div>
+<p>If Overviewer is running on a machine with the Minecraft client installed, it
+will automatically use the default textures from Minecraft.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Overviewer will only search for installed client <em>release</em> versions, not
+snapshots. If you want to use a snapshot client jar for the textures,
+you must specify it manually with the <a class="reference internal" href="config.html#option-texturepath"><span class="std std-ref">texturepath</span></a>
+option.</p>
+</div>
+<p>If, however, you’re running on a machine without the Minecraft client installed,
+or if you want to use different textures, you will need to provide the textures
+manually. This is common for servers.</p>
+<p>If you want or need to provide your own textures, you have several options:</p>
+<ul>
+<li><p class="first">The easy solution is to download the latest client jar to the location the
+launcher would normally install it. Overviewer will find it and use it.</p>
+<p>You can use the following commands to download the client jar on Linux or Mac.
+Run the first line in a terminal, changing the version string to the latest as appropriate
+(these docs may not always be updated to reflect the latest). Then paste the second line
+into your terminal to download the latest version. <code class="docutils literal"><span class="pre">${VERSION}</span></code> will be replaced
+by the acutal version string from the first line.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>VERSION=1.12
+wget https://s3.amazonaws.com/Minecraft.Download/versions/${VERSION}/${VERSION}.jar -P ~/.minecraft/versions/${VERSION}/
+</pre></div>
+</div>
+<p>If that’s too confusing for you, then just take this single line and paste it into
+a terminal to get 1.12 textures:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">s3</span><span class="o">.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Minecraft</span><span class="o">.</span><span class="n">Download</span><span class="o">/</span><span class="n">versions</span><span class="o">/</span><span class="mf">1.12</span><span class="o">/</span><span class="mf">1.12</span><span class="o">.</span><span class="n">jar</span> <span class="o">-</span><span class="n">P</span> <span class="o">~/.</span><span class="n">minecraft</span><span class="o">/</span><span class="n">versions</span><span class="o">/</span><span class="mf">1.12</span><span class="o">/</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can also just run the launcher to install the client.</p>
+</li>
+<li><p class="first">You can transfer the client jar to the correct place manually, from a computer
+that does have the client, to your server. The correct places are:</p>
+<ul class="simple">
+<li>For Linux: <code class="docutils literal"><span class="pre">~/.minecraft/versions/&lt;version&gt;/&lt;version&gt;.jar</span></code></li>
+<li>For Mac: <code class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support/minecraft/versions/&lt;version&gt;/&lt;version&gt;.jar</span></code></li>
+<li>For Windows: <code class="docutils literal"><span class="pre">%APPDATA%/.minecraft/versions/&lt;version&gt;/&lt;version&gt;.jar</span></code></li>
+</ul>
+</li>
+<li><p class="first">You can download and use a custom resource pack. Download the resource pack
+file and specify the path to it with the
+<a class="reference internal" href="config.html#option-texturepath"><span class="std std-ref">texturepath</span></a> option.</p>
+</li>
+</ul>
+<div class="section" id="if-you-copy-your-world-before-you-render-it">
+<h3>If you copy your world before you render it<a class="headerlink" href="#if-you-copy-your-world-before-you-render-it" title="Permalink to this headline">¶</a></h3>
+<p>The important thing to be careful about when copying world files to another
+location is file modification times, which Overviewer uses to figure out what
+parts of the map need updating. If you do a straight copy, usually this will
+update the modification times on all the copied files, causing Overviewer to
+re-render the entire map. To copy files on Unix, while keeping these
+modification times intact, use <code class="docutils literal"><span class="pre">cp</span> <span class="pre">-p</span></code>. For people who render from backups,
+GNU <code class="docutils literal"><span class="pre">tar</span></code> automatically handles modification times correctly. <code class="docutils literal"><span class="pre">rsync</span> <span class="pre">-a</span>
+<span class="pre">--delete</span></code> will handle this correctly as well. If you use some other tool,
+you’ll have to figure out how to do this yourself.</p>
+</div>
+<div class="section" id="https-support">
+<h3>HTTPS support<a class="headerlink" href="#https-support" title="Permalink to this headline">¶</a></h3>
+<p>In order to support displaying maps over HTTPS, Overviewer loads the Google
+maps API and JQuery over HTTPS. This avoids security warnings for HTTPS
+sites, and is not expected to cause problems for users.</p>
+<p>If this change causes problems, take a look at the
+<a class="reference internal" href="config.html#customwebassets"><span class="std std-ref">custom web assets</span></a> option. This allows you to
+provide a custom index.html which loads the required Javascript libraries
+over HTTP.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Running the Overviewer</a><ul>
+<li><a class="reference internal" href="#rendering-your-first-map">Rendering your First Map</a><ul>
+<li><a class="reference internal" href="#specifying-a-different-rendermode">Specifying a different rendermode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-the-textures">Installing the Textures</a><ul>
+<li><a class="reference internal" href="#if-you-copy-your-world-before-you-render-it">If you copy your world before you render it</a></li>
+<li><a class="reference internal" href="#https-support">HTTPS support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="building.html"
+                        title="previous chapter">Building the Overviewer from Source</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">The Configuration File</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/running.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="config.html" title="The Configuration File"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="building.html" title="Building the Overviewer from Source"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
