@@ -52,7 +52,7 @@ cat(paste('\nTime taken:', timed$elapsed/timed$replications, '\n'))
 # 197.964 
 
 # list comprehension + elif to c: 10km2 - half ground depth 10 -> 5
-# 195.554 seconds (3.25 minutes)
+# 179.168 (2.9 minutes)
 
 # It looks like the constant writing to file is the main speed up, making
 # it a local operation seems to have a big impact on time. This might only 
