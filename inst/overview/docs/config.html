@@ -1,0 +1,1346 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The Configuration File &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Signs and Markers" href="signs.html" />
+    <link rel="prev" title="Running the Overviewer" href="running.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="signs.html" title="Signs and Markers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running the Overviewer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-configuration-file">
+<span id="configfile"></span><h1>The Configuration File<a class="headerlink" href="#the-configuration-file" title="Permalink to this headline">¶</a></h1>
+<p>Using a configuration file is now the preferred way of running The Overviewer.
+You will need to create a blank file and specify it when running The Overviewer
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">my_configfile</span>
+</pre></div>
+</div>
+<p>The config file is formatted in Python syntax. If you aren’t familiar with
+Python, don’t worry, it’s pretty simple. Just follow the examples.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should <em>always</em> use forward slashes (“/”), even on
+Windows.  This is required because the backslash (“&quot;) has special meaning
+in Python.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>The following examples should give you an idea of what a configuration file looks
+like, and also teach you some neat tricks.</p>
+<div class="section" id="a-simple-example">
+<h3>A Simple Example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;My world&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/home/username/server/world&quot;</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;normalrender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;My world&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal Render of My World&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">outputdir</span> <span class="o">=</span> <span class="s2">&quot;/home/username/mcmap&quot;</span>
+</pre></div>
+</div>
+<p>This defines a single world, and a single render of that world. You can see
+there are two main sections.</p>
+<dl class="docutils">
+<dt>The <code class="docutils literal"><span class="pre">worlds</span></code> dictionary</dt>
+<dd>Define items in the <code class="docutils literal"><span class="pre">worlds</span></code> dictionary as shown to tell The Overviewer
+where to find your worlds. The keys to this dictionary (“My world” in the
+example) is a name you give, and is referenced later in the render
+dictionary. If you want to render more than one world, you would put more
+lines like this one. Otherwise, one is sufficient.</dd>
+<dt>The <code class="docutils literal"><span class="pre">renders</span></code> dictionary</dt>
+<dd><p class="first">Each item here declares a “render” which is a map of one dimension of one
+world rendered with the given options. If you declare more than one render,
+then you will get a dropdown box to choose which map you want to look at
+when viewing the maps.</p>
+<p class="last">You are free to declare as many renders as you want with whatever options
+you want. For example, you are allowed to render multiple worlds, or even
+render the same world multiple times with different options.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since this is Python syntax, keep in mind you need to put quotation marks
+around your strings. <code class="docutils literal"><span class="pre">worlds[My</span> <span class="pre">world]</span></code> will not work. It must be
+<code class="docutils literal"><span class="pre">worlds[&quot;My</span> <span class="pre">world&quot;]</span></code></p>
+</div>
+</div>
+<div class="section" id="a-more-complicated-example">
+<h3>A more complicated example<a class="headerlink" href="#a-more-complicated-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;survival&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/home/username/server/survivalworld&quot;</span>
+<span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;creative&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/home/username/server/creativeworld&quot;</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;survivalday&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;survival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Survival Daytime&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">smooth_lighting</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;overworld&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;survivalnight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;survival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Survival Nighttime&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">smooth_night</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;overworld&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;survivalnether&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;survival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Survival Nether&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">nether_smooth_lighting</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;nether&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;survivalnethersouth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;survival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Survival Nether&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">nether_smooth_lighting</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;nether&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;northdirection&quot;</span> <span class="p">:</span> <span class="s2">&quot;lower-right&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;creative&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;creative&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Creative&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">smooth_lighting</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;overworld&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">outputdir</span> <span class="o">=</span> <span class="s2">&quot;/home/username/mcmap&quot;</span>
+<span class="n">texturepath</span> <span class="o">=</span> <span class="s2">&quot;/home/username/my_texture_pack.zip&quot;</span>
+</pre></div>
+</div>
+<p>This config defines four maps for render. Two of them are of the survival
+world’s overworld, one is for the survival’s nether, and one is for the creative
+world.</p>
+<p>Notice here we explicitly set the dimension property on each render. If
+dimension is not specified, the default or overworld dimension is used. It is
+necessary e.g. for the nether render.</p>
+<p>Also note here we specify some different rendermodes. A rendermode refers to how
+the map is rendered. The Overviewer can render a map in many different ways, and
+there are many preset rendermodes, and you can even create your own (more on
+that later).</p>
+<p>And finally, note the usage of the <code class="docutils literal"><span class="pre">texturepath</span></code> option. This specifies a
+texture pack (also called a resource pack) to use for the rendering. Also note
+that it is set at the top level of the config file, and therefore applies to
+every render. It could be set on individual renders to apply to just those
+renders.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See the <code class="docutils literal"><span class="pre">sample_config.py</span></code> file included in the repository for another
+example.</p>
+</div>
+</div>
+<div class="section" id="a-dynamic-config-file">
+<h3>A dynamic config file<a class="headerlink" href="#a-dynamic-config-file" title="Permalink to this headline">¶</a></h3>
+<p>It might be handy to dynamically retrieve parameters. For instance, if you
+periodically render your last map backup which is located in a timestamped
+directory, it is not convenient to edit the config file each time to fit the
+new directory name.</p>
+<p>Using environment variables, you can easily retrieve a parameter which has
+been set by, for instance, your map backup script. In this example, Overviewer
+is called from a <em>bash</em> script, but it can be done from other shell scripts
+and languages.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>#!/bin/bash
+
+## Add these lines to your bash script
+
+# Setting up an environment variable that child processes will inherit.
+# In this example, the map&#39;s path is not static and depends on the
+# previously set $timestamp var.
+MYWORLD_DIR=/path/to/map/backup/$timestamp/YourWorld
+export MYWORLD_DIR
+
+# Running the Overviewer
+overviewer.py --config=/path/to/yourConfig.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The environment variable will only be local to the process and its child
+processes. The Overviewer, when run by the script, will be able to access
+the variable since it becomes a child process.</p>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">## A config file example</span>
+
+<span class="c1"># Importing the os python module</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Retrieving the environment variable set up by the bash script</span>
+<span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;My world&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MYWORLD_DIR&#39;</span><span class="p">]</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;normalrender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;My world&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal Render of My World&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">outputdir</span> <span class="o">=</span> <span class="s2">&quot;/home/username/mcmap&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="config-file-specifications">
+<h2>Config File Specifications<a class="headerlink" href="#config-file-specifications" title="Permalink to this headline">¶</a></h2>
+<p>The config file is a python file and is parsed with python’s execfile() builtin.
+This means you can put arbitrary logic in this file. The Overviewer gives the
+execution of the file a local dict with a few pre-defined items (everything in
+the overviewer_core.rendermodes module).</p>
+<p>If the above doesn’t make sense, just know that items in the config file take
+the form <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">value</span></code>. Two items take a different form:, <code class="docutils literal"><span class="pre">worlds</span></code> and
+<code class="docutils literal"><span class="pre">renders</span></code>, which are described below.</p>
+<div class="section" id="general">
+<h3>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">worlds</span></code></dt>
+<dd><p class="first">This is pre-defined as an empty dictionary. The config file is expected to
+add at least one item to it.</p>
+<p>Keys are arbitrary strings used to identify the worlds in the <code class="docutils literal"><span class="pre">renders</span></code>
+dictionary.</p>
+<p>Values are paths to worlds (directories with a level.dat)</p>
+<p>e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">worlds</span><span class="p">[</span><span class="s1">&#39;myworld&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/path/to/myworld&quot;</span>
+</pre></div>
+</div>
+<p><strong>You must specify at least one world</strong></p>
+<p class="last"><em>Reminder</em>: Always use forward slashes (“/”), even on Windows.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">renders</span></code></dt>
+<dd><p class="first">This is also pre-defined as an empty dictionary. The config file is expected
+to add at least one item to it. By default, it is an ordered dictionary; the
+order you add entries to it will determine the default render in the output
+map and the order the buttons appear in the map UI.</p>
+<p>Keys are strings that are used as the identifier for this render in the
+javascript, and also as the directory name for the tiles, but it’s
+essentially up to you. It thus is recommended to make it a string with no
+spaces or special characters, only alphanumeric characters.</p>
+<p>Values are dictionaries specifying the configuration for the render. Each of
+these render dictionaries maps strings naming configuration options to their
+values. Valid keys and their values are listed in the <a class="reference internal" href="#renderdict"><span class="std std-ref">Render Dictonary Keys</span></a>
+section.</p>
+<p>e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Minecraft Server Title&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p class="last"><strong>You must specify at least one render</strong></p>
+</dd>
+</dl>
+<dl class="docutils" id="outputdir">
+<dt><code class="docutils literal"><span class="pre">outputdir</span> <span class="pre">=</span> <span class="pre">&quot;&lt;output</span> <span class="pre">directory</span> <span class="pre">path&gt;&quot;</span></code></dt>
+<dd><p class="first">This is the path to the output directory where the rendered tiles will
+be saved.</p>
+<p>e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">outputdir</span> <span class="o">=</span> <span class="s2">&quot;/path/to/output&quot;</span>
+</pre></div>
+</div>
+<p><em>Reminder</em>: Always use forward slashes (“/”), even on Windows.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+<dl class="docutils" id="processes">
+<dt><code class="docutils literal"><span class="pre">processes</span> <span class="pre">=</span> <span class="pre">num_procs</span></code></dt>
+<dd><p class="first">This specifies the number of worker processes to spawn on the local machine
+to do work. It defaults to the number of CPU cores you have, if not
+specified.</p>
+<p>This can also be specified with <a class="reference internal" href="running.html#cmdoption-p"><code class="xref std std-option docutils literal"><span class="pre">--processes</span></code></a></p>
+<p>e.g.:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">processes</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="section" id="observers">
+<h4>Observers<a class="headerlink" href="#observers" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils" id="observer">
+<dt><code class="docutils literal"><span class="pre">observer</span> <span class="pre">=</span> <span class="pre">&lt;observer</span> <span class="pre">object&gt;</span></code></dt>
+<dd><p class="first">This lets you configure how the progress of the render is reported. The
+default is to display a progress bar, unless run on Windows or with stderr
+redirected to a file. The default value will probably be fine for most
+people, but advanced users may want to make their own progress reporter (for
+a web service or something like that) or you may want to force a particular
+observer to be used. The observer object is expected to have at least <code class="docutils literal"><span class="pre">start</span></code>,
+<code class="docutils literal"><span class="pre">add</span></code>, <code class="docutils literal"><span class="pre">update</span></code>, and <code class="docutils literal"><span class="pre">finish</span></code> methods.</p>
+<p>If you want to specify an observer manually, try something like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">observer</span> <span class="k">import</span> <span class="n">ProgressBarObserver</span>
+<span class="n">observer</span> <span class="o">=</span> <span class="n">ProgressBarObserver</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>There are currently three observers available: <code class="docutils literal"><span class="pre">LoggingObserver</span></code>,
+<code class="docutils literal"><span class="pre">ProgressBarObserver</span></code> and <code class="docutils literal"><span class="pre">JSObserver</span></code>.</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">LoggingObserver</span></code></dt>
+<dd>This gives the normal/older style output and is the default when output
+is redirected to a file or when running on Windows</dd>
+<dt><code class="docutils literal"><span class="pre">ProgressBarObserver</span></code></dt>
+<dd>This is used by default when the output is a terminal. Displays a text based
+progress bar and some statistics.</dd>
+<dt><code class="docutils literal"><span class="pre">JSObserver(outputdir[,</span> <span class="pre">minrefresh][,</span> <span class="pre">messages])</span></code></dt>
+<dd><p class="first">This will display render progress on the output map in the bottom right
+corner of the screen. <code class="docutils literal"><span class="pre">JSObserver</span></code>.</p>
+<ul>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">outputdir=&quot;&lt;output</span> <span class="pre">directory</span> <span class="pre">path&quot;</span></code></dt>
+<dd><p class="first">Path to overviewer output directory. For simplicity, specify this
+as <code class="docutils literal"><span class="pre">outputdir=outputdir</span></code> and place this line after setting
+<code class="docutils literal"><span class="pre">outputdir</span> <span class="pre">=</span> <span class="pre">&quot;&lt;output</span> <span class="pre">directory</span> <span class="pre">path&gt;&quot;</span></code>.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">minrefresh=&lt;seconds&gt;</span></code></dt>
+<dd><p class="first last">Progress information won’t be written to file or requested by your
+web browser more frequently than this interval.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">messages=dict(totalTiles=&lt;string&gt;,</span> <span class="pre">renderCompleted=&lt;string&gt;,</span> <span class="pre">renderProgress=&lt;string&gt;)</span></code></dt>
+<dd><p class="first">Customises messages displayed in browser. All three messages must be
+defined similar to the following:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">totalTiles=&quot;Rendering</span> <span class="pre">%d</span> <span class="pre">tiles&quot;</span></code>
+The <code class="docutils literal"><span class="pre">%d</span></code> format string will be replaced with the total number of
+tiles to be rendered.</li>
+<li><code class="docutils literal"><span class="pre">renderCompleted=&quot;Render</span> <span class="pre">completed</span> <span class="pre">in</span> <span class="pre">%02d:%02d:%02d&quot;</span></code>
+The three format strings  will be replaced with the number of hours.
+minutes and seconds taken to complete this render.</li>
+<li><code class="docutils literal"><span class="pre">renderProgress=&quot;Rendered</span> <span class="pre">%d</span> <span class="pre">of</span> <span class="pre">%d</span> <span class="pre">tiles</span> <span class="pre">(%d%%</span> <span class="pre">ETA:%s)&quot;&quot;</span></code>
+The four format strings will be replaced with the number of tiles
+completed, the total number of tiles, the percentage complete, and the ETA.</li>
+</ul>
+<p class="last">Format strings are explained here: <a class="reference external" href="http://docs.python.org/library/stdtypes.html#string-formatting">http://docs.python.org/library/stdtypes.html#string-formatting</a>
+All format strings must be present in your custom messages.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">observer</span> <span class="k">import</span> <span class="n">JSObserver</span>
+<span class="n">observer</span> <span class="o">=</span> <span class="n">JSObserver</span><span class="p">(</span><span class="n">outputdir</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">MultiplexingObserver(Observer[,</span> <span class="pre">Observer[,</span> <span class="pre">Observer</span> <span class="pre">...]])</span></code></dt>
+<dd><p class="first">This observer will send the progress information to all Observers passed
+to it.</p>
+<ul class="simple">
+<li>All Observers passed must implement the full Observer interface.</li>
+</ul>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="c1">## An example that updates both a LoggingObserver and a JSObserver</span>
+<span class="c1"># Import the Observers</span>
+<span class="kn">from</span> <span class="nn">observer</span> <span class="k">import</span> <span class="n">MultiplexingObserver</span><span class="p">,</span> <span class="n">LoggingObserver</span><span class="p">,</span> <span class="n">JSObserver</span>
+
+<span class="c1"># Construct the LoggingObserver</span>
+<span class="n">loggingObserver</span> <span class="o">=</span> <span class="n">LoggingObserver</span><span class="p">()</span>
+
+<span class="c1"># Construct a basic JSObserver</span>
+<span class="n">jsObserver</span> <span class="o">=</span> <span class="n">JSObserver</span><span class="p">(</span><span class="n">outputdir</span><span class="p">)</span> <span class="c1"># This assumes you have set the outputdir previous to this line</span>
+
+<span class="c1"># Set the observer to a MultiplexingObserver</span>
+<span class="n">observer</span> <span class="o">=</span> <span class="n">MultiplexingObserver</span><span class="p">(</span><span class="n">loggingObserver</span><span class="p">,</span> <span class="n">jsObserver</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">ServerAnnounceObserver(target,</span> <span class="pre">pct_interval)</span></code></dt>
+<dd><p class="first">This Observer will send its progress and status to a Minecraft server
+via <code class="docutils literal"><span class="pre">target</span></code> with a Minecraft <code class="docutils literal"><span class="pre">say</span></code> command.</p>
+<ul class="last">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">target=&lt;file</span> <span class="pre">handle</span> <span class="pre">to</span> <span class="pre">write</span> <span class="pre">to&gt;</span></code></dt>
+<dd><p class="first">Either a FIFO file or stdin. Progress and status messages will be written to this handle.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">pct_interval=&lt;update</span> <span class="pre">rate,</span> <span class="pre">in</span> <span class="pre">percent&gt;</span></code></dt>
+<dd><p class="first">Progress and status messages will not be written more often than this value.
+E.g., a value of <code class="docutils literal"><span class="pre">1</span></code> will make the ServerAnnounceObserver write to its target
+once for every 1% of progress.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">RConObserver(target,</span> <span class="pre">password[,</span> <span class="pre">port][,</span> <span class="pre">pct_interval])</span></code></dt>
+<dd><p class="first">This Observer will announce render progress with the server’s <code class="docutils literal"><span class="pre">say</span></code>
+command through RCon.</p>
+<ul class="last">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">target=&lt;address&gt;</span></code></dt>
+<dd><p class="first">Address of the target Minecraft server.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">password=&lt;rcon</span> <span class="pre">password&gt;</span></code></dt>
+<dd><p class="first">The server’s rcon password.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">port=&lt;port</span> <span class="pre">number&gt;</span></code></dt>
+<dd><p class="first">Port on which the Minecraft server listens for incoming RCon connections.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">25575</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">pct_interval=&lt;update</span> <span class="pre">rate,</span> <span class="pre">in</span> <span class="pre">percent&gt;</span></code></dt>
+<dd><p class="first">Percentage interval in which the progress should be announced, the same as
+for <code class="docutils literal"><span class="pre">ServerAnnounceObserver</span></code>.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">10</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="custom-web-assets">
+<h4>Custom web assets<a class="headerlink" href="#custom-web-assets" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils" id="customwebassets">
+<dt><code class="docutils literal"><span class="pre">customwebassets</span> <span class="pre">=</span> <span class="pre">&quot;&lt;path</span> <span class="pre">to</span> <span class="pre">custom</span> <span class="pre">web</span> <span class="pre">assets&gt;&quot;</span></code></dt>
+<dd><p class="first">This option allows you to speciy a directory containing custom web assets
+to be copied to the output directory. Any files in the custom web assets
+directory overwrite the default files.</p>
+<p>If you are providing a custom index.html, the following strings will be replaced:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">{title}</span></code>
+Will be replaced by ‘Minecraft Overviewer’</li>
+<li><code class="docutils literal"><span class="pre">{time}</span></code>
+Will be replaced by the current date and time when the world is rendered
+e.g. ‘Sun, 12 Aug 2012 15:25:40 BST’</li>
+<li><code class="docutils literal"><span class="pre">{version}</span></code>
+Will be replaced by the version of Overviewer used
+e.g. ‘0.9.276 (5ff9c50)’</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="render-dictonary-keys">
+<span id="renderdict"></span><h3>Render Dictonary Keys<a class="headerlink" href="#render-dictonary-keys" title="Permalink to this headline">¶</a></h3>
+<p>The render dictionary is a dictionary mapping configuration key strings to
+values. The valid configuration keys are listed below.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Any of these items can be specified at the top level of the config file to
+set the default for every render. For example, this line at the top of the
+config file will set the world for every render to ‘myworld’ if no world is
+specified:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="s1">&#39;myworld&#39;</span>
+</pre></div>
+</div>
+<p>Then you don’t need to specify a <code class="docutils literal"><span class="pre">world</span></code> key in the render dictionaries:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span>renders[&#39;arender&#39;] = {
+        &#39;title&#39;: &#39;This render doesn&#39;t explicitly declare a world!&#39;,
+        }
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>General<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">world</span></code></dt>
+<dd><p class="first">Specifies which world this render corresponds to. Its value should be a
+string from the appropriate key in the worlds dictionary.</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">title</span></code></dt>
+<dd><p class="first">This is the display name used in the user interface. Set this to whatever
+you want to see displayed in the Map Type control (the buttons in the upper-
+right).</p>
+<p class="last"><strong>Required</strong></p>
+</dd>
+</dl>
+<dl class="docutils" id="option-dimension">
+<dt><code class="docutils literal"><span class="pre">dimension</span></code></dt>
+<dd><p class="first">Specified which dimension of the world should be rendered. Each Minecraft
+world has by default 3 dimensions: The Overworld, The Nether, and The End.
+Bukkit servers are a bit more complicated, typically worlds only have a
+single dimension, in which case you can leave this option off.</p>
+<p>The value should be a string. It should either be one of “overworld”,
+“nether”, “end”, or the directory name of the dimension within the world.
+e.g. “DIM-1”</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you choose to render your nether dimension, you must also use a
+nether <a class="reference internal" href="#option-rendermode"><span class="std std-ref">rendermode</span></a>. Otherwise you’ll
+just end up rendering the nether’s ceiling.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>For the end, you will most likely want to turn down the strength of
+the shadows, as you’d otherwise end up with a very dark result.</p>
+<p>e.g.:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">end_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Lighting</span><span class="p">(</span><span class="n">strength</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)]</span>
+<span class="n">end_smooth_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">(</span><span class="n">strength</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">&quot;overworld&quot;</span></code></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="rendering">
+<h4>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils" id="option-rendermode">
+<dt><code class="docutils literal"><span class="pre">rendermode</span></code></dt>
+<dd><p class="first">This is which rendermode to use for this render. There are many rendermodes
+to choose from. This can either be a rendermode object, or a string, in
+which case the rendermode object by that name is used.</p>
+<p>e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Here are the rendermodes and what they do:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">&quot;normal&quot;</span></code></dt>
+<dd>A normal render with no lighting. This is the fastest option.</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;lighting&quot;</span></code></dt>
+<dd>A render with per-block lighting, which looks similar to Minecraft
+without smooth lighting turned on. This is slightly slower than the
+normal mode.</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;smooth_lighting&quot;</span></code></dt>
+<dd><p class="first">A render with smooth lighting, which looks similar to Minecraft with
+smooth lighting turned on.</p>
+<p class="last"><em>This option looks the best</em> but is also the slowest.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;night&quot;</span></code></dt>
+<dd>A “nighttime” render with blocky lighting.</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;smooth_night&quot;</span></code></dt>
+<dd>A “nighttime” render with smooth lighting</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;nether&quot;</span></code></dt>
+<dd><p class="first">A normal lighting render of the nether. You can apply this to any
+render, not just nether dimensions. The only difference between this and
+normal is that the ceiling is stripped off, so you can actually see
+inside.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Selecting this rendermode doesn’t automatically render your nether
+dimension.  Be sure to also set the
+<a class="reference internal" href="#option-dimension"><span class="std std-ref">dimension</span></a> option to ‘nether’.</p>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;nether_lighting&quot;</span></code></dt>
+<dd>Similar to “nether” but with blocky lighting.</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;nether_smooth_lighting&quot;</span></code></dt>
+<dd>Similar to “nether” but with smooth lighting.</dd>
+<dt><code class="docutils literal"><span class="pre">&quot;cave&quot;</span></code></dt>
+<dd>A cave render with depth tinting (blocks are tinted with a color
+dependent on their depth, so it’s easier to tell overlapping caves
+apart)</dd>
+</dl>
+<p><strong>Default:</strong> <code class="docutils literal"><span class="pre">&quot;normal&quot;</span></code></p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The value for the ‘rendermode’ key can be either a <em>string</em> or
+<em>rendermode object</em> (strings simply name one of the built-in rendermode
+objects). The actual object type is a list of <em>rendermode primitive</em>
+objects.  See <a class="reference internal" href="#customrendermodes"><span class="std std-ref">Custom Rendermodes and Rendermode Primitives</span></a> for more information.</p>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">northdirection</span></code></dt>
+<dd><p class="first">This is direction or viewpoint angle with which north will be rendered. This north direction will
+match the established north direction in the game where the sun rises in the
+east and sets in the west.</p>
+<p>Here are the valid north directions:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">&quot;upper-left&quot;</span></code></li>
+<li><code class="docutils literal"><span class="pre">&quot;upper-right&quot;</span></code></li>
+<li><code class="docutils literal"><span class="pre">&quot;lower-left&quot;</span></code></li>
+<li><code class="docutils literal"><span class="pre">&quot;lower-right&quot;</span></code></li>
+</ul>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">&quot;upper-left&quot;</span></code></p>
+</dd>
+</dl>
+<dl class="docutils" id="option-overlay">
+<dt><code class="docutils literal"><span class="pre">overlay</span></code></dt>
+<dd><p class="first">This specifies which renders that this render will be displayed on top of.
+It should be a list of other renders.  If this option is confusing, think
+of this option’s name as “overlay_on_to”.</p>
+<p>If you leave this as an empty list, this overlay will be displayed on top
+of all renders for the same world/dimension as this one.</p>
+<p>As an example, let’s assume you have two renders, one called “day” and one
+called “night”.  You want to create a Biome Overlay to be displayed on top
+of the “day” render.  Your config file might look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">outputdir</span> <span class="o">=</span> <span class="s2">&quot;output_dir&quot;</span>
+
+
+<span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;exmaple&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;exmaple&quot;</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;exmaple&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rendermode&#39;</span><span class="p">:</span> <span class="s1">&#39;smooth_lighting&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Daytime Render&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">renders</span><span class="p">[</span><span class="s1">&#39;night&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;exmaple&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rendermode&#39;</span><span class="p">:</span> <span class="s1">&#39;night&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Night Render&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s1">&#39;biomeover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;exmaple&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rendermode&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ClearBase</span><span class="p">(),</span> <span class="n">BiomeOverlay</span><span class="p">()],</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Biome Coloring Overlay&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;overlay&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">[]</span></code> (an empty list)</p>
+</dd>
+</dl>
+<dl class="docutils" id="option-texturepath">
+<dt><code class="docutils literal"><span class="pre">texturepath</span></code></dt>
+<dd><p class="first">This is a where a specific texture or resource pack can be found to use
+during this render. It can be a path to either a folder or a zip/jar file
+containing the texture resources. If specifying a folder, this option should
+point to a directory that <em>contains</em> the assets/ directory (it should not
+point to the assets directory directly or any one particular texture image).</p>
+<p class="last">Its value should be a string: the path on the filesystem to the resource
+pack.</p>
+</dd>
+</dl>
+<dl class="docutils" id="crop">
+<dt><code class="docutils literal"><span class="pre">crop</span></code></dt>
+<dd><p class="first">You can use this to render one or more small subsets of your map. The format
+of an individual crop zone is (min x, min z, max x, max z); if you wish to
+specify multiple crop zones, you may do so by specifying a list of crop zones,
+i.e. [(min x1, min z1, max x1, max z1), (min x2, min z2, max x2, max z2)]</p>
+<p>The coordinates are block coordinates. The same you get with the debug menu
+in-game and the coordinates shown when you view a map.</p>
+<p>Example that only renders a 1000 by 1000 square of land about the origin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Cropped Example&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;crop&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example that renders two 500 by 500 squares of land:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Multi cropped Example&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;crop&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">)]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This option performs a similar function to the old <code class="docutils literal"><span class="pre">--regionlist</span></code> option
+(which no longer exists). It is useful for example if someone has wandered
+really far off and made your map too large. You can set the crop for the
+largest map you want to render (perhaps <code class="docutils literal"><span class="pre">(-10000,-10000,10000,10000)</span></code>). It
+could also be used to define a really small render showing off one
+particular feature, perhaps from multiple angles.</p>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>If you decide to change the bounds on a render, you may find it produces
+unexpected results. It is recommended to not change the crop settings
+once it has been rendered once.</p>
+<p>For an expansion to the bounds, because chunks in the new bounds have
+the same mtime as the old, tiles will not automatically be updated,
+leaving strange artifacts along the old border. You may need to use
+<a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> to force those tiles to update.  (You can use
+the <code class="docutils literal"><span class="pre">forcerender</span></code> option on just one render by adding <code class="docutils literal"><span class="pre">'forcerender':</span>
+<span class="pre">True</span></code> to that render’s configuration)</p>
+<p>For reductions to the bounds, you will need to render your map at least
+once with the <a class="reference internal" href="running.html#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a> mode activated, and then once with
+the <a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> option. The first run will go and delete tiles that
+should no longer exist, while the second will render the tiles around
+the edge properly. Also see <a class="reference internal" href="faq.html#cropping-faq"><span class="std std-ref">this faq entry</span></a>.</p>
+<p class="last">Sorry there’s no better way to handle these cases at the moment. It’s a
+tricky problem and nobody has devoted the effort to solve it yet.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="image-options">
+<h4>Image options<a class="headerlink" href="#image-options" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">imgformat</span></code></dt>
+<dd><p class="first">This is which image format to render the tiles into. Its value should be a
+string containing “png”, “jpg”, or “jpeg”.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">&quot;png&quot;</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">imgquality</span></code></dt>
+<dd><p class="first">This is the image quality used when saving the tiles into the JPEG image
+format. Its value should be an integer between 0 and 100.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">95</span></code></p>
+</dd>
+</dl>
+<p><code class="docutils literal"><span class="pre">optimizeimg</span></code></p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Using image optimizers will increase render times significantly.</p>
+</div>
+<p>This option specifies which additional tools overviewer should use to
+optimize the filesize of rendered tiles.
+The tools used must be placed somewhere where overviewer can find them, for
+example the “PATH” environment variable or a directory like /usr/bin.</p>
+<p>The option is a list of Optimizer objects, which are then executed in
+the order in which they’re specified:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Import the optimizers we need</span>
+<span class="kn">from</span> <span class="nn">optimizeimages</span> <span class="k">import</span> <span class="n">pngnq</span><span class="p">,</span> <span class="n">optipng</span>
+
+<span class="n">worlds</span><span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/path/to/world&quot;</span>
+
+<span class="n">renders</span><span class="p">[</span><span class="s2">&quot;daytime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span><span class="s2">&quot;day&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span><span class="n">smooth_lighting</span><span class="p">,</span>
+    <span class="s2">&quot;optimizeimg&quot;</span><span class="p">:[</span><span class="n">pngnq</span><span class="p">(</span><span class="n">sampling</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">optipng</span><span class="p">(</span><span class="n">olevel</span><span class="o">=</span><span class="mi">3</span><span class="p">)],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t forget to import the optimizers you use in your config file, as shown in the
+example above.</p>
+</div>
+<p>Here is a list of supported image optimization programs:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">pngnq</span></code></dt>
+<dd><p class="first">pngnq quantizes 32-bit RGBA images into 8-bit RGBA palette PNGs. This is
+lossy, but reduces filesize significantly. Available settings:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">sampling</span></code></dt>
+<dd><p class="first">An integer between <code class="docutils literal"><span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">10</span></code>, <code class="docutils literal"><span class="pre">1</span></code> samples all pixels, is slow and yields
+the best quality. Higher values sample less of the image, which makes
+the process faster, but less accurate.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">3</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">dither</span></code></dt>
+<dd><p class="first">Either the string <code class="docutils literal"><span class="pre">&quot;n&quot;</span></code> for no dithering, or <code class="docutils literal"><span class="pre">&quot;f&quot;</span></code> for Floyd
+Steinberg dithering. Dithering helps eliminate colorbanding, sometimes
+increasing visual quality.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">With pngnq version 1.0 (which is what Ubuntu 12.04 ships), the
+dithering option is broken. Only the default, no dithering,
+can be specified on those systems.</p>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">&quot;n&quot;</span></code></p>
+</dd>
+</dl>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Because of several PIL bugs, only the most zoomed in level has transparency
+when using pngnq. The other zoom levels have all transparency replaced by
+black. This is <em>not</em> pngnq’s fault, as pngnq supports multiple levels of
+transparency just fine, it’s PIL’s fault for not even reading indexed
+PNGs correctly.</p>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">optipng</span></code></dt>
+<dd><p class="first">optipng tunes the deflate algorithm and removes unneeded channels from the PNG,
+producing a smaller, lossless output image. It was inspired by pngcrush.
+Available settings:</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">olevel</span></code></dt>
+<dd><p class="first">An integer between <code class="docutils literal"><span class="pre">0</span></code> (few optimizations) and <code class="docutils literal"><span class="pre">7</span></code> (many optimizations).
+The default should be satisfactory for everyone, higher levels than the default
+see almost no benefit.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">2</span></code></p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal"><span class="pre">oxipng</span></code></dt>
+<dd><p class="first">An optipng replacement written in Rust. Works much like optipng.</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">olevel</span></code></dt>
+<dd><p class="first">An integer between <code class="docutils literal"><span class="pre">0</span></code> (few optimizations) and <code class="docutils literal"><span class="pre">6</span></code> (many
+optimizations). The default should be satisfactory for everyone,
+higher levels than the default see almost no benefit.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">2</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">threads</span></code></dt>
+<dd><p class="first">An integer specifying how many threads per process to use. Note that
+Overviewer spawns one oxipng process per Overviewer worker process,
+so increasing this value if you already have one Overviewer process
+per CPU thread makes little sense, and can actually slow down the
+rendering.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal"><span class="pre">pngcrush</span></code></dt>
+<dd><p class="first">pngcrush, like optipng, is a lossless PNG recompressor. If you are able to do so, it
+is recommended to use optipng instead, as it generally yields better results in less
+time.
+Available settings:</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">brute</span></code></dt>
+<dd><p class="first">Either <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>. Cycles through all compression methods, and is very slow.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is practically no reason to ever use this. optipng will beat pngcrush, and
+throwing more CPU time at pngcrush most likely won’t help. If you think you need
+this option, then you are most likely wrong.</p>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal"><span class="pre">jpegoptim</span></code></dt>
+<dd><p class="first">jpegoptim can do both lossy and lossless JPEG optimisation. If no options are specified,
+jpegoptim will only do lossless optimisations.
+Available settings:</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">quality</span></code></dt>
+<dd><p class="first">A number between 0 and 100 that corresponds to the jpeg quality level. If the input
+image has a lower quality specified than the output image, jpegoptim will only do
+lossless optimisations.</p>
+<p>If this option is specified and the above condition does not apply, jpegoptim will
+do lossy optimisation.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">None</span></code> <em>(= Unspecified)</em></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">target_size</span></code></dt>
+<dd><p class="first">Either a percentage of the original filesize (e.g. <code class="docutils literal"><span class="pre">&quot;50%&quot;</span></code>) or a target filesize
+in kilobytes (e.g. <code class="docutils literal"><span class="pre">15</span></code>). jpegoptim will then try to reach this as its target size.</p>
+<p>If specified, jpegoptim will do lossy optimisation.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This appears to have a greater performance impact than just setting <code class="docutils literal"><span class="pre">quality</span></code>.
+Unless predictable filesizes are a thing you need, you should probably use <code class="docutils literal"><span class="pre">quality</span></code>
+instead.</p>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">None</span></code> <em>(= Unspecified)</em></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Default:</strong> <code class="docutils literal"><span class="pre">[]</span></code></p>
+</div></blockquote>
+</div>
+<div class="section" id="zoom">
+<h4>Zoom<a class="headerlink" href="#zoom" title="Permalink to this headline">¶</a></h4>
+<p>These options control the zooming behavior in the JavaScript output.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">defaultzoom</span></code></dt>
+<dd><p class="first">This value specifies the default zoom level that the map will be
+opened with. It has to be greater than 0, which corresponds to the
+most zoomed-out level. If you use <code class="docutils literal"><span class="pre">minzoom</span></code> or <code class="docutils literal"><span class="pre">maxzoom</span></code>, it
+should be between those two.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">1</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">maxzoom</span></code></dt>
+<dd><p class="first">This specifies the maximum, closest in zoom allowed by the zoom
+control on the web page. This is relative to 0, the farthest-out
+image, so setting this to 8 will allow you to zoom in at most 8
+times. This is <em>not</em> relative to <code class="docutils literal"><span class="pre">minzoom</span></code>, so setting
+<code class="docutils literal"><span class="pre">minzoom</span></code> will shave off even more levels. If you wish to
+specify how many zoom levels to leave off, instead of how many
+total to use, use a negative number here. For example, setting
+this to -2 will disable the two most zoomed-in levels.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This does not change the number of zoom levels rendered, but allows
+you to neglect uploading the larger and more detailed zoom levels if bandwidth
+usage is an issue.</p>
+</div>
+<p class="last"><strong>Default:</strong> Automatically set to most detailed zoom level</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">minzoom</span></code></dt>
+<dd><p class="first">This specifies the minimum, farthest away zoom allowed by the zoom
+control on the web page. For example, setting this to 2 will
+disable the two most zoomed-out levels.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This does not change the number of zoom levels rendered, but allows
+you to have control over the number of zoom levels accessible via the
+slider control.</p>
+</div>
+<p class="last"><strong>Default:</strong> 0 (zero, which does not disable any zoom levels)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="other-html-js-output-options">
+<h4>Other HTML/JS output options<a class="headerlink" href="#other-html-js-output-options" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">showlocationmarker</span></code></dt>
+<dd><p class="first">Allows you to specify whether to show the location marker when accessing a URL
+with coordinates specified.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">True</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">base</span></code></dt>
+<dd>Allows you to specify a remote location for the tile folder, useful if you
+rsync your map’s images to a remote server. Leave a trailing slash and point
+to the location that contains the tile folders for each render, not the
+tiles folder itself. For example, if the tile images start at
+<a class="reference external" href="http://domain.com/map/world_day/">http://domain.com/map/world_day/</a> you want to set this to <a class="reference external" href="http://domain.com/map/">http://domain.com/map/</a></dd>
+</dl>
+<dl class="docutils" id="option-markers">
+<dt><code class="docutils literal"><span class="pre">markers</span></code></dt>
+<dd><p class="first">This controls the display of markers, signs, and other points of interest
+in the output HTML.  It should be a list of dictionaries.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Setting this configuration option alone does nothing.  In order to get
+markers and signs on our map, you must also run the genPO script.  See
+the <a class="reference internal" href="signs.html"><span class="doc">Signs and markers</span></a> section for more details and documenation.</p>
+</div>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">[]</span></code> (an empty list)</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">poititle</span></code></dt>
+<dd><p class="first">This controls the display name of the POI/marker dropdown control.</p>
+<p class="last"><strong>Default:</strong> “Signs”</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">showspawn</span></code></dt>
+<dd>This is a boolean, and defaults to <code class="docutils literal"><span class="pre">True</span></code>. If set to <code class="docutils literal"><span class="pre">False</span></code>, then the spawn
+icon will not be displayed on the rendered map.</dd>
+<dt><code class="docutils literal"><span class="pre">bgcolor</span></code></dt>
+<dd><p class="first">This is the background color to be displayed behind the map. Its value
+should be either a string in the standard HTML color syntax or a 4-tuple in
+the format of (r,b,g,a). The alpha entry should be set to 0.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">#1a1a1a</span></code></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="map-update-behavior">
+<h4>Map update behavior<a class="headerlink" href="#map-update-behavior" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils" id="rerenderprob">
+<dt><code class="docutils literal"><span class="pre">rerenderprob</span></code></dt>
+<dd><p class="first">This is the probability that a tile will be rerendered even though there may
+have been no changes to any blocks within that tile. Its value should be a
+floating point number between 0.0 and 1.0.</p>
+<p class="last"><strong>Default:</strong> <code class="docutils literal"><span class="pre">0</span></code></p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">forcerender</span></code></dt>
+<dd><p class="first">This is a boolean. If set to <code class="docutils literal"><span class="pre">True</span></code> (or any non-false value) then this
+render will unconditionally re-render every tile regardless of whether it
+actually needs updating or not.</p>
+<p>The <a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a> command line option acts similarly, but with
+one important difference. Say you have 3 renders defined in your
+configuration file. If you use <a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a>, then all 3 of those
+renders get re-rendered completely. However, if you just need one of them
+re-rendered, that’s unnecessary extra work.</p>
+<p>If you set <code class="docutils literal"><span class="pre">'forcerender':</span> <span class="pre">True,</span></code> on just one of those renders, then just
+that one gets re-rendered completely. The other two render normally (only
+tiles that need updating are rendered).</p>
+<p>You probably don’t want to leave this option in your config file, it is
+intended to be used temporarily, such as after a setting change, to
+re-render the entire map with new settings. If you leave it in, then
+Overviewer will end up doing a lot of unnecessary work rendering parts of
+your map that may not have changed.</p>
+<p>Example:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Forced Example&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;forcerender&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">renderchecks</span></code></dt>
+<dd>This is an integer, and functions as a more complex form of
+<code class="docutils literal"><span class="pre">forcerender</span></code>. Setting it to 1 enables <a class="reference internal" href="running.html#cmdoption-check-tiles"><code class="xref std std-option docutils literal"><span class="pre">--check-tiles</span></code></a>
+mode, setting it to 2 enables <a class="reference internal" href="running.html#cmdoption-forcerender"><code class="xref std std-option docutils literal"><span class="pre">--forcerender</span></code></a>, and 3 tells
+Overviewer to keep this particular render in the output, but
+otherwise don’t update it. It defaults to 0, which is the usual
+update checking mode.</dd>
+<dt><code class="docutils literal"><span class="pre">changelist</span></code></dt>
+<dd><p class="first">This is a string. It names a file where it will write out, one per line, the
+path to tiles that have been updated. You can specify the same file for
+multiple (or all) renders and they will all be written to the same file. The
+file is cleared when The Overviewer starts.</p>
+<p>This option is useful in conjunction with a simple upload script, to upload
+the files that have changed.</p>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A solution like <code class="docutils literal"><span class="pre">rsync</span> <span class="pre">-a</span> <span class="pre">--delete</span></code> is much better because it also
+watches for tiles that should be <em>deleted</em>, which is impossible to
+convey with the changelist option. If your map ever shrinks or you’ve
+removed some tiles, you may need to do some manual deletion on the
+remote side.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="custom-rendermodes-and-rendermode-primitives">
+<span id="customrendermodes"></span><h2>Custom Rendermodes and Rendermode Primitives<a class="headerlink" href="#custom-rendermodes-and-rendermode-primitives" title="Permalink to this headline">¶</a></h2>
+<p>We have generalized the rendering system. Every rendermode is made up of a
+sequence of <em>rendermode primitives</em>. These primitives add some functionality to
+the render, and stacked together, form a functional rendermode.  Some rendermode
+primitives have options you can change. You are free to create your own
+rendermodes by defining a list of rendermode primitives.</p>
+<p>There are 9 rendermode primitives. Each has a helper class defined in
+overviewer_core.rendermodes, and a section of C code in the C extension.</p>
+<p>A list of rendermode primitives defines a rendermode. During rendering, each
+rendermode primitive is applied in sequence. For example, the lighting
+rendermode consists of the primitives “Base” and “Lighting”. The Base primitive
+draws the blocks with no lighting, and determines which blocks are occluded
+(hidden). The Lighting primitive then draws the appropriate shading on each
+block.</p>
+<p>More specifically, each primitive defines a draw() and an is_occluded()
+function. A block is rendered if none of the primitives determine the block is
+occluded. A block is rendered by applying each primitives’ draw() function in
+sequence.</p>
+<div class="section" id="the-rendermode-primitives">
+<h3>The Rendermode Primitives<a class="headerlink" href="#the-rendermode-primitives" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Base</dt>
+<dd><p class="first">This is the base of all non-overlay rendermodes. It renders each block
+according to its defined texture, and applies basic occluding to hidden
+blocks.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>biomes</dt>
+<dd><p class="first">Whether to render biome coloring or not. Default: True.</p>
+<p>Set to False to disable biomes:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">nobiome_smooth_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(</span><span class="n">biomes</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">()]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>Nether</dt>
+<dd>This doesn’t affect the drawing, but occludes blocks that are connected to
+the ceiling.</dd>
+<dt>HeightFading</dt>
+<dd><p class="first">Draws a colored overlay on the blocks that fades them out according to their
+height.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>sealevel</dt>
+<dd>sealevel of the word you’re rendering. Note that the default,
+128, is usually <em>incorrect</em> for most worlds. You should
+probably set this to 64. Default: 128</dd>
+</dl>
+</dd>
+<dt>Depth</dt>
+<dd><p class="first">Only renders blocks between the specified min and max heights.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>min</dt>
+<dd>lowest level of blocks to render. Default: 0</dd>
+<dt>max</dt>
+<dd>highest level of blocks to render. Default: 255</dd>
+</dl>
+</dd>
+<dt>Exposed</dt>
+<dd><p class="first">Only renders blocks that are exposed (adjacent to a transparent block).</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>mode</dt>
+<dd>when set to 1, inverts the render mode, only drawing unexposed blocks. Default: 0</dd>
+</dl>
+</dd>
+<dt>NoFluids</dt>
+<dd>Don’t render fluid blocks (water, lava).</dd>
+<dt>EdgeLines</dt>
+<dd><p class="first">Draw edge lines on the back side of blocks, to help distinguish them from
+the background.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>opacity</dt>
+<dd>The darkness of the edge lines, from 0.0 to 1.0. Default: 0.15</dd>
+</dl>
+</dd>
+<dt>Cave</dt>
+<dd><p class="first">Occlude blocks that are in direct sunlight, effectively rendering only
+caves.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>only_lit</dt>
+<dd>Only render lit caves. Default: False</dd>
+</dl>
+</dd>
+<dt>Hide</dt>
+<dd><p class="first">Hide blocks based on blockid. Blocks hidden in this way will be
+treated exactly the same as air.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>blocks</dt>
+<dd>A list of block ids, or (blockid, data) tuples to hide.</dd>
+</dl>
+</dd>
+<dt>DepthTinting</dt>
+<dd>Tint blocks a color according to their depth (height) from bedrock. Useful
+mainly for cave renders.</dd>
+<dt>Lighting</dt>
+<dd><p class="first">Applies lighting to each block.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>strength</dt>
+<dd>how dark to make the shadows. from 0.0 to 1.0. Default: 1.0</dd>
+<dt>night</dt>
+<dd>whether to use nighttime skylight settings. Default: False</dd>
+<dt>color</dt>
+<dd>whether to use colored light. Default: False</dd>
+</dl>
+</dd>
+<dt>SmoothLighting</dt>
+<dd><p class="first">Applies smooth lighting to each block.</p>
+<p><strong>Options</strong></p>
+<p class="last">(same as Lighting)</p>
+</dd>
+<dt>ClearBase</dt>
+<dd>Forces the background to be transparent. Use this in place of Base
+for rendering pure overlays.</dd>
+<dt>SpawnOverlay</dt>
+<dd><p class="first">Color the map red in areas where monsters can spawn. Either use
+this on top of other modes, or on top of ClearBase to create a
+pure overlay.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>overlay_color</dt>
+<dd>custom color for the overlay in the format (r,g,b,a). If not
+defined a red color is used.</dd>
+</dl>
+</dd>
+<dt>SlimeOverlay</dt>
+<dd><p class="first">Color the map green in chunks where slimes can spawn. Either use
+this on top of other modes, or on top of ClearBase to create a
+pure overlay.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>overlay_color</dt>
+<dd>custom color for the overlay in the format (r,g,b,a). If not
+defined a green color is used.</dd>
+</dl>
+</dd>
+<dt>MineralOverlay</dt>
+<dd><p class="first">Color the map according to what minerals can be found
+underneath. Either use this on top of other modes, or on top of
+ClearBase to create a pure overlay.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>minerals</dt>
+<dd><p class="first">A list of (blockid, (r, g, b)) tuples to use as colors. If not
+provided, a default list of common minerals is used.</p>
+<p>Example:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">MineralOverlay</span><span class="p">(</span><span class="n">minerals</span><span class="o">=</span><span class="p">[(</span><span class="mi">64</span><span class="p">,(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="p">(</span><span class="mi">13</span><span class="p">,(</span><span class="mi">127</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">127</span><span class="p">))])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>StructureOverlay</dt>
+<dd><p class="first">Color the map according to patterns of blocks. With this rail overlays
+or overlays for other small structures can be realized. It can also be
+a MineralOverlay with alpha support.</p>
+<p>This Overlay colors according to a patterns that are specified as
+multiple tuples of the form <code class="docutils literal"><span class="pre">(relx,</span> <span class="pre">rely,</span> <span class="pre">relz,</span> <span class="pre">blockid)</span></code>. So
+by specifying <code class="docutils literal"><span class="pre">(0,</span> <span class="pre">-1,</span> <span class="pre">0,</span> <span class="pre">4)</span></code> the block below the current one has to
+be a cobblestone.</p>
+<p>One color is then specified as
+<code class="docutils literal"><span class="pre">((relblockid1,</span> <span class="pre">relblockid2,</span> <span class="pre">...),</span> <span class="pre">(r,</span> <span class="pre">g,</span> <span class="pre">b,</span> <span class="pre">a))</span></code> where the
+<code class="docutils literal"><span class="pre">relblockid*</span></code> are relative coordinates and the blockid as specified
+above. The <code class="docutils literal"><span class="pre">relblockid*</span></code> must match all at the same time for the
+color to apply.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">StructureOverlay</span><span class="p">(</span><span class="n">structures</span><span class="o">=</span><span class="p">[(((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">66</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)),</span>
+                             <span class="p">(((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))])</span>
+</pre></div>
+</div>
+<p>In this example all rails(66) on top of cobblestone are rendered in
+pure red. And all powerrails(27) are rendered in green.</p>
+<p class="last">If <code class="docutils literal"><span class="pre">structures</span></code> is not provided, a default rail coloring is used.</p>
+</dd>
+<dt>BiomeOverlay</dt>
+<dd><p class="first">Color the map according to the biome at that point. Either use on
+top of other modes or on top of ClearBase to create a pure overlay.</p>
+<p><strong>Options</strong></p>
+<dl class="last docutils">
+<dt>biomes</dt>
+<dd><p class="first">A list of (“biome name”, (r, g, b)) tuples to use as colors. Any
+biome not specified won’t be highlighted. If not provided then
+a default list of biomes and colors is used.</p>
+<p>Example:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">BiomeOverlay</span><span class="p">(</span><span class="n">biomes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;Forest&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;Desert&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="defining-custom-rendermodes">
+<h3>Defining Custom Rendermodes<a class="headerlink" href="#defining-custom-rendermodes" title="Permalink to this headline">¶</a></h3>
+<p>Each rendermode primitive listed above is a Python <em>class</em> that is automatically
+imported in the context of the config file (They come from
+overviewer_core.rendermodes). To define your own rendermode, simply define a
+list of rendermode primitive <em>objects</em> like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_rendermode</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>If you want to specify any options, they go as parameters to the rendermode
+primitive object’s constructor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_rendermode</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">SmoothLighting</span><span class="p">(</span><span class="n">strength</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Then you can use your new rendermode in your render definitions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s2">&quot;survivalday&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;world&quot;</span><span class="p">:</span> <span class="s2">&quot;survival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Survival Daytime&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendermode&quot;</span><span class="p">:</span> <span class="n">my_rendermode</span><span class="p">,</span>
+    <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;overworld&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note the lack of quotes around <code class="docutils literal"><span class="pre">my_rendermode</span></code>. This is necessary since you
+are referencing the previously defined list, not one of the built-in
+rendermodes.</p>
+</div>
+<div class="section" id="built-in-rendermodes">
+<h3>Built-in Rendermodes<a class="headerlink" href="#built-in-rendermodes" title="Permalink to this headline">¶</a></h3>
+<p>The built-in rendermodes are nothing but pre-defined lists of rendermode
+primitives for your convenience. Here are their definitions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">normal</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">()]</span>
+<span class="n">lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Lighting</span><span class="p">()]</span>
+<span class="n">smooth_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">()]</span>
+<span class="n">night</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Lighting</span><span class="p">(</span><span class="n">night</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">smooth_night</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">(</span><span class="n">night</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">nether</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Nether</span><span class="p">()]</span>
+<span class="n">nether_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Nether</span><span class="p">(),</span> <span class="n">Lighting</span><span class="p">()]</span>
+<span class="n">nether_smooth_lighting</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Nether</span><span class="p">(),</span> <span class="n">SmoothLighting</span><span class="p">()]</span>
+<span class="n">cave</span> <span class="o">=</span> <span class="p">[</span><span class="n">Base</span><span class="p">(),</span> <span class="n">EdgeLines</span><span class="p">(),</span> <span class="n">Cave</span><span class="p">(),</span> <span class="n">DepthTinting</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Configuration File</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#a-simple-example">A Simple Example</a></li>
+<li><a class="reference internal" href="#a-more-complicated-example">A more complicated example</a></li>
+<li><a class="reference internal" href="#a-dynamic-config-file">A dynamic config file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#config-file-specifications">Config File Specifications</a><ul>
+<li><a class="reference internal" href="#general">General</a><ul>
+<li><a class="reference internal" href="#observers">Observers</a></li>
+<li><a class="reference internal" href="#custom-web-assets">Custom web assets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#render-dictonary-keys">Render Dictonary Keys</a><ul>
+<li><a class="reference internal" href="#id1">General</a></li>
+<li><a class="reference internal" href="#rendering">Rendering</a></li>
+<li><a class="reference internal" href="#image-options">Image options</a></li>
+<li><a class="reference internal" href="#zoom">Zoom</a></li>
+<li><a class="reference internal" href="#other-html-js-output-options">Other HTML/JS output options</a></li>
+<li><a class="reference internal" href="#map-update-behavior">Map update behavior</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-rendermodes-and-rendermode-primitives">Custom Rendermodes and Rendermode Primitives</a><ul>
+<li><a class="reference internal" href="#the-rendermode-primitives">The Rendermode Primitives</a></li>
+<li><a class="reference internal" href="#defining-custom-rendermodes">Defining Custom Rendermodes</a></li>
+<li><a class="reference internal" href="#built-in-rendermodes">Built-in Rendermodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="running.html"
+                        title="previous chapter">Running the Overviewer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="signs.html"
+                        title="next chapter">Signs and Markers</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/config.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="signs.html" title="Signs and Markers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running the Overviewer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

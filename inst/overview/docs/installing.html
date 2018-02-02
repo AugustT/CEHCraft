@@ -1,0 +1,168 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installing &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building the Overviewer from Source" href="building.html" />
+    <link rel="prev" title="The Minecraft Overviewer" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="building.html" title="Building the Overviewer from Source"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The Minecraft Overviewer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installing">
+<h1>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h1>
+<p>This page is for installing the pre-compiled binary versions of the Overviewer.
+If you want to build the Overviewer from source yourself, head to <a class="reference internal" href="building.html"><span class="doc">Building</span></a>. If you have already built The Overviewer, proceed to
+<a class="reference internal" href="running.html"><span class="doc">Running the Overviewer</span></a>.</p>
+<p>The latest prebuilt packages for various systems will always be found
+at the <a class="reference external" href="https://overviewer.org/downloads">Overviewer Downloads</a> page.</p>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>Running Windows and don’t want to compile the Overviewer? You’ve come to the
+right place!</p>
+<ol class="arabic">
+<li><p class="first">Head to the <a class="reference external" href="https://overviewer.org/downloads">Downloads</a> page and download the most recent Windows download for your architecture (32 or 64 bit).</p>
+</li>
+<li><p class="first">For 32 bit you may need to install the <a class="reference external" href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf">VC++ 2008 (x86)</a> and <a class="reference external" href="http://www.microsoft.com/downloads/en/details.aspx?familyid=a7b7a05e-6de6-4d3a-a423-37bf0912db84">VC++ 2010 (x86)</a> redistributables.</p>
+<p>For 64 bit, you’ll want these instead: <a class="reference external" href="http://www.microsoft.com/downloads/en/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6">VC++ 2008 (x64)</a> and <a class="reference external" href="http://www.microsoft.com/download/en/details.aspx?id=14632">VC++ 2010 (x64)</a></p>
+</li>
+<li><p class="first">That’s it! Proceed with instructions on <a class="reference internal" href="running.html"><span class="doc">Running the Overviewer</span></a>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="debian-ubuntu">
+<h2>Debian / Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Permalink to this headline">¶</a></h2>
+<p>We provide an APT repository with pre-built Overviewer packages for
+Debian and Ubuntu users. To do this, add the following line to your
+<code class="docutils literal"><span class="pre">/etc/apt/sources.list</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">overviewer</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="o">./</span>
+</pre></div>
+</div>
+<p>Note that you will need to have the <code class="docutils literal"><span class="pre">apt-transport-https</span></code> package installed
+for this source to work.</p>
+<p>Our APT repository is signed. To install the key (and allow for
+automatic updates), run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">overviewer</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">overviewer</span><span class="o">.</span><span class="n">gpg</span><span class="o">.</span><span class="n">asc</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span>
+</pre></div>
+</div>
+<p>Then run <code class="docutils literal"><span class="pre">apt-get</span> <span class="pre">update</span></code> and <code class="docutils literal"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">minecraft-overviewer</span></code> and
+you’re all set! See you at the <a class="reference internal" href="running.html"><span class="doc">Running the Overviewer</span></a> page!</p>
+</div>
+<div class="section" id="centos-rhel-fedora">
+<h2>CentOS / RHEL / Fedora<a class="headerlink" href="#centos-rhel-fedora" title="Permalink to this headline">¶</a></h2>
+<p>We also provide a RPM repository with pre-built packages for users on RPM-based
+distros. To add the Overviewer repository to YUM, just run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">overviewer</span><span class="o">.</span><span class="n">repo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">overviewer</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">rpms</span><span class="o">/</span><span class="n">overviewer</span><span class="o">.</span><span class="n">repo</span>
+</pre></div>
+</div>
+<p>Then to install Overviewer run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yum</span> <span class="n">install</span> <span class="n">Minecraft</span><span class="o">-</span><span class="n">Overviewer</span>
+</pre></div>
+</div>
+<p>After that head to the <a class="reference internal" href="running.html"><span class="doc">Running the Overviewer</span></a> page!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#debian-ubuntu">Debian / Ubuntu</a></li>
+<li><a class="reference internal" href="#centos-rhel-fedora">CentOS / RHEL / Fedora</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">The Minecraft Overviewer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="building.html"
+                        title="next chapter">Building the Overviewer from Source</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="building.html" title="Building the Overviewer from Source"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The Minecraft Overviewer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

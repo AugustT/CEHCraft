@@ -1,0 +1,387 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Signs and Markers &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Windows Newbie Guide" href="win_tut/windowsguide.html" />
+    <link rel="prev" title="The Configuration File" href="config.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="win_tut/windowsguide.html" title="Windows Newbie Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="The Configuration File"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="signs-and-markers">
+<span id="signsmarkers"></span><h1>Signs and Markers<a class="headerlink" href="#signs-and-markers" title="Permalink to this headline">¶</a></h1>
+<p>The Overviewer can display signs, markers, and other points of interest on your
+map.  This works a little differently than it has in the past, so be sure to read
+these docs carefully.</p>
+<p>In these docs, we use the term POI (or point of interest) to refer to entities and
+tileentities.</p>
+<div class="section" id="configuration-file">
+<h2>Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="filter-functions">
+<h3>Filter Functions<a class="headerlink" href="#filter-functions" title="Permalink to this headline">¶</a></h3>
+<p>A filter function is a python function that is used to figure out if a given POI
+should be part of a markerSet of not, and to control how it is displayed.
+The function should accept one argument (a dictionary, also know as an associative
+array), and return a string representing the text to be displayed.  For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">signFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sign&#39;</span> <span class="ow">or</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;minecraft:sign&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text1&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text2&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text3&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text4&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>If a POI doesn’t match, the filter can return None (which is the default if a python
+functions runs off the end without an explicit ‘return’).</p>
+<p>The single argument will either a TileEntity, or an Entity taken directly from
+the chunk file.  It could also be a special entity representing a player’s location
+or a player’s spawn.  See below for more details.</p>
+<p>In this example, this function returns all 4 lines from the sign
+if the entity is a sign.
+For more information of TileEntities and Entities, see
+the <a class="reference external" href="http://www.minecraftwiki.net/wiki/Chunk_format">Chunk Format</a> page on
+the Minecraft Wiki.</p>
+<p>A more complicated filter function can construct a more customized display text:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chestFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Chest&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Chest with </span><span class="si">%d</span><span class="s2"> items&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Items&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>It is also possible to return a tuple from the filter function to specify a hovertext
+different from the text displayed in the info window. The first entry of the tuple will
+be used as the hover text, the second will be used as the info window content:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chestFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Chest&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">,</span> <span class="s2">&quot;Chest with </span><span class="si">%d</span><span class="s2"> items&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Items&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>Because of the way the config file is loaded, if you need to import a function or module
+for use in your filter function, you need to explicitly load it into the global namespace:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">global</span> <span class="n">escape</span>
+<span class="kn">from</span> <span class="nn">cgi</span> <span class="k">import</span> <span class="n">escape</span>
+<span class="k">def</span> <span class="nf">signFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sign&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">escape</span><span class="p">,</span> <span class="p">[</span><span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text1&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text2&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text3&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;Text4&#39;</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p>Since writing these filters can be a little tedious, a set of predefined filters
+functions are provided.  See the <a class="reference internal" href="#predefined-filter-functions"><span class="std std-ref">Predefined Filter Functions</span></a> section for
+details.</p>
+</div>
+<div class="section" id="special-pois">
+<h3>Special POIs<a class="headerlink" href="#special-pois" title="Permalink to this headline">¶</a></h3>
+<p>There are currently two special types of POIs.  They each have a special id:</p>
+<dl class="docutils">
+<dt>PlayerSpawn</dt>
+<dd>Used to indicate the spawn location of a player.  The player’s name is set
+in the <code class="docutils literal"><span class="pre">EntityId</span></code> key, and the location is in the x,y,z keys</dd>
+<dt>Player</dt>
+<dd>Used to indicate the last known location of a player.  The player’s name is set
+in the <code class="docutils literal"><span class="pre">EntityId</span></code> key, and the location is in the x,y,z keys.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The player location is taken from level.dat (in the case of a single-player world)
+or the player.dat files (in the case of a multi-player server).  The locations are
+only written to these files when the world is saved, so this won’t give you real-time
+player location information.</p>
+</div>
+<p>Here’s an example that displays icons for each player:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">playerIcons</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Player&#39;</span><span class="p">:</span>
+        <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;https://overviewer.org/avatar/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;EntityId&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;Last known location for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;EntityId&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note how each POI can get a different icon by setting <code class="docutils literal"><span class="pre">poi['icon']</span></code>. These icons must exist in either
+the output folder, or in your custom web assets folder. If the icon file does not exist in the correct
+location, your markers will be shown without an icon - making them invisible!</p>
+</div>
+<div class="section" id="manual-pois">
+<h3>Manual POIs<a class="headerlink" href="#manual-pois" title="Permalink to this headline">¶</a></h3>
+<p>It is also possible to manually define markers. Each render can have a render dictionary key
+called <code class="docutils literal"><span class="pre">manualpois</span></code>, which is a list of dicts. Each dict represents a marker, and is required
+to have at least the attributes <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> and <code class="docutils literal"><span class="pre">id</span></code>, with the coordinates being Minecraft
+world coordinates. (i.e. what you see in-game when you press F3)</p>
+<p>An example which adds two POIs with the id “town”, and then uses a filter function to filter for them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">townFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Town&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+
+<span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;world&#39;</span><span class="p">:</span><span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;manualpois&#39;</span><span class="p">:[</span>
+                   <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;Town&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span>
+                    <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Foo&#39;</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;Town&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span>
+                    <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">85</span><span class="p">,</span>
+                    <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">234</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Bar&#39;</span><span class="p">}],</span>
+    <span class="s1">&#39;markers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Towns&quot;</span><span class="p">,</span> <span class="n">filterFunction</span><span class="o">=</span><span class="n">townFilter</span><span class="p">)],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is a more complex example where not every marker of a certain id has a certain key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">townFilter</span><span class="p">(</span><span class="n">poi</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Town&#39;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">poi</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">poi</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+
+<span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;world&#39;</span><span class="p">:</span><span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;manualpois&#39;</span><span class="p">:[</span>
+                   <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;Town&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span>
+                    <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;description&#39;</span><span class="p">:</span><span class="s1">&#39;Best place to eat hamburgers&#39;</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;Town&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span>
+                    <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="mi">85</span><span class="p">,</span>
+                    <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">234</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Bar&#39;</span><span class="p">}],</span>
+    <span class="s1">&#39;markers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Towns&quot;</span><span class="p">,</span> <span class="n">filterFunction</span><span class="o">=</span><span class="n">townFilter</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;icons/marker_town.png&quot;</span><span class="p">)],</span>
+    <span class="c1">### Note: The &#39;icon&#39; parameter allows you to specify a custom icon, as per</span>
+    <span class="c1">###       standard markers. This icon must exist in the same folder as your</span>
+    <span class="c1">###       custom webassets or in the same folder as the generated index.html</span>
+    <span class="c1">###       in this case, we use the marker_town.png icon which comes with</span>
+    <span class="c1">###       the Overviewer by default, located in a subdirectory of web_assets.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="render-dictionary-key">
+<h3>Render Dictionary Key<a class="headerlink" href="#render-dictionary-key" title="Permalink to this headline">¶</a></h3>
+<p>Each render can specify a list of zero or more filter functions.  Each of these
+filter functions become a selectable item in the ‘Signs’ drop-down menu in the
+rendered map.  Previously, this used to be a list of functions.  Now it is a list
+of dictionaries.  For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">renders</span><span class="p">[</span><span class="s1">&#39;myrender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;world&#39;</span><span class="p">:</span> <span class="s1">&#39;myworld&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Example&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;markers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;All signs&quot;</span><span class="p">,</span> <span class="n">filterFunction</span><span class="o">=</span><span class="n">signFilter</span><span class="p">),</span>
+                    <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Chests&quot;</span><span class="p">,</span> <span class="n">filterFunction</span><span class="o">=</span><span class="n">chestFilter</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;chest.png&quot;</span><span class="p">,</span> <span class="n">createInfoWindow</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following keys are accepted in the marker dictionary:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">name</span></code></dt>
+<dd>This is the text that is displayed in the ‘Signs’ dropdown.</dd>
+<dt><code class="docutils literal"><span class="pre">filterFunction</span></code></dt>
+<dd>This is the filter function.  It must accept at least 1 argument (the POI to filter),
+and it must return either None or a string.</dd>
+<dt><code class="docutils literal"><span class="pre">icon</span></code></dt>
+<dd>Optional.  Specifies the icon to use for POIs in this group.  If omitted, it defaults
+to a signpost icon.  Note that each POI can have different icon by setting the key ‘icon’
+on the POI itself (this can be done by modifying the POI in the filter function.  See the
+example above)</dd>
+<dt><code class="docutils literal"><span class="pre">createInfoWindow</span></code></dt>
+<dd>Optional. Specifies whether or not the icon displays an info window on click. Defaults to True</dd>
+<dt><code class="docutils literal"><span class="pre">checked</span></code></dt>
+<dd>Optional.  Specifies whether or not this marker group will be checked(visible) by default when
+the map loads.  Defaults to False</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="generating-the-poi-markers">
+<h2>Generating the POI Markers<a class="headerlink" href="#generating-the-poi-markers" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Markers will not be updated or added during a regular overviewer.py map render!
+You must use one of the following options to generate your markers.</p>
+</div>
+<div class="section" id="the-genpoi-option">
+<h3>The –genpoi option<a class="headerlink" href="#the-genpoi-option" title="Permalink to this headline">¶</a></h3>
+<p>Running overviewer.py with the <a class="reference internal" href="running.html#cmdoption-genpoi"><code class="xref std std-option docutils literal"><span class="pre">--genpoi</span></code></a> option flag will generate your
+POI markers. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">overviewer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">conf</span> <span class="o">--</span><span class="n">genpoi</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A –genpoi run will NOT generate a map render, it will only generate markers.</p>
+</div>
+<p>If all went well, you will see a “Markers” button in the upper-right corner of
+your map.</p>
+</div>
+<div class="section" id="genpoi-py">
+<h3>genPOI.py<a class="headerlink" href="#genpoi-py" title="Permalink to this headline">¶</a></h3>
+<p>The genPOI.py script is also provided, and can be used directly. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">overviewer</span><span class="o">/</span><span class="n">genpoi</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">file</span>
+</pre></div>
+</div>
+<p>This will generate the necessary JavaScript files needed in your config file’s
+outputdir.</p>
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>genPOI comes with a few options of its own.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-c">
+<code class="descname">-c</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--config</code><code class="descclassname">=&lt;file&gt;</code><a class="headerlink" href="#cmdoption-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config file to use for the genPOI operation. This must be the same
+config file that you use for your normal rendering runs.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-q">
+<code class="descname">-q</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--quiet</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs less information onto the terminal while running.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-skip-scan">
+<code class="descname">--skip-scan</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-skip-scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip scanning the world for entities and tile entities. Useful if you only
+want to generate markers for players or through manual POIs, as you can
+speed up the genPOI operation considerably.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-skip-players">
+<code class="descname">--skip-players</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-skip-players" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip reading and retrieving player data during genPOI runs. This is useful
+if you don’t plan on generating markers for the player locations.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="predefined-filter-functions">
+<span id="id1"></span><h2>Predefined Filter Functions<a class="headerlink" href="#predefined-filter-functions" title="Permalink to this headline">¶</a></h2>
+<p>TODO write some filter functions, then document them here</p>
+</div>
+<div class="section" id="marker-icons-overviewer-ships-by-default">
+<h2>Marker Icons Overviewer ships by default<a class="headerlink" href="#marker-icons-overviewer-ships-by-default" title="Permalink to this headline">¶</a></h2>
+<p>Overviewer comes with multiple small icons that you can use for your markers.
+You can find them in the <code class="docutils literal"><span class="pre">overviewer_core/data/web_assets/icons</span></code> directory.</p>
+<p>If you want to make your own in the same style, you can use the provided
+<code class="docutils literal"><span class="pre">marker_base_plain.svg</span></code> and <code class="docutils literal"><span class="pre">marker_base_plain_red.svg</span></code> as template, with
+a vector editing software such as <a class="reference external" href="http://inkscape.org">Inkscape</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Signs and Markers</a><ul>
+<li><a class="reference internal" href="#configuration-file">Configuration File</a><ul>
+<li><a class="reference internal" href="#filter-functions">Filter Functions</a></li>
+<li><a class="reference internal" href="#special-pois">Special POIs</a></li>
+<li><a class="reference internal" href="#manual-pois">Manual POIs</a></li>
+<li><a class="reference internal" href="#render-dictionary-key">Render Dictionary Key</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generating-the-poi-markers">Generating the POI Markers</a><ul>
+<li><a class="reference internal" href="#the-genpoi-option">The –genpoi option</a></li>
+<li><a class="reference internal" href="#genpoi-py">genPOI.py</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#predefined-filter-functions">Predefined Filter Functions</a></li>
+<li><a class="reference internal" href="#marker-icons-overviewer-ships-by-default">Marker Icons Overviewer ships by default</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="previous chapter">The Configuration File</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="win_tut/windowsguide.html"
+                        title="next chapter">Windows Newbie Guide</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/signs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="win_tut/windowsguide.html" title="Windows Newbie Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="The Configuration File"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

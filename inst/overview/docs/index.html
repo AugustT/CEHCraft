@@ -1,0 +1,304 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The Minecraft Overviewer &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing" href="installing.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installing.html" title="Installing"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-minecraft-overviewer">
+<h1>The Minecraft Overviewer<a class="headerlink" href="#the-minecraft-overviewer" title="Permalink to this headline">¶</a></h1>
+<p>See also the <a class="reference external" href="https://github.com/overviewer/Minecraft-Overviewer">Github Homepage</a> and the <a class="reference external" href="https://overviewer.org/blog/">Updates Blog</a>, and follow us on
+our <a class="reference external" href="https://twitter.com/mcoverviewer">Twitter account</a></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The Minecraft Overviewer is a command-line tool for rendering high-resolution
+maps of Minecraft worlds. It generates a set of static html and image files and
+uses the Google Maps API to display a nice interactive map.</p>
+<p>The Overviewer has been in active development for several years and has many
+features, including day and night lighting, cave rendering, mineral overlays,
+and many plugins for even more features! It is written mostly in Python with
+critical sections in C as an extension module.</p>
+<p>For a simple example of what your renders will look like, head over to <a class="reference external" href="https://overviewer.org/example/">The
+“Exmaple” Map</a>. For more user-contributed
+examples, see <a class="reference external" href="https://github.com/overviewer/Minecraft-Overviewer/wiki/Map-examples">The Example Wiki Page</a>.</p>
+<img alt="_images/front_page_screenshot.png" src="_images/front_page_screenshot.png" />
+</div>
+<div class="section" id="documentation-contents">
+<h2>Documentation Contents<a class="headerlink" href="#documentation-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#debian-ubuntu">Debian / Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#centos-rhel-fedora">CentOS / RHEL / Fedora</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building the Overviewer from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building.html#get-the-source">Get The Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html#build-instructions-for-various-operating-systems">Build Instructions For Various Operating Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the Overviewer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running.html#rendering-your-first-map">Rendering your First Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running.html#installing-the-textures">Installing the Textures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">The Configuration File</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config-file-specifications">Config File Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#custom-rendermodes-and-rendermode-primitives">Custom Rendermodes and Rendermode Primitives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signs.html">Signs and Markers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signs.html#configuration-file">Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signs.html#generating-the-poi-markers">Generating the POI Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signs.html#predefined-filter-functions">Predefined Filter Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signs.html#marker-icons-overviewer-ships-by-default">Marker Icons Overviewer ships by default</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="win_tut/windowsguide.html">Windows Newbie Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="win_tut/windowsguide.html#common-pitfalls">Common Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="win_tut/windowsguide.html#using-github-gist">Using GitHub Gist</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#general-questions">General Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#acquiring-the-source-code">Acquiring the Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#finding-your-way-around-the-code-base">Finding Your Way around the Code Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#example-scenarios">Example Scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#good-git-practices">Good Git Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#talking-with-other-developers">Talking with other Developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design/designdoc.html">Design Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#background-info">Background Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#overviewer-at-a-high-level">Overviewer at a High Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#block-rendering">Block Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#chunk-rendering">Chunk Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#chunk-placement">Chunk Placement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#tile-rendering">Tile Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#quadtrees">Quadtrees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#reading-the-data-files">Reading the Data Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#image-composition">Image Composition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#multiprocessing">Multiprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#caching">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#lighting">Lighting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design/designdoc.html#cave-mode">Cave Mode</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Renders high resolution images of your world, let’s you “deep zoom” and see
+details!</li>
+<li>Gloriously awesome smooth lighting is here!
+(<a class="reference internal" href="config.html#option-rendermode"><span class="std std-ref">rendermode</span></a> name is <code class="docutils literal"><span class="pre">smooth_lighting</span></code>)</li>
+<li>Customizable textures! Pulls textures straight from your installed texture
+pack!</li>
+<li>Choose from four rendering angles.</li>
+<li>Generates a Google Maps powered map!</li>
+<li>Runs on Linux, Windows, and Mac platforms!</li>
+<li>Renders efficiently in parallel, using as many simultaneous processes as you
+want!</li>
+<li><em>Only</em> requires: Python, Numpy, and PIL (all of which are included in the
+Windows download!)</li>
+<li>Utilizes caching to speed up subsequent renderings of your world. Only parts
+that need re-rendering are re-rendered.</li>
+<li>Throw the output directory up on a web server to share your Minecraft world
+with the internet!</li>
+<li>Run The Overviewer from a command line or on a cron schedule for constantly
+updated maps! Run it for your Minecraft server world to provide your users
+with a detailed map!</li>
+<li>Supports Nether and The End dimensions!</li>
+<li>Built-in support for Biomes!</li>
+</ul>
+<div class="section" id="what-the-overviewer-is-not">
+<h3>What The Overviewer is not<a class="headerlink" href="#what-the-overviewer-is-not" title="Permalink to this headline">¶</a></h3>
+<p>Full disclosure disclaimers of what The Overviewer is <em>not</em>.</p>
+<ul>
+<li><p class="first">It does not run fast. Because of the high level of detail, initial renders of
+a world can take some time. Expect minutes for medium worlds, hours for large
+to huge worlds. Subsequent renders are <em>much</em> faster due to the caching.</p>
+<p>Also note that speed is improving all the time. We continually make efficiency
+improvements to The Overviewer. Besides, for the level of detail provided,
+our users consider it worth the time!</p>
+</li>
+<li><p class="first">The Overviewer is not targeted at end users. We mainly see Overviewer fitting
+in best with server operators, rendering their server’s map for all users to
+view.</p>
+<p>You are welcome to use The Overviewer for your single player worlds, and it
+will work just fine. However, since the only interface is currently command
+line based, you will need to know a bit about the command line in order to
+operate The Overviewer.</p>
+</li>
+<li><p class="first">The Overviewer is not a potato.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>This is a quick list of what’s required to run The Overviewer. It runs on
+Windows, Mac, and Linux as long as you have these software packages installed:</p>
+<ul class="simple">
+<li>Python 2.6 or 2.7 (we are <em>not</em> yet compatible with Python 3.x)</li>
+<li>PIL (Python Imaging Library) or Pillow</li>
+<li>Numpy</li>
+<li>Either a Minecraft Client installed or a textures/ folder for the textures (possibly from a texturepack)</li>
+</ul>
+<p>The first three are included in the Windows download. Also, there are additional
+requirements for compiling it (like a compiler). More details are available in
+either the <a class="reference internal" href="building.html"><span class="doc">Building</span></a> or <a class="reference internal" href="installing.html"><span class="doc">Installing</span></a> pages.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>The Overviewer works with Linux, Mac, and Windows! We provide Windows and Debian
+built executables for your convenience. Find them as well as the full sources on
+our <a class="reference external" href="https://github.com/overviewer/Minecraft-Overviewer">Github Homepage</a>.</p>
+<p><strong>If you are running Windows, Debian, or Ubuntu and would like the pre-built
+packages and don’t want to have to compile anything yourself</strong>, head to the
+<a class="reference internal" href="installing.html"><span class="doc">Installing</span></a> page.</p>
+<p><strong>Running Windows and not familiar with the command line?</strong> Head to the
+<a class="reference internal" href="win_tut/windowsguide.html"><span class="doc">Windows Newbie Guide</span></a> page.</p>
+<p><strong>If you would like to build the Overviewer from source yourself (it’s not that
+bad)</strong>, head to the <a class="reference internal" href="building.html"><span class="doc">Building</span></a> page.</p>
+<p><strong>For all other platforms</strong> you will need to build it yourself.
+<a class="reference internal" href="building.html"><span class="doc">Building the Overviewer from Source</span></a>.</p>
+<p><strong>After you have The Overviewer built/installed</strong> see <a class="reference internal" href="running.html"><span class="doc">Running the Overviewer</span></a> and
+<a class="reference internal" href="config.html"><span class="doc">The Configuration File</span></a>.</p>
+</div>
+<div class="section" id="help">
+<span id="id1"></span><h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p><strong>IF YOU NEED HELP COMPILING OR RUNNING THE OVERVIEWER</strong> feel free to chat with
+us live in IRC: #overviewer on Freenode. There’s usually someone on there that
+can help you out. Not familiar with IRC? <a class="reference external" href="http://webchat.freenode.net/?channels=overviewer">Use the web client</a>. (If there’s no immediate
+response, wait around or try a different time of day; we have to sleep sometime)</p>
+<p>Also check our <a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> page.</p>
+<p>If you think you’ve found a bug or other issue, file an issue on our <a class="reference external" href="https://github.com/overviewer/Minecraft-Overviewer/issues">Issue
+Tracker</a>. Filing or
+commenting on an issue sends a notice to our IRC channel, so the response time
+is often very good!</p>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Minecraft Overviewer</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#documentation-contents">Documentation Contents</a></li>
+<li><a class="reference internal" href="#features">Features</a><ul>
+<li><a class="reference internal" href="#what-the-overviewer-is-not">What The Overviewer is not</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#help">Help</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installing.html"
+                        title="next chapter">Installing</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installing.html" title="Installing"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

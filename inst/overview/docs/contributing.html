@@ -1,0 +1,363 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contributing &#8212; Overviewer 0.12 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Design Documentation" href="design/designdoc.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="design/designdoc.html" title="Design Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<p>In this page, you’ll be given some pointers on how to start contributing to the
+Minecraft-Overviewer project. This is useful for people who want to help develop
+the Overviewer, but don’t quite know where to start.</p>
+<p>This page is mostly focused on where to look for things and how to get your
+changes back into the project, for help on how to compile the Overviewer, check
+<a class="reference internal" href="building.html"><span class="doc">Building</span></a>.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Ideally you’re familiar with Python (Overviewer uses Python 2), and know the
+basics of Git. Both have various very good resources online that help you in
+learning them, but the best way of learning is always to use them in the real
+world, so don’t hesitate to jump right in after having a basic grasp and ask
+questions along the way.</p>
+<p>Additionally, some parts of Overviewer are written in C, though unless you’re
+interested in the drawing and compositing routines or the rendermodes, you don’t
+need to know C.</p>
+<p>Last but not least, some of the Overviewer’s code is written in JavaScript,
+namely the part that runs in your browser when you view the map.</p>
+</div>
+<div class="section" id="acquiring-the-source-code">
+<h2>Acquiring the Source Code<a class="headerlink" href="#acquiring-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>First, you’ll need to get the Overviewer source code. We do version management
+of code through <a class="reference external" href="https://git-scm.com/">Git</a>, which allows multiple people to work on the code at the
+same time. Naturally, this means you’ll also be getting the source code through
+Git. For this to work, you’ll have to install Git on your computer.</p>
+<p>Our source code is hosted on <a class="reference external" href="https://github.com/overviewer/Minecraft-Overviewer">GitHub</a>, so it’s a good idea to make an account
+there if you don’t already have one.</p>
+<p>This page won’t go into the details of how to use Git, but it’ll give you some
+advice on how your workflow should be to avoid some trouble.</p>
+</div>
+<div class="section" id="finding-your-way-around-the-code-base">
+<h2>Finding Your Way around the Code Base<a class="headerlink" href="#finding-your-way-around-the-code-base" title="Permalink to this headline">¶</a></h2>
+<p>At first glance, all the code can be a bit overwhelming. So here’s a quick
+overview of the important parts.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">setup.py</span></code> is the build script. If you need to make any changes to how the
+Overviewer is built, you’ll want to look there.</li>
+<li><code class="docutils literal"><span class="pre">overviewer.py</span></code> is the entry-point of the application. It imports all the
+other functionality, and does the command line parsing.</li>
+<li><code class="docutils literal"><span class="pre">overviewer_core/</span></code> is the directory where the vast majority of the
+Overviewer’s functionality is. More on that below.</li>
+<li><code class="docutils literal"><span class="pre">overviewer_core/aux_files/genPOI.py</span></code> is where the genPOI functionality is
+implemented. If you’re looking into changing the way markers are generated,
+look there.</li>
+<li><code class="docutils literal"><span class="pre">overviewer_core/src/</span></code> is the directory for all the files that are part of
+Overviewer’s C extension. This includes things such as rendermodes, which are
+stored in the <code class="docutils literal"><span class="pre">primitives</span></code> sub-directory.</li>
+<li><code class="docutils literal"><span class="pre">overviewer_core/data/</span></code> mostly contains the parts that make up Overviewer’s
+web front-end, with <code class="docutils literal"><span class="pre">js_src</span></code> containing the JS files and <code class="docutils literal"><span class="pre">web_assets</span></code>
+containing the <code class="docutils literal"><span class="pre">index.html</span></code>, CSS files and image files such as icons or the
+compass.</li>
+<li><code class="docutils literal"><span class="pre">docs/</span></code> contains the documentation, which can be built with the included
+Makefile if you have sphinx installed.</li>
+</ul>
+<div class="section" id="overviewer-core">
+<h3>overviewer_core<a class="headerlink" href="#overviewer-core" title="Permalink to this headline">¶</a></h3>
+<p>Let’s take a closer look at the <code class="docutils literal"><span class="pre">overviewer_core/</span></code> directory:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">assetmanager.py</span></code> controls how the HTML and JS output are written out, as
+well as the <code class="docutils literal"><span class="pre">overviewerConfig.js</span></code> format.</li>
+<li><code class="docutils literal"><span class="pre">cache.py</span></code> implements a Least-Recently-Used (LRU) cache, which is used for
+caching chunks in memory as the rendering happens.</li>
+<li><code class="docutils literal"><span class="pre">configParser.py</span></code> contains some code that sets up how the config is parsed,
+but is not really involved in the definitions of individual settings therein.</li>
+<li><code class="docutils literal"><span class="pre">dispatcher.py</span></code> is the code that sets up multiprocessing, so Overviewer can
+use all available CPU threads on a machine.</li>
+<li><code class="docutils literal"><span class="pre">files.py</span></code> implements helpful routines which allow you to determine whether
+some file operations such as replacing a file work in a given directory, and
+also implements the <code class="docutils literal"><span class="pre">FileReplacer</span></code> class which can then safely replace a
+file given the capabilities of the filesystem.</li>
+<li><code class="docutils literal"><span class="pre">items.py</span></code> is a remnant of the past and entirely unused.</li>
+<li><code class="docutils literal"><span class="pre">logger.py</span></code> sets up and implements Overviewer’s logging facilities.</li>
+<li><code class="docutils literal"><span class="pre">nbt.py</span></code> contains the code that is used to parse the Minecraft NBT file
+structure.</li>
+<li><code class="docutils literal"><span class="pre">observer.py</span></code> defines all the observers that are available. If you want to
+add a new observer, this is the place where you’ll want to look.</li>
+<li><code class="docutils literal"><span class="pre">optimizeimages.py</span></code> defines all the optimizeimg tools and how they’re
+called.</li>
+<li><code class="docutils literal"><span class="pre">progressbar.py</span></code> implements the fancy progress bar that the Overviewer has.</li>
+<li><code class="docutils literal"><span class="pre">rcon.py</span></code> implements an rcon client for the Minecraft server, used by the
+RConObserver.</li>
+<li><code class="docutils literal"><span class="pre">rendermodes.py</span></code> contains definitions and glue code for the rendermodes in
+the C extension.</li>
+<li><code class="docutils literal"><span class="pre">settingsDefinitions.py</span></code> includes all definitions for the Overviewer
+configuration file. If you want to add a new configuration option, this is
+where you’ll want to start.</li>
+<li><code class="docutils literal"><span class="pre">settingsValidators.py</span></code> contains validation code for the settings
+definitions, which ensures that the values are all good.</li>
+<li><code class="docutils literal"><span class="pre">signals.py</span></code> is multiprocessing communication code. Scary stuff.</li>
+<li><code class="docutils literal"><span class="pre">textures.py</span></code> contains all the block definitions and how Overviewer should
+render them. If you want to add a new block to the Overviewer, this is where
+you’ll want to do it. Additionally, this code also controls how the textures
+are loaded.</li>
+<li><code class="docutils literal"><span class="pre">tileset.py</span></code> contains code that maps a render dict entry to the output tiled
+image structure.</li>
+<li><code class="docutils literal"><span class="pre">util.py</span></code> contains random utility code that has no home anywhere else.</li>
+<li><code class="docutils literal"><span class="pre">world.py</span></code> is a whole lot of code that does things like choosing which
+chunks to load and to cache, and general functionality revolving around the
+concept of Minecraft worlds.</li>
+</ul>
+</div>
+<div class="section" id="docs">
+<h3>docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h3>
+<p>The documentation is written in <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, a markup format. It can be
+compiled into an HTML output using the Makefile in the <code class="docutils literal"><span class="pre">docs/</span></code> subtree by
+typing <code class="docutils literal"><span class="pre">make</span></code>. You’ll need to have <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">sphinx</a> installed for this to work.</p>
+<p>The theme that will be used in the locally generated HTML is different than what
+is used on <a class="reference external" href="http://docs.overviewer.org">http://docs.overviewer.org</a>. However, it should still be sufficient
+to get a good idea of how your changes will end up looking like when they’re on
+the main docs page.</p>
+</div>
+</div>
+<div class="section" id="code-style">
+<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this headline">¶</a></h2>
+<p>To be honest, currently the Overviewer’s codebase is a bit of a mess. There is
+no consistent code style in use right now. However, it’s probably a good idea
+to stick to <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> when writing new code. If you’re refactoring old code, it
+would be great if you were to fix it to make it PEP8 compliant as well.</p>
+<p>To check whether the code is PEP8 compliant, you can use <a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a>. You can
+easily install it with pip by using <code class="docutils literal"><span class="pre">pip2</span> <span class="pre">install</span> <span class="pre">pycodestyle</span></code>.</p>
+</div>
+<div class="section" id="example-scenarios">
+<h2>Example Scenarios<a class="headerlink" href="#example-scenarios" title="Permalink to this headline">¶</a></h2>
+<p>This section will demonstrate by example how a few possible contributions might
+be made. These serve as guidelines on how to quickly get started if you’re
+interested in doing a specific task that many others before you have done too
+in some other form.</p>
+<div class="section" id="adding-a-block">
+<h3>Adding a Block<a class="headerlink" href="#adding-a-block" title="Permalink to this headline">¶</a></h3>
+<p>Let’s assume you want to add support for a new block to the Overviewer. This is
+probably one of the most common ways people start contributing to the project,
+as all blocks in the Overviewer are currently hardcoded and code to handle them
+needs to be added by hand.</p>
+<p>The place to look here is <code class="docutils literal"><span class="pre">textures.py</span></code>. It contains the block definitions,
+which are assisted by Python <a class="reference external" href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators">decorators</a>, which make it quite a bit simpler to
+add new blocks.</p>
+<p>The big decorator in question is <code class="docutils literal"><span class="pre">&#64;material</span></code>, which takes arguments such as
+the <code class="docutils literal"><span class="pre">blockid</span></code> (a list of block IDs this block definition should handle), and
+<code class="docutils literal"><span class="pre">data</span></code> (a list of possible data values for this block). Additionally, it can
+also take various additional arguments for the different block properties, such
+as <code class="docutils literal"><span class="pre">solid=True</span></code> to indicate that the block is a solid block.</p>
+<div class="section" id="simple-solid-6-sided-block">
+<h4>Simple Solid 6-Sided Block<a class="headerlink" href="#simple-solid-6-sided-block" title="Permalink to this headline">¶</a></h4>
+<p>A lot of times, new blocks are basically just your standard full-height block
+with a new texture. For a block this simple, we don’t even really need to use
+the material decorator. As an example, check out the definition of the coal
+block:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">block</span><span class="p">(</span><span class="n">blockid</span><span class="o">=</span><span class="mi">173</span><span class="p">,</span> <span class="n">top_image</span><span class="o">=</span><span class="s2">&quot;assets/minecraft/textures/blocks/coal_block.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="block-with-a-different-top">
+<h4>Block with a Different Top<a class="headerlink" href="#block-with-a-different-top" title="Permalink to this headline">¶</a></h4>
+<p>Another common theme is a block where the top is a different texture than the
+sides. Here we use the <code class="docutils literal"><span class="pre">&#64;material</span></code> decorator to create the jukebox block:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@material</span><span class="p">(</span><span class="n">blockid</span><span class="o">=</span><span class="mi">84</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">solid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">jukebox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blockid</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_block</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_image_texture</span><span class="p">(</span><span class="s2">&quot;assets/minecraft/textures/blocks/jukebox_top.png&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image_texture</span><span class="p">(</span><span class="s2">&quot;assets/minecraft/textures/blocks/noteblock.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>As you can see, we define a method called <code class="docutils literal"><span class="pre">jukebox</span></code>, taking the parameters
+<code class="docutils literal"><span class="pre">blockid</span></code> and <code class="docutils literal"><span class="pre">data</span></code>, decorated by a decorator stating that the following
+definition is a material with a <code class="docutils literal"><span class="pre">blockid</span></code> of <code class="docutils literal"><span class="pre">84</span></code> and a data value range
+from <code class="docutils literal"><span class="pre">0</span></code> to <code class="docutils literal"><span class="pre">15</span></code> (or <code class="docutils literal"><span class="pre">range(16)</span></code>), which we won’t use as it doesn’t affect
+the rendering of the block. We also specify that the block is solid.</p>
+<p>Inside the method, we then return the return value of <code class="docutils literal"><span class="pre">self.build_block()</span></code>,
+which is a helper method that takes a texture for the top and a texture for the
+side as its arguments.</p>
+</div>
+<div class="section" id="block-with-variable-colors">
+<h4>Block with Variable Colors<a class="headerlink" href="#block-with-variable-colors" title="Permalink to this headline">¶</a></h4>
+<p>Occasionally, blocks can have colors stored in their data values.
+<code class="docutils literal"><span class="pre">textures.py</span></code> includes an easy mapping list, called <code class="docutils literal"><span class="pre">color_map</span></code>, to map
+between data values and Minecraft color names. Let’s take stained hardened clay
+as an example of how this is used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@material</span><span class="p">(</span><span class="n">blockid</span><span class="o">=</span><span class="mi">159</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">solid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">stained_clay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blockid</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image_texture</span><span class="p">(</span><span class="s2">&quot;assets/minecraft/textures/blocks/hardened_clay_stained_</span><span class="si">%s</span><span class="s2">.png&quot;</span> <span class="o">%</span> <span class="n">color_map</span><span class="p">[</span><span class="n">data</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_block</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span><span class="n">texture</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, we specify that the block has 16 data values, then depending
+on the data value we load the right block texture by looking up the color name
+in the <code class="docutils literal"><span class="pre">color_map</span></code> list, formatting a string for the filename with it.</p>
+</div>
+</div>
+</div>
+<div class="section" id="good-git-practices">
+<h2>Good Git Practices<a class="headerlink" href="#good-git-practices" title="Permalink to this headline">¶</a></h2>
+<p>How you structure your Git workflow is ultimately up to you, but here are a few
+recommendations to make your life and the life of the people who want to merge
+your pull requests easier.</p>
+<ul class="simple">
+<li><strong>Commit your changes in a separate branch, and then submit a pull request
+from that branch.</strong> This makes it easier for you to rebase your changes, and
+allows you to keep your repository’s master branch in-sync with our master
+branch, so you can easily split off a new branch from master if you want to
+develop a new change while your old change still isn’t merged into the master.</li>
+<li><strong>Format your commit messages properly.</strong> The first line should be a 50
+character long summary of the change the commit makes, in present tense, e.g.
+“Add a spinner to the progress bar”. This should be followed by a blank line,
+and a longer explanation of the change the commit actually does, wrapped at
+72 characters.</li>
+<li><strong>Don’t merge master into your branch.</strong> If you plan on submitting a change as
+a pull request and the master branch has moved in the meantime, then don’t
+merge the master branch into the branch of your pull request. Instead, rebase
+your branch on top of the updated master.</li>
+<li><strong>Keep commits logically separated.</strong> Don’t try to cram unrelated changes into
+just one commit unless it’s a commit full of small fixes. If you find yourself
+struggling to keep the commit summary below 50 characters, and find yourself
+using the word “and” in it, rethink whether the changes you’re making should
+be just one commit.</li>
+</ul>
+<p>It’s also a good idea to look at the output of <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> before committing a
+change, to make sure nothing was unintentionally changed in the file where you
+weren’t expecting it. <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> will also highlight blank lines with spaces
+in them with a solid red background.</p>
+</div>
+<div class="section" id="talking-with-other-developers">
+<h2>Talking with other Developers<a class="headerlink" href="#talking-with-other-developers" title="Permalink to this headline">¶</a></h2>
+<p>Occasionally, the issue tracker simply doesn’t cut it. You need to talk with
+another developer, maybe to brainstorm a new feature or ask a question about
+the code. For this, we have <a class="reference external" href="https://overviewer.org/irc/">an IRC channel on freenode</a>, which allows you to
+talk with other developers that are on the IRC channel in real-time.</p>
+<p>Since most developers have jobs or are in college or university, it may
+sometimes take a few moments to get a reply. So it’s useful to stick around and
+wait for someone who can help you to be around.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#acquiring-the-source-code">Acquiring the Source Code</a></li>
+<li><a class="reference internal" href="#finding-your-way-around-the-code-base">Finding Your Way around the Code Base</a><ul>
+<li><a class="reference internal" href="#overviewer-core">overviewer_core</a></li>
+<li><a class="reference internal" href="#docs">docs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-style">Code Style</a></li>
+<li><a class="reference internal" href="#example-scenarios">Example Scenarios</a><ul>
+<li><a class="reference internal" href="#adding-a-block">Adding a Block</a><ul>
+<li><a class="reference internal" href="#simple-solid-6-sided-block">Simple Solid 6-Sided Block</a></li>
+<li><a class="reference internal" href="#block-with-a-different-top">Block with a Different Top</a></li>
+<li><a class="reference internal" href="#block-with-variable-colors">Block with Variable Colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#good-git-practices">Good Git Practices</a></li>
+<li><a class="reference internal" href="#talking-with-other-developers">Talking with other Developers</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">Frequently Asked Questions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="design/designdoc.html"
+                        title="next chapter">Design Documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/contributing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="design/designdoc.html" title="Design Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Overviewer 0.12 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2017 The Overviewer Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
