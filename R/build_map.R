@@ -33,9 +33,11 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
   dtm_filename <- enquote(normalizePath(dtm))
   lcm_filename <- enquote(normalizePath(lcm))
   tf <- tempfile(fileext = '.txt')
+  tt1 <- enquote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop1.csv')))
+  tt2 <- enquote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop2.csv')))
   # cat(tf, '\n')
   
-  args = c(worlddir, out_filename, dtm_filename, lcm_filename, tf)
+  args = c(worlddir, out_filename, dtm_filename, lcm_filename, tf, tt1, tt2)
   
   # Add path to script as first arg
   allArgs <- c(python_script, args)
@@ -45,6 +47,8 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
   # cat(paste(command, allArgs), collapse = ' ')
   
   wait <- ifelse(verbose, yes = FALSE, no = TRUE)
+  
+  if(!verbose) cat('\nFollow progress by viewing the log file: ', tf)
   
   output <- system2(command,
                     args = allArgs, 
@@ -77,10 +81,6 @@ build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(
       Sys.sleep(0.5)
       
     }
-  } else {
-    
-    cat('\nFollow progress by viewing the log file: ', tf)
-    
   }
   
   return(file.path(outDir, out_filename))

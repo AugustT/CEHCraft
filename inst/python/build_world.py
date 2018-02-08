@@ -26,6 +26,8 @@ out_filename = sys.argv[2]
 dtm_filename = sys.argv[3]
 lcm_filename = sys.argv[4]
 tf = sys.argv[5]
+tt1 = sys.argv[6]
+tt2 = sys.argv[7]
 
 # remove existing map (else it just modifies)
 rmtree(worlddir, True)
@@ -163,7 +165,57 @@ with open(tf, "a") as myfile:
   myfile.write("CSV is %s high, %s wide\n" % (len(elevation), len(elevation[0])))
   myfile.close()
 
-# print "Scale factor: %s" % scale_factor
+# load in the tree data
+TTop1 = []
+TTop1 = numpy.genfromtxt(tt1, delimiter=',').astype(int)
+TTop2 = []
+TTop2 = numpy.genfromtxt(tt2, delimiter=',').astype(int)
+
+def buildTree(TType, y, z, x):
+    
+    global world
+    global TTop1
+    global TTop2
+    
+    index_x = x-3
+    index_z = z-3
+    
+    if TType == 'conf':
+        tree_pick = 1
+    elif TType == 'broad':
+        tree_pick = random.choice([0,2])
+    elif TType == 'mixed':
+        tree_pick = random.choice([0,1,2])
+        
+    if tree_pick == 1:
+        
+        # trunk
+        trunk_size = random.choice([7,8,9])
+        for l in range(1, (trunk_size + 1)):
+            world.setBlockAt(x, y + l, z, 17)
+            world.setBlockDataAt(x, y + l, z, tree_pick)
+            
+        # leaves
+        for num, row in enumerate(TTop2):
+          choice = random.random()
+          if choice > 0.05:
+            world.setBlockAt(index_x + row[1], y + row[0] + (trunk_size-5), index_z + row[2], 18)
+            world.setBlockDataAt(index_x + row[1], y + row[0] + (trunk_size-5), index_z + row[2], tree_pick)
+        
+    if (tree_pick == 0) or (tree_pick == 2):
+        
+        # trunk
+        trunk_size = random.choice([4,5,6])
+        for l in range(1, (trunk_size + 1)):
+            world.setBlockAt(x, y + l, z, 17)
+            world.setBlockDataAt(x, y + l, z, tree_pick)
+            
+        # leaves
+        for num, row in enumerate(TTop1):
+          choice = random.random()
+          if choice > 0.05:
+            world.setBlockAt(index_x + row[1], y + row[0] + (trunk_size-1), index_z + row[2], 18)
+            world.setBlockDataAt(index_x + row[1], y + row[0] + (trunk_size-1), index_z + row[2], tree_pick)
 
 def setspawnandsave(world, point, tf):
     """Sets the spawn point and player point in the world and saves the world.
@@ -364,63 +416,24 @@ def buildWorld(x, z):
       world.setBlockDataAt(x, elev + 1, z, 2)
   
   elif my_id == 19: # SAPLING
-      choice2 = random.random()
-      if choice2 < 0.25:
-          tree_pick = random.choice([0, 2, 3, 5])
-          world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
-          world.setBlockDataAt(x, elev + 1, z, tree_pick)
-      elif choice2 > 0.2499999:
-          world.setBlockAt(x, elev + 1, z , 31)
-          world.setBlockDataAt(x, elev + 1, z, 1)
-      elif random.random() < 0.05: # add birds
-          Parrot = Entity.Create('Parrot')
-          Entity.setpos(Parrot, (x, actual_y + 3, z))
-          Parrot['Variant'] = nbt.TAG_Int(random.choice([0,1,2,3]))
-          world.addEntity(Parrot)
+      choice = random.random()
+      if choice < 0.05:
+        buildTree('broad', elev, z, x)
   
   elif my_id == 20: # SAPLING
-      choice2 = random.random()
-      if choice2 < 0.25:
-          world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
-          world.setBlockDataAt(x, elev + 1, z, 1)
-      elif choice2 > 0.2499999:
-          world.setBlockAt(x, elev + 1, z , 31)
-          world.setBlockDataAt(x, elev + 1, z, 1)
-      elif random.random() < 0.05: # add birds
-          Parrot = Entity.Create('Parrot')
-          Entity.setpos(Parrot, (x, actual_y + 3, z))
-          Parrot['Variant'] = nbt.TAG_Int(random.choice([0,1,2,3]))
-          world.addEntity(Parrot)
-  
+      choice = random.random()
+      if choice < 0.05:
+        buildTree('conf', elev, z, x)
+      
   elif my_id == 21: # SAPLING
-      choice2 = random.random()
-      if choice2 < 0.25:
-          tree_pick = random.choice([0, 1, 2, 3, 4, 5])
-          world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
-          world.setBlockDataAt(x, elev + 1, z, tree_pick)
-      elif choice2 > 0.2499999:
-          world.setBlockAt(x, elev + 1, z , 31)
-          world.setBlockDataAt(x, elev + 1, z, 1)
-      elif random.random() < 0.05: # add birds
-          Parrot = Entity.Create('Parrot')
-          Entity.setpos(Parrot, (x, actual_y + 3, z))
-          Parrot['Variant'] = nbt.TAG_Int(random.choice([0,1,2,3]))
-          world.addEntity(Parrot)
-  
+      choice = random.random()
+      if choice < 0.05:
+        buildTree('mixed', elev, z, x)
+      
   elif my_id == 22: # SAPLING
-      choice2 = random.random()
-      if choice2 < 0.25:
-          tree_pick = random.choice([0, 1, 2, 3, 4, 5])
-          world.setBlockAt(x, elev + 1, z , m.Sapling.ID)
-          world.setBlockDataAt(x, elev + 1, z, tree_pick)
-      elif choice2 > 0.2499999:
-          world.setBlockAt(x, elev + 1, z , 31)
-          world.setBlockDataAt(x, elev + 1, z, 1)
-      elif random.random() < 0.05: # add birds
-          Parrot = Entity.Create('Parrot')
-          Entity.setpos(Parrot, (x, actual_y + 3, z))
-          Parrot['Variant'] = nbt.TAG_Int(random.choice([0,1,2,3]))
-          world.addEntity(Parrot)
+      choice = random.random()
+      if choice < 0.025:
+          buildTree('mixed', elev, z, x)
                   
   elif my_id == 24: # Farm
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
