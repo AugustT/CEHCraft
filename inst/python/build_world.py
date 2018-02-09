@@ -405,16 +405,33 @@ def buildWorld(x, z):
   #    world.setBlockDataAt(x, elev + 1, z, 1)
   
   elif my_id == 14: # Heather grassland
-      world.setBlockAt(x, elev + 1, z , 38)
-      world.setBlockDataAt(x, elev + 1, z, 7)
+      choice = random.random()
+      if choice < 0.5:
+        if choice < 0.25:
+          world.setBlockAt(x, elev + 1, z , 38)
+          world.setBlockDataAt(x, elev + 1, z, 7)
+        else:
+          world.setBlockAt(x, elev + 1, z , 38)
+          world.setBlockDataAt(x, elev + 1, z, 2)
+      else:
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
   
   elif my_id == 17: # Upland heather
-      world.setBlockAt(x, elev + 1, z , 38)
-      world.setBlockDataAt(x, elev + 1, z, 7)
+      choice = random.random()
+      if choice < 0.5:
+        if choice < 0.25:
+          world.setBlockAt(x, elev + 1, z , 38)
+          world.setBlockDataAt(x, elev + 1, z, 7)
+        else:
+          world.setBlockAt(x, elev + 1, z , 38)
+          world.setBlockDataAt(x, elev + 1, z, 2)
   
   elif my_id == 18: # Heather/moorland
-      world.setBlockAt(x, elev + 1, z , 38)
-      world.setBlockDataAt(x, elev + 1, z, 2)
+      choice = random.random()
+      if choice < 0.5:
+        world.setBlockAt(x, elev + 1, z , 175)
+        world.setBlockDataAt(x, elev + 1, z, 5)
   
   elif my_id == 19: # Broadleaf decidious woodland
       choice = random.random()
@@ -661,11 +678,11 @@ def buildWorld(x, z):
       choice = random.random()
       if choice < 0.2:
           if choice < 0.1:
-              world.setBlockAt(x, elev + 1, z , 38.1)
-              world.setBlockDataAt(x, elev + 1, z, 0)
+              world.setBlockAt(x, elev + 1, z , 38)
+              world.setBlockDataAt(x, elev + 1, z, 1)
           else:
-              world.setBlockAt(x, elev + 1, z , 38.3)
-              world.setBlockDataAt(x, elev + 1, z, 0)
+              world.setBlockAt(x, elev + 1, z , 38)
+              world.setBlockDataAt(x, elev + 1, z, 3)
       if random.random() < 0.01: # add Sheep
           Sheep = Entity.Create('Sheep')
           Entity.setpos(Sheep, (x, actual_y + 3, z))
