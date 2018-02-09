@@ -182,9 +182,9 @@ def buildTree(TType, world, y, z, x):
     if TType == 'conf':
         tree_pick = 1
     elif TType == 'broad':
-        tree_pick = random.choice([0,2])
+        tree_pick = random.choice([0,0,0,2])
     elif TType == 'mixed':
-        tree_pick = random.choice([0,1,2])
+        tree_pick = random.choice([0,0,1,2])
         
     if tree_pick == 1:
         
@@ -314,15 +314,15 @@ with open(tf, "a") as myfile:
   myfile.close()
 chunks = world.createChunksInBox(tilebox)
 world.fillBlocks(tilebox, wall_material)
-
-# Air in the middle.
-bottom_left = (0, 1, 0)
-upper_right = (len(elevation), 255, len(elevation[0]))
-with open(tf, "a") as myfile:
-  myfile.write("Carving out air layer. %r %r\n" % (bottom_left, upper_right))
-  myfile.close()
-tilebox = box.BoundingBox(bottom_left, upper_right)
-world.fillBlocks(tilebox, m.Air, [wall_material])
+# 
+# # Air in the middle.
+# bottom_left = (0, 1, 0)
+# upper_right = (len(elevation), 255, len(elevation[0]))
+# with open(tf, "a") as myfile:
+#   myfile.write("Carving out air layer. %r %r\n" % (bottom_left, upper_right))
+#   myfile.close()
+# tilebox = box.BoundingBox(bottom_left, upper_right)
+# world.fillBlocks(tilebox, m.Air, [wall_material])
 
 with open(tf, "a") as myfile:
   myfile.write("Populating chunks.\n")
@@ -700,6 +700,11 @@ def buildWorld(x, z):
               Entity.setpos(Rabbit, (x, actual_y + 3, z))
               Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
               world.addEntity(Rabbit)
+              
+  # add snow
+  if actual_y > 80:
+    if my_id != m.WaterActive.ID:
+      world.setBlockAt(x, actual_y + 1, z, m.SnowLayer.ID)
 
 xall = range(len(elevation))
 zall = range(len(elevation[0]))
