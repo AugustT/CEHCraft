@@ -437,21 +437,33 @@ def buildWorld(x, z):
       choice = random.random()
       if choice < 0.05:
         world = buildTree('broad', world, elev, z, x)
+      else:
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
   
   elif my_id == 20: # Coniferous woodland
       choice = random.random()
       if choice < 0.05:
         world = buildTree('conf', world, elev, z, x)
-      
+      else:
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
+        
   elif my_id == 21: # mixed woodland
       choice = random.random()
       if choice < 0.05:
         world = buildTree('mixed', world, elev, z, x)
+      else:
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
       
   elif my_id == 22: # low density woodland
       choice = random.random()
       if choice < 0.025:
         world = buildTree('mixed', world, elev, z, x)
+      else:
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
                   
   elif my_id == 24: # inland limestone rock
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
