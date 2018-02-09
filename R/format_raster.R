@@ -43,6 +43,9 @@ format_raster <- function(lcm,
     }
   }
   
+  # rotate to get north in the right place
+  dtm <- t(apply(dtm, 2, rev))
+  
   cat('\nMinimum height: ', min(dtm))
   cat('\nMaximum height: ', max(dtm))
   
@@ -86,6 +89,9 @@ format_raster <- function(lcm,
   
   # flip lat for minecraft #
   lcm <- lcm[, rev(1:ncol(lcm))]
+  
+  # rotate to get north in the right place
+  lcm <- t(apply(lcm, 2, rev))
   
   for(i in unique(as.vector(lcm))){
     if(i %in% lcm_class$LCLU){
