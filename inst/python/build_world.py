@@ -392,11 +392,11 @@ def buildWorld(x, z):
       if block_data:
           world.setBlockDataAt(x, elev, z, block_data)
 
-  if my_id == 10: # Farm
+  if my_id == 10: # Upland fens and swamp
       world.setBlockAt(x, elev + 1, z , 31)
       world.setBlockDataAt(x, elev + 1, z, 2)
   
-  elif my_id == 11: # Farm
+  elif my_id == 11: # Marsh fens and swamp
       world.setBlockAt(x, elev + 1, z , 83)
       world.setBlockDataAt(x, elev + 1, z, 2)
   
@@ -404,63 +404,63 @@ def buildWorld(x, z):
   #    world.setBlockAt(x, elev + 1, z , 31)
   #    world.setBlockDataAt(x, elev + 1, z, 1)
   
-  elif my_id == 14: # Farm
+  elif my_id == 14: # Heather grassland
       world.setBlockAt(x, elev + 1, z , 38)
       world.setBlockDataAt(x, elev + 1, z, 7)
   
-  elif my_id == 17: # Farm
+  elif my_id == 17: # Upland heather
       world.setBlockAt(x, elev + 1, z , 38)
       world.setBlockDataAt(x, elev + 1, z, 7)
   
-  elif my_id == 18: # Farm
+  elif my_id == 18: # Heather/moorland
       world.setBlockAt(x, elev + 1, z , 38)
       world.setBlockDataAt(x, elev + 1, z, 2)
   
-  elif my_id == 19: # SAPLING
+  elif my_id == 19: # Broadleaf decidious woodland
       choice = random.random()
       if choice < 0.05:
         world = buildTree('broad', world, elev, z, x)
   
-  elif my_id == 20: # SAPLING
+  elif my_id == 20: # Coniferous woodland
       choice = random.random()
       if choice < 0.05:
         world = buildTree('conf', world, elev, z, x)
       
-  elif my_id == 21: # SAPLING
+  elif my_id == 21: # mixed woodland
       choice = random.random()
       if choice < 0.05:
         world = buildTree('mixed', world, elev, z, x)
       
-  elif my_id == 22: # SAPLING
+  elif my_id == 22: # low density woodland
       choice = random.random()
       if choice < 0.025:
         world = buildTree('mixed', world, elev, z, x)
                   
-  elif my_id == 24: # Farm
+  elif my_id == 24: # inland limestone rock
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
       world.setBlockDataAt(x, elev + 1, z, 6)
               
-  elif my_id == 29: # Farm
+  elif my_id == 29: # Beetroot
       world.setBlockAt(x, elev + 1, z , 141)
       world.setBlockDataAt(x, elev + 1, z, 7)
   
-  elif my_id == 30: # Farm
+  elif my_id == 30: # field bean
       world.setBlockAt(x, elev + 1, z , 104)
       world.setBlockDataAt(x, elev + 1, z, 7)
   
-  elif my_id == 31: # Farm
+  elif my_id == 31: # maize
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
       world.setBlockDataAt(x, elev + 1, z, 6)
   
-  elif my_id == 32: # Farm
+  elif my_id == 32: # oilseed rape
       world.setBlockAt(x, elev + 1, z , 37)
       world.setBlockDataAt(x, elev + 1, z, 0)
   
-  elif my_id == 33: # Farm
+  elif my_id == 33: # farmland other
       world.setBlockAt(x, elev + 1, z , 38)
       world.setBlockDataAt(x, elev + 1, z, 8)
   
-  elif my_id == 34: # Farm
+  elif my_id == 34: # potatoes
       world.setBlockAt(x, elev + 1, z , 142)
       world.setBlockDataAt(x, elev + 1, z, 7)
   
