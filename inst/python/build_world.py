@@ -171,9 +171,8 @@ TTop1 = numpy.genfromtxt(tt1, delimiter=',').astype(int)
 TTop2 = []
 TTop2 = numpy.genfromtxt(tt2, delimiter=',').astype(int)
 
-def buildTree(TType, y, z, x):
+def buildTree(TType, world, y, z, x):
     
-    global world
     global TTop1
     global TTop2
     
@@ -216,6 +215,8 @@ def buildTree(TType, y, z, x):
           if choice > 0.05:
             world.setBlockAt(index_x + row[1], y + row[0] + (trunk_size-1), index_z + row[2], 18)
             world.setBlockDataAt(index_x + row[1], y + row[0] + (trunk_size-1), index_z + row[2], tree_pick)
+    
+    return world
 
 def setspawnandsave(world, point, tf):
     """Sets the spawn point and player point in the world and saves the world.
@@ -418,22 +419,22 @@ def buildWorld(x, z):
   elif my_id == 19: # SAPLING
       choice = random.random()
       if choice < 0.05:
-        buildTree('broad', elev, z, x)
+        world = buildTree('broad', world, elev, z, x)
   
   elif my_id == 20: # SAPLING
       choice = random.random()
       if choice < 0.05:
-        buildTree('conf', elev, z, x)
+        world = buildTree('conf', world, elev, z, x)
       
   elif my_id == 21: # SAPLING
       choice = random.random()
       if choice < 0.05:
-        buildTree('mixed', elev, z, x)
+        world = buildTree('mixed', world, elev, z, x)
       
   elif my_id == 22: # SAPLING
       choice = random.random()
       if choice < 0.025:
-          buildTree('mixed', elev, z, x)
+        world = buildTree('mixed', world, elev, z, x)
                   
   elif my_id == 24: # Farm
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
