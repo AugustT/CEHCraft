@@ -46,7 +46,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   cat('Formatting maps...')  
   formatted_maps <- format_raster(lcm = lcm_cr, dtm = elev_cr,
                                   name = postcode, exagerate_elevation = exagerate_elevation)
-  cat('done\n')
+  
+  cat('\ndone\n')
   
   cat('Creating Minecraft World\n')  
   map_path <- build_map(lcm = formatted_maps[[1]],

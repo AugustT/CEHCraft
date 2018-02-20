@@ -77,6 +77,7 @@ block_id_lookup = {
     36 : (m.Farmland.ID, 7, 0), # spring wheat
     37 : (m.Farmland.ID, 7, 0), # winter barley
     38 : (m.Farmland.ID, 7, 0), # winter wheat
+    78 : (m.Stone.ID, m.Stone.blockData, 2), # Snow
     131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
     132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
     133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
@@ -382,7 +383,7 @@ def buildWorld(x, z):
       start_at -= 1
 #            stop_at -= 1
       
-      if random.random() < 0.2:
+      if random.random() < 0.002:
           Squid = Entity.Create('Squid')
           Entity.setpos(Squid, (x, actual_y - 1, z))
           world.addEntity(Squid)
@@ -569,12 +570,12 @@ def buildWorld(x, z):
                           
                           blockType = bT
           else: # urban but we can't put a house
-              if random.random() < 0.05: # Add a cat
+              if random.random() < 0.005: # Add a cat
                   Cat = Entity.Create('Ocelot')
                   Entity.setpos(Cat, (x, actual_y + 2, z)) # Where to put it
                   Cat['CatType'] = nbt.TAG_Int(random.choice([1,2,3])) # What kind of cat
                   world.addEntity(Cat) # Add it
-              if random.random() < 0.15: # Add a person
+              if random.random() < 0.015: # Add a person
                   Villager = Entity.Create('Villager')
                   Entity.setpos(Villager, (x, actual_y + 2, z)) # Where to put it
                   Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
@@ -653,12 +654,12 @@ def buildWorld(x, z):
                           
                           blockType = bT
           else: # urban but we can't put a house
-              if random.random() < 0.01: # Add a cat
+              if random.random() < 0.001: # Add a cat
                   Cat = Entity.Create('Ocelot')
                   Entity.setpos(Cat, (x, actual_y + 2, z)) # Where to put it
                   Cat['CatType'] = nbt.TAG_Int(random.choice([1,2,3])) # What kind of cat
                   world.addEntity(Cat) # Add it
-              if random.random() < 0.075: # Add a person
+              if random.random() < 0.0075: # Add a person
                   Villager = Entity.Create('Villager')
                   Entity.setpos(Villager, (x, actual_y + 2, z)) # Where to put it
                   Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
@@ -683,21 +684,21 @@ def buildWorld(x, z):
           else:
               world.setBlockAt(x, elev + 1, z , 38)
               world.setBlockDataAt(x, elev + 1, z, 3)
-      if random.random() < 0.01: # add Sheep
+      if random.random() < 0.001: # add Sheep
           Sheep = Entity.Create('Sheep')
           Entity.setpos(Sheep, (x, actual_y + 3, z))
           Sheep['Variant'] = nbt.TAG_Int(random.choice([0]))
           world.addEntity(Sheep)
   
   elif my_id == 13: # improved grassland #1
-      if random.random() < 0.01: # add Pig
+      if random.random() < 0.001: # add Pig
           Pig = Entity.Create('Pig')
           Entity.setpos(Pig, (x, actual_y + 3, z))
           Pig['Variant'] = nbt.TAG_Int(random.choice([0]))
           world.addEntity(Pig)        
 
   elif my_id == 132: # improved grassland #2
-      if random.random() < 0.01: # add Cow
+      if random.random() < 0.001: # add Cow
           Cow = Entity.Create('Cow')
           Entity.setpos(Cow, (x, actual_y + 3, z))
           Cow['Variant'] = nbt.TAG_Int(random.choice([0]))
@@ -705,8 +706,8 @@ def buildWorld(x, z):
 
   elif my_id == 133: # lowland meadows
       choice = random.random()
-      if choice < 0.02:
-          if choice < 0.008: # add horse
+      if choice < 0.002:
+          if choice < 0.1: # add horse
               Horse = Entity.Create('Horse')
               Entity.setpos(Horse, (x, actual_y + 3, z))
               Horse['Variant'] = nbt.TAG_Int(random.choice([0]))
@@ -717,12 +718,10 @@ def buildWorld(x, z):
               Entity.setpos(Rabbit, (x, actual_y + 3, z))
               Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
               world.addEntity(Rabbit)
-              
   # add snow
-  if actual_y > 80:
-    if my_id != m.WaterActive.ID:
-      world.setBlockAt(x, actual_y + 1, z, m.SnowLayer.ID)
-
+  elif my_id == 78:
+    world.setBlockAt(x, elev + 1, z, m.SnowLayer.ID)
+    
 xall = range(len(elevation))
 zall = range(len(elevation[0]))
 

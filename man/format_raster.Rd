@@ -5,7 +5,7 @@
 \title{Convert rasters for mapping}
 \usage{
 format_raster(lcm, dtm, name = "MyWorld", outDir = tempdir(),
-  exagerate_elevation = 2)
+  exagerate_elevation = 2, snow_height = 700)
 }
 \arguments{
 \item{lcm}{Raster of the Land Cover Map}
@@ -17,6 +17,8 @@ format_raster(lcm, dtm, name = "MyWorld", outDir = tempdir(),
 \item{outDir}{Character, the location the save the results, usually a temporary location}
 
 \item{exagerate_elevation}{How much should elevation be exaggerated by?}
+
+\item{snow_height}{the height above which snow will appear. Defaults to 700m above sea level}
 }
 \value{
 A list of length 2. first element is the path to the dtm, second is the lcm
