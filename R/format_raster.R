@@ -27,6 +27,14 @@ format_raster <- function(lcm,
   # Use the DTM so set regions where there should be snow
   lcm[dtm > snow_height] <- 78
   
+  for(i in seq(20, 200, 20)){
+    temp <- lcm[dtm > (snow_height - i) & dtm > ((snow_height - i) + 20)]
+    prob <- 1 - (i / 200)
+    temp[runif(length(temp)) < prob] <- 78
+    lcm[dtm > (snow_height - i) & dtm > ((snow_height - i) + 20)] <- temp
+  }
+  
+  lcm[dtm > (snow_height - 100)]
   # Set the y scaling to be the same as the x and y
   dtm <- round(raster::as.matrix(dtm)/(25/exagerate_elevation))
   
