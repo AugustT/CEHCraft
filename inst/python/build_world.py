@@ -299,7 +299,7 @@ glass_bottom_left = list(bedrock_bottom_left)
 #glass_bottom_left[1] += 1
 glass_upper_right = [x_extent + extra_space+1, 255, z_extent + extra_space+1]
 
-air_bottom_left = (0,y_min,0)
+air_bottom_left = [0,y_min,0]
 air_upper_right = [x_extent, 255, z_extent]
 
 # Glass walls
@@ -351,7 +351,7 @@ def buildWorld(x, z):
   block_id, block_data, depth = block_id_lookup[my_id]
   actual_y = y + y_min
   if actual_y > peak[1] or (peak[1] == 255 and y != 0):
-      peak = [x + 1, actual_y + 5, z]
+      peak = [x + 1, actual_y + 15, z]
 
   # Don't fill up the whole map from bedrock, just draw a shell.
   # this means there is a big cavern under everything... i think
@@ -527,19 +527,28 @@ def buildWorld(x, z):
               
       if numpy.all(material[x-W:x+W, z-D:z+D] == 25): # Block of urban
                  
-          MatPres = [] # empty array to get materials present
+          #MatPres = [] # empty array to get materials present
+          
+          empty = 0
           
           for nY in range(actual_y + 1, actual_y + H + 2): # Loop through and see what is there
               for nX in range(x - W - 1, x + W + 1): # extend x and y to allow 'streets'
                   for nZ in range(z - D - 1, z + D + 1):
-                       MatPres.append(world.blockAt(nX,nY,nZ))
+                       if world.blockAt(nX,nY,nZ) != 0:
+                         empty = 1
+                         break
+                  if empty == 1:
+                    break
+              if empty == 1:
+                break
                        
-          if all(item == 0 for item in MatPres): # If we have space to build the house
-              
+          # if all(item == 0 for item in MatPres): # If we have space to build the house
+          if empty == 0:
+
               wallMat = random.choice([(125,2), (98,0), (45,0)])
-              
+
               for nY in range(actual_y - 1, actual_y + H + 1): # Loop through and build the house
-                  
+
                   # set block type for level
                   if nY == max(range(actual_y + 1, actual_y + H + 1)): # Roof
                       blockType = random.choice([(44,0), (44,1), (44,5)])
@@ -547,28 +556,29 @@ def buildWorld(x, z):
                       blockType = (m.Glass.ID, 0)
                   else: # Wall
                       blockType = wallMat
-                      
+
                   for nX in range(x - W, x + W):
-                      
+
                       # make pillars and place block
                       for nZ in range(z - D, z + D):
-                          
+
                           bT = blockType # save to reset
-                          
+
                           # Make pillars
                           xEdge = nX == min(range(x - W, x + W)) or nX == max(range(x - W, x + W))
                           zEdge = nZ == min(range(z - D, z + D)) or nZ == max(range(z - D, z + D))
                           if xEdge and zEdge:
                                   if nY != max(range(actual_y + 1, actual_y + H + 1)):
-                                      blockType = wallMat                       
-                          
+                                      blockType = wallMat
+
                           if nY - actual_y < 1:
                               blockType = (1, 6)
-                          
+
                           world.setBlockAt(nX, nY, nZ, blockType[0])
                           world.setBlockDataAt(nX, nY, nZ, blockType[1])
-                          
+
                           blockType = bT
+              
           else: # urban but we can't put a house
               if random.random() < 0.005: # Add a cat
                   Cat = Entity.Create('Ocelot')
@@ -611,15 +621,24 @@ def buildWorld(x, z):
               
       if numpy.all(material[x-W:x+W, z-D:z+D] == 251): # Block of urban
                  
-          MatPres = [] # empty array to get materials present
+          #MatPres = [] # empty array to get materials present
+          
+          empty = 0
           
           for nY in range(actual_y + 1, actual_y + H + 2): # Loop through and see what is there
               for nX in range(x - W - 2, x + W + 2): # extend x and y to allow 'streets'
                   for nZ in range(z - D - 1, z + D + 1):
-                       MatPres.append(world.blockAt(nX,nY,nZ))
+                       if world.blockAt(nX,nY,nZ) != 0:
+                         empty = 1
+                         break
+                  if empty == 1:
+                    break
+              if empty == 1:
+                break
                        
-          if all(item == 0 for item in MatPres): # If we have space to build the house
-              
+          # if all(item == 0 for item in MatPres): # If we have space to build the house
+          if empty == 0:
+            
               wallMat = random.choice([(43,2), (5,0), (5,2)])
               
               for nY in range(actual_y - 1, actual_y + H + 1): # Loop through and build the house
