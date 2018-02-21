@@ -365,7 +365,7 @@ def buildWorld(x, z):
       if map_type == 'map' or elev == stop_at - 1:
           block = m.Stone.ID
       else:
-          block = random_material()
+          block = m.Stone.ID
       world.setBlockAt(x,elev,z, block)
 
   # now place the materials
