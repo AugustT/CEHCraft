@@ -9,6 +9,7 @@
 #' @param name Character, the name of the map, ususally the location
 #' @param outDir Character, the location the save the results, usually a temporary location
 #' @param exagerate_elevation How much should elevation be exaggerated by?
+#' @param snow_height the height above which snow will appear. Defaults to 700m above sea level
 #' 
 #' @import raster
 #' 
@@ -20,8 +21,20 @@ format_raster <- function(lcm,
                           dtm,
                           name = 'MyWorld',
                           outDir = tempdir(),
-                          exagerate_elevation = 2){
+                          exagerate_elevation = 2,
+                          snow_height = 700){
   
+  # Use the DTM so set regions where there should be snow
+  lcm[dtm > snow_height] <- 78
+  
+  for(i in seq(20, 200, 20)){
+    temp <- lcm[dtm > (snow_height - i) & dtm > ((snow_height - i) + 20)]
+    prob <- 1 - (i / 200)
+    temp[runif(length(temp)) < prob] <- 78
+    lcm[dtm > (snow_height - i) & dtm > ((snow_height - i) + 20)] <- temp
+  }
+  
+  lcm[dtm > (snow_height - 100)]
   # Set the y scaling to be the same as the x and y
   dtm <- round(raster::as.matrix(dtm)/(25/exagerate_elevation))
   
@@ -93,11 +106,14 @@ format_raster <- function(lcm,
   # rotate to get north in the right place
   lcm <- t(apply(lcm, 2, rev))
   
+  # Add snow to this bit
   for(i in unique(as.vector(lcm))){
     if(i %in% lcm_class$LCLU){
       lcm[lcm == i] <- lcm_class$EUNIS2_CODE[lcm_class$LCLU == i]
     } else if(i == 250){ #sea
       lcm[lcm == i] <- 4 # sea = water
+    } else if(i == 78){ #snow
+      # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass
     }

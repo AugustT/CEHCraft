@@ -17,8 +17,8 @@ overview <- function(savePath, outPath = '.', launch = TRUE){
   dir.create(outPath, showWarnings = FALSE, recursive = TRUE)
   
   # Build up args in a vector
-  args = c(normalizePath(savePath),
-           normalizePath(outPath))
+  args = c(make_quote(normalizePath(savePath)),
+           make_quote(normalizePath(outPath)))
   
   # path to overview.exe
   OVpath <- system.file(package = 'CEHcraft', 'overview','overviewer.exe')
