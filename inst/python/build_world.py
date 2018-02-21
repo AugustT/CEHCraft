@@ -81,7 +81,7 @@ block_id_lookup = {
     131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
     132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
     133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
-    999 : (m.NoteBlock.ID, m.NoteBlock.blockData, 1), # unknown
+    999 : (25, 0, 2), # unknown
 }
 
 
@@ -397,9 +397,9 @@ def buildWorld(x, z):
       world.setBlockAt(x, elev + 1, z , 31)
       world.setBlockDataAt(x, elev + 1, z, 2)
   
-  elif my_id == 11: # Marsh fens and swamp
-      world.setBlockAt(x, elev + 1, z , 83)
-      world.setBlockDataAt(x, elev + 1, z, 2)
+  #elif my_id == 11: # Marsh fens and swamp
+  #    world.setBlockAt(x, elev + 1, z , 83)
+  #    world.setBlockDataAt(x, elev + 1, z, 2)
   
   #if my_id == 13: # Improved grassland
   #    world.setBlockAt(x, elev + 1, z , 31)
