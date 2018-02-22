@@ -362,11 +362,11 @@ def buildWorld(x, z):
   # then sprinkle goodies into it.
   stop_at = actual_y-depth
   for elev in range(start_at, stop_at):
-      if map_type == 'map' or elev == stop_at - 1:
-          block = m.Stone.ID
-      else:
-          block = 7
-      world.setBlockAt(x,elev,z, block)
+  #    if map_type == 'map' or elev == stop_at - 1:
+  #        block = m.Stone.ID
+  #    else:
+  #        block = 7
+    world.setBlockAt(x,elev,z, 7)
 
   # now place the materials
   start_at = actual_y - depth
@@ -389,8 +389,8 @@ def buildWorld(x, z):
           world.addEntity(Squid)
           
       if random.random() < 0.1: # Farm - spring barley
-          world.setBlockAt(x, elev - 1, z , 111)
-          world.setBlockDataAt(x, elev - 1, z, 0)
+          world.setBlockAt(x, elev +2, z , 111)
+          world.setBlockDataAt(x, elev +2, z, 0)
   
   for elev in range(start_at, stop_at):
       world.setBlockAt(x, elev, z, block_id)
