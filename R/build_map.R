@@ -18,23 +18,16 @@
 build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(dtm))),
                       outDir = '.', verbose = FALSE){
   
-  # get quotes correct
-  enquote <- function(x){
-    xn <- gsub('\\\\', '\\\\\\\\', as.character(x))
-    xf <- gsub("'", '', gsub('"', '', xn))
-    return(paste0('"', xf, '"'))
-  }
-  
-  python_script <- enquote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'build_world.py')))
+  python_script <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'build_world.py')))
   
   # Build up args in a vector
-  suppressWarnings({worlddir <- enquote(normalizePath(file.path(outDir, name)))})
+  suppressWarnings({worlddir <- make_quote(normalizePath(file.path(outDir, name)))})
   out_filename <- name
-  dtm_filename <- enquote(normalizePath(dtm))
-  lcm_filename <- enquote(normalizePath(lcm))
+  dtm_filename <- make_quote(normalizePath(dtm))
+  lcm_filename <- make_quote(normalizePath(lcm))
   tf <- tempfile(fileext = '.txt')
-  tt1 <- enquote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop1.csv')))
-  tt2 <- enquote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop2.csv')))
+  tt1 <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop1.csv')))
+  tt2 <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'treetop2.csv')))
   # cat(tf, '\n')
   
   args = c(worlddir, out_filename, dtm_filename, lcm_filename, tf, tt1, tt2)
