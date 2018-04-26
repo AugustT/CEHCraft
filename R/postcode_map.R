@@ -46,20 +46,20 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   
   if(includeRoads){
     
-    uk_roads_123 <- sf::st_read("W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
-    uk_roads_motorway <- sf::st_read("W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
+    uk_roads_123 <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
+    uk_roads_motorway <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
     
     motorways <- crop_road_layer(postcode = postcode,
                                  radius_m = radius,
-                                 layer = uk_roads_motorway,
-                                 buffer = 25,
+                                 roads = uk_roads_motorway,
+                                 buffer = 60,
                                  road_type = 100)
     
-    uk_roads_crop_r <- crop_road_layer(postcode = postcode,
+    otherroads <- crop_road_layer(postcode = postcode,
                                   radius_m = radius,
-                                  layer = uk_roads_123,
-                                  buffer = 15,
-                                  road_type = 200)
+                                  roads = uk_roads_123,
+                                  buffer = 30,
+                                  road_type = 101)
     
     uk_roads_crop <- rbind(motorways, otherroads)
     
@@ -69,18 +69,20 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                                          field = 'road_type')
     
     # Add bridges as '101' class
-    uk_roads_crop_r[lcm_cr == 4 & !is.na(uk_roads_crop_r)] <- 101
+    uk_roads_crop_r[round(lcm_cr, digits = 3) == 1.008 & !is.na(uk_roads_crop_r)] <- 102
     
     uk_roads_crop_r[is.na(uk_roads_crop_r)] <- lcm_cr[is.na(uk_roads_crop_r)]
     lcm_cr <- uk_roads_crop_r
     
-    rm(list = c('uk_roads_crop_r','uk_roads_crop_r','motorways'))
+    rm(list = c('uk_roads_crop','uk_roads_crop_r','motorways'))
     
   }
   
   cat('Formatting lcm and dtm...')  
-  formatted_maps <- format_raster(lcm = lcm_cr, dtm = elev_cr,
-                                  name = postcode, exagerate_elevation = exagerate_elevation)
+  formatted_maps <- format_raster(lcm = lcm_cr,
+                                  dtm = elev_cr,
+                                  name = postcode,
+                                  exagerate_elevation = exagerate_elevation)
   
 
   

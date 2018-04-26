@@ -78,6 +78,9 @@ block_id_lookup = {
     37 : (m.Farmland.ID, 7, 0), # winter barley
     38 : (m.Farmland.ID, 7, 0), # winter wheat
     78 : (m.Stone.ID, m.Stone.blockData, 2), # Snow
+    100 : (159, 7, 1), # motorway
+    101 : (159, 15, 1), # other roads
+    102 : (m.WaterActive.ID, m.WaterActive.blockData, 1), # bridges (all road types)
     131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
     132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
     133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
@@ -516,6 +519,10 @@ def buildWorld(x, z):
   elif my_id == 38: # Farm - winter wheat
       world.setBlockAt(x, elev + 1, z , m.Crops.ID)
       world.setBlockDataAt(x, elev + 1, z, 6)
+      
+  elif my_id == 102: # bridge
+      world.setBlockAt(x, elev + 1, z , 44)
+      world.setBlockDataAt(x, elev + 1, z, 5)
   
   elif my_id == 25: # Urban
       

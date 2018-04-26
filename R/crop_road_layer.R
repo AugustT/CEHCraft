@@ -17,9 +17,7 @@
 #' @import raster
 
 crop_road_layer <-
-  function(postcode='OX108BB',radius_m=5000,layer=NULL,buffer=15,road_type=100){
-    
-    roads <- sf::st_read(layer)
+  function(postcode='OX108BB',radius_m=5000,roads=NULL,buffer=15,road_type=100){
     
     # # flip lat for minecraft #
     # roads <- roads[, rev(1:ncol(roads))]
@@ -27,7 +25,7 @@ crop_road_layer <-
     # # rotate to get north in the right place
     # roads <- t(apply(roads, 2, rev))
     
-    sf::st_crs(roads) <- 27700
+    suppressWarnings(sf::st_crs(roads) <- 27700)
    
     location_pt <- geoaddress_uk(postcode)
     a_sf <- sf::st_sfc(sf::st_point(c(location_pt$result$longitude,location_pt$result$latitude)))
@@ -41,7 +39,7 @@ crop_road_layer <-
     roads_buffered <- sf::st_buffer(roads_crop, buffer)
 
     ## give distinct values to motorways and roads
-    roads_buffered$road_type <- road_type
+    if(length(roads_buffered$geometry) > 0) roads_buffered$road_type <- road_type
     
     return(roads_buffered)
   }

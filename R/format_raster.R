@@ -114,6 +114,8 @@ format_raster <- function(lcm,
       lcm[lcm == i] <- 4 # sea = water
     } else if(i == 78){ #snow
       # do nothing
+    } else if(i %in% 100:102){ #roads
+      # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass
     }

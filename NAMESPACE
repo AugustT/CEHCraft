@@ -2,6 +2,7 @@
 
 export(build_map)
 export(crop_layer)
+export(crop_road_layer)
 export(format_raster)
 export(geoaddress_uk)
 export(overview)
