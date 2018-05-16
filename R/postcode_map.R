@@ -9,6 +9,7 @@
 #' @param radius Numeric, radius of the map in meters
 #' @param outputDir Character, path to output directory
 #' @param exagerate_elevation The factor by which elevation should be exaggerated
+#' @param includeRoads logical, if TRUE roads are added
 #' @param verbose Should python progress be printed. This is a bit buggy.
 #'  
 #' @export
@@ -21,7 +22,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                           radius = 2500,
                           outputDir = '.',
                           exagerate_elevation = 2,
-                          includeRoads = FALSE,
+                          includeRoads = TRUE,
                           verbose = FALSE){
   
   postcode <- toupper(gsub(' ', '', postcode))
