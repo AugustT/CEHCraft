@@ -15,9 +15,10 @@
 #' 
 #' @return Path to the minecraft map
 
-build_map <- function(lcm, dtm, name = gsub('^dtm-','',gsub('.csv$','',basename(dtm))),
+build_map <- function(lcm, dtm, name = NULL,
                       outDir = '.', verbose = FALSE){
   
+  if(is.null(name)) name = gsub('^dtm-','',gsub('.csv$','',basename(dtm)))
   python_script <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'build_world.py')))
   
   # Build up args in a vector

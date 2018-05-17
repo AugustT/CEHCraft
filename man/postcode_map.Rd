@@ -7,8 +7,9 @@
 
   postcode_map(lcm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif"),
   dtm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif"),
-  postcode = "OX108BB", radius = 2500, outputDir = ".",
-  exagerate_elevation = 2, includeRoads = FALSE, verbose = FALSE)
+  postcode = "OX108BB", name = NULL, radius = 2500, outputDir = ".",
+  exagerate_elevation = 2, includeRoads = TRUE, verbose = FALSE,
+  agri_ex = FALSE)
 }
 \arguments{
 \item{lcm_raster}{lcm raster. Defaults to files on W drive}
@@ -17,13 +18,19 @@
 
 \item{postcode}{Character, valid UK postcode to centre map on.}
 
+\item{name}{Character, the name to give the save file, if null (default) the postcode is used}
+
 \item{radius}{Numeric, radius of the map in meters}
 
 \item{outputDir}{Character, path to output directory}
 
 \item{exagerate_elevation}{The factor by which elevation should be exaggerated}
 
+\item{includeRoads}{logical, if TRUE roads are added}
+
 \item{verbose}{Should python progress be printed. This is a bit buggy.}
+
+\item{agri_ex}{Logical, should the agricultural expansion scenario be applied?}
 }
 \value{
 Path to the minecraft map

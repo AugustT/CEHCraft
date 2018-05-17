@@ -6,11 +6,13 @@
 #' @param lcm_raster lcm raster. Defaults to files on W drive
 #' @param dtm_raster lcm raster. Defaults to files on W drive
 #' @param postcode Character, valid UK postcode to centre map on.
+#' @param name Character, the name to give the save file, if null (default) the postcode is used
 #' @param radius Numeric, radius of the map in meters
 #' @param outputDir Character, path to output directory
 #' @param exagerate_elevation The factor by which elevation should be exaggerated
 #' @param includeRoads logical, if TRUE roads are added
 #' @param verbose Should python progress be printed. This is a bit buggy.
+#' @param agri_ex Logical, should the agricultural expansion scenario be applied?
 #'  
 #' @export
 #' 
@@ -19,11 +21,13 @@
 postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
                           dtm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif'),
                           postcode = 'OX108BB',
+                          name = NULL,
                           radius = 2500,
                           outputDir = '.',
                           exagerate_elevation = 2,
                           includeRoads = TRUE,
-                          verbose = FALSE){
+                          verbose = FALSE,
+                          agri_ex = FALSE){
   
   postcode <- toupper(gsub(' ', '', postcode))
   
@@ -47,6 +51,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   
   if(includeRoads){
     
+    cat('Adding roads')
     uk_roads_123 <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
     uk_roads_motorway <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
     
@@ -76,7 +81,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
     lcm_cr <- uk_roads_crop_r
     
     rm(list = c('uk_roads_crop','uk_roads_crop_r','motorways'))
-    
+    cat('done\n')
   }
   
   cat('Formatting lcm and dtm...')  
@@ -85,14 +90,15 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                                   name = postcode,
                                   exagerate_elevation = exagerate_elevation)
   
-
-  
   cat('\ndone\n')
+  
+  if(agri_ex) agricultural_expansion(formatted_maps[[1]])
   
   cat('Creating Minecraft World\n')  
   map_path <- build_map(lcm = formatted_maps[[1]],
                         dtm = formatted_maps[[2]],
                         outDir = outputDir,
-                        verbose = verbose)
+                        verbose = verbose,
+                        name = name)
   
 }
