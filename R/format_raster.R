@@ -114,6 +114,8 @@ format_raster <- function(lcm,
       lcm[lcm == i] <- 4 # sea = water
     } else if(i == 78){ #snow
       # do nothing
+    } else if(i %in% 100:102){ #roads
+      # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass
     }
@@ -124,6 +126,7 @@ format_raster <- function(lcm,
   write.table(lcm, file = lcm_path, sep = ',',
               row.names = FALSE, col.names = FALSE)
   
-  return(list(lcm_path = lcm_path, dtm_path = dtm_path))
+  return(list(lcm_path = lcm_path, dtm_path = dtm_path,
+              lcm_ras = lcm, dtm_ras = dtm))
   
 }
