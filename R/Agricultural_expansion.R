@@ -38,16 +38,18 @@ agricultural_expansion <- function(lcm_path,
   # expand by 20%
   to_convert_IG <- getClumpsToconvert(improved_grassland, arable, arable_expansion)
   
-  ## Add conversion of semi-natural grassland if not enough ##
-  if(attr(to_convert_IG, 'needed') != 0){
-    to_convert_IG <- c(getClumpsToconvert(seminatural_grassland, arable, 
-                                          target_area = attr(to_convert_IG, 'needed')),
-                       to_convert_IG)
-  }
-  
   # add these conversions to LCM as random
   for(i in to_convert_IG){
     lcm[improved_grassland %in% i] <- sample(c(29:38), size = 1)
+  }
+  
+  ## Add conversion of semi-natural grassland if not enough ##
+  if(attr(to_convert_IG, 'needed') != 0){
+    to_convert_IG2 <- getClumpsToconvert(seminatural_grassland, arable, 
+                                          target_area = attr(to_convert_IG, 'needed'))
+    for(i in to_convert_IG2){
+      lcm[seminatural_grassland %in% i] <- sample(c(29:38), size = 1)
+    }
   }
   
   # now recreate arable and improved_grassland
@@ -74,16 +76,18 @@ agricultural_expansion <- function(lcm_path,
   to_convert_SNG <- getClumpsToconvert(seminatural_grassland, improved_grassland, 
                                        target_area = target_area)
   
-  ## ADD heathland conversion if needed ##
-  if(attr(to_convert_SNG, 'needed') != 0){
-    to_convert_SNG <- c(getClumpsToconvert(heathland, improved_grassland, 
-                                           target_area = attr(to_convert_SNG, 'needed')),
-                        to_convert_SNG)
-  }
-  
   # add these conversions to LCM as random
   for(i in to_convert_SNG){
-    lcm[improved_grassland %in% i] <- sample(c(13, 132), size = 1)
+    lcm[seminatural_grassland %in% i] <- sample(c(13, 132), size = 1)
+  }
+  
+  ## ADD heathland conversion if needed ##
+  if(attr(to_convert_SNG, 'needed') != 0){
+    to_convert_SNG <- getClumpsToconvert(heathland, improved_grassland, 
+                                           target_area = attr(to_convert_SNG, 'needed'))
+    for(i in to_convert_SNG){
+      lcm[heathland %in% i] <- sample(c(13, 132), size = 1)
+    }
   }
   
   write.table(round(raster::as.matrix(lcm), digits = 3), file = lcm_path, sep = ',',

@@ -1,24 +1,6 @@
-#' Create Minecraft world from Postcode
-#' 
-#' This wraps around other functions to create a minecraft world
-#' from a postcode.
-#' 
-#' @param lcm_raster lcm raster. Defaults to files on W drive
-#' @param dtm_raster lcm raster. Defaults to files on W drive
-#' @param postcode Character, valid UK postcode to centre map on.
-#' @param name Character, the name to give the save file, if null (default) the postcode is used
-#' @param radius Numeric, radius of the map in meters
-#' @param outputDir Character, path to output directory
-#' @param exagerate_elevation The factor by which elevation should be exaggerated
-#' @param includeRoads logical, if TRUE roads are added
-#' @param verbose Should python progress be printed. This is a bit buggy.
-#' @param agri_ex Logical, should the agricultural expansion scenario be applied?
-#'  
-#' @export
-#' 
-#' @return Path to the minecraft map
+# Combining worlds
 
-postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
+build_map_csvs <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
                           dtm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif'),
                           postcode = 'OX108BB',
                           name = NULL,
@@ -33,7 +15,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   postcode <- toupper(gsub(' ', '', postcode))
   
   if(agri_ex & seminat_exp) stop('Only one scenario can be applied at a time')
-    
+  
   cat('\n\n##########################',
       '\nBuilding world for', postcode,
       '\n##########################\n\n')
@@ -76,8 +58,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   waterways <- rbind(small_rivers, big_rivers, canals)
   
   uk_waterways <- raster::rasterize(as(waterways,'Spatial'),
-                                       lcm_cr,
-                                       field = 'out_type')
+                                    lcm_cr,
+                                    field = 'out_type')
   
   #smooth dtm
   smooth_elev_cr <- raster::focal(elev_cr, matrix(1,7,7), min, na.rm = TRUE, pad = TRUE)
@@ -134,26 +116,47 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                                   dtm = elev_cr,
                                   name = postcode,
                                   exagerate_elevation = exagerate_elevation)
-  
-  cat('\ndone\n')
-  
-  if(agri_ex){
-    cat('Applying agricultural expansion ...')  
-    agricultural_expansion(formatted_maps[[1]])
-    cat('done\n')
-  } 
-  
-  if(seminat_exp){
-    cat('Applying semi-natural expansion ...')  
-    seminatural_expansion(formatted_maps[[1]])
-    cat('done\n')
-  } 
-  
-  cat('Creating Minecraft World\n')  
-  map_path <- build_map(lcm = formatted_maps[[1]],
-                        dtm = formatted_maps[[2]],
-                        outDir = outputDir,
-                        verbose = verbose,
-                        name = name)
-  
 }
+
+
+norm <- build_map_csvs()
+agri <- build_map_csvs(agri_ex = TRUE)
+seminat <- build_map_csvs(seminat_exp = TRUE)
+wall_V <- matrix(888, nrow(norm[[3]]), 1)
+wall_H <- matrix(888, 1, (ncol(norm[[3]])*3)+2)
+
+combo_lcm <- rbind(cbind(norm[['lcm_ras']], wall_V,
+                         agri[['lcm_ras']], wall_V,
+                         seminat[['lcm_ras']]),
+                   wall_H,
+                   cbind(seminat[['lcm_ras']], wall_V,
+                         agri[['lcm_ras']], wall_V,
+                         norm[['lcm_ras']]))
+raster::plot(raster::raster(combo_lcm))
+
+wall_V <- matrix(0, nrow(norm[[3]]), 1)
+wall_H <- matrix(0, 1, (ncol(norm[[3]])*3)+2)
+
+combo_dtm <- rbind(cbind(norm[['dtm_ras']], wall_V,
+                         agri[['dtm_ras']], wall_V,
+                         seminat[['dtm_ras']]),
+                   wall_H,
+                   cbind(seminat[['dtm_ras']], wall_V,
+                         agri[['dtm_ras']], wall_V,
+                         norm[['dtm_ras']]))
+
+raster::plot(raster::raster(combo_dtm))
+
+lcm_file <- tempfile()
+write.table(combo_lcm, file = lcm_file, sep = ',',
+            row.names = FALSE, col.names = FALSE)
+
+dtm_file <- tempfile()
+write.table(combo_lcm, file = dtm_file, sep = ',',
+            row.names = FALSE, col.names = FALSE)
+
+map_path <- build_map(lcm = lcm_file,
+                      dtm = dtm_file,
+                      outDir = 'misc/worlds',
+                      verbose = verbose,
+                      name = 'duxford_combo')
