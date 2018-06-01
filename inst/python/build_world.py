@@ -84,9 +84,10 @@ block_id_lookup = {
     131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
     132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
     133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
-    999 : (25, 0, 2), # unknown
+    999 : (25, 0, 2), # unknown (Saline lagoons)
 	313 : (m.Grass.ID, m.Grass.blockData, 2), # Meadows and improved grassland
 	314 : (m.Grass.ID, m.Grass.blockData, 2), # Meadows and improved grassland
+	888 : (20, 0, 2), # Meadows and improved grassland
 }
 
 
@@ -392,9 +393,10 @@ def buildWorld(x, z):
           Squid = Entity.Create('Squid')
           Entity.setpos(Squid, (x, actual_y - 1, z))
           world.addEntity(Squid)
-          
-      if random.random() < 0.1: # Farm - spring barley
-          world.setBlockAt(x, elev +2, z , 111)
+      
+      # GP TO GET THESE TO WORK THIS    
+      if random.random() < 0.1: 
+          world.setBlockAt(x, elev +2, z , 111) # Lily pad
           world.setBlockDataAt(x, elev +2, z, 0)
   
   for elev in range(start_at, stop_at):
@@ -712,7 +714,7 @@ def buildWorld(x, z):
                   Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
                   world.addEntity(Villager) # Add it                
   
-  elif my_id == 12: # Grassland
+  elif my_id == 12: # Grassland (semi-natural)
       choice = random.random()
       if choice < 0.5:
           if choice < 0.25:
@@ -763,7 +765,7 @@ def buildWorld(x, z):
               Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
               world.addEntity(Rabbit)
 	
-  elif my_id == 314: # Good quality semi-improved grassland - UPDATE THIS TO ADD MORE FLOWER DIVERSITY
+  elif my_id == 314: # Upland Hay Meadow - UPDATE THIS TO ADD MORE FLOWER DIVERSITY
       choice = random.random()
       if choice < 0.6:
           if choice < 0.08: # add Rabbit
@@ -773,7 +775,7 @@ def buildWorld(x, z):
               world.addEntity(Rabbit)
           else:
               world.setBlockAt(x, elev + 1, z , 38)
-              world.setBlockDataAt(x, elev + 1, z, 0)# add flower
+              world.setBlockDataAt(x, elev + 1, z, 5)# add flower
 	
   elif my_id == 132: # improved grassland #2
       if random.random() < 0.01: # add Cow
@@ -794,7 +796,13 @@ def buildWorld(x, z):
   # add snow
   elif my_id == 78:
     world.setBlockAt(x, elev + 1, z, m.SnowLayer.ID)
-    
+  
+  # add glass walls between walls  
+  elif my_id == 888: # glass wall
+    for nY in range(0,200): # Loop through and build the house
+      world.setBlockAt(x, nY, z , 20)            
+      world.setBlockDataAt(x, nY, z, 0)          
+                        
 xall = range(len(elevation))
 zall = range(len(elevation[0]))
 
