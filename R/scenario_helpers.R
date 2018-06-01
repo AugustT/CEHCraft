@@ -27,6 +27,11 @@ getClumpsToconvert <- function(from, to, expansion_of_to = NULL, target_area = N
   
   if(is.null(target_area)){
     target_area <- expansion_of_to * to_area
+    if(target_area < 20){ # will be 0 if none already exists... in which case still covert some
+    
+        target_area <- expansion_of_to * sum(freq(from)[2:nrow(freq(from)),2])
+      
+      }
   }
   
   freq_from <- freq(from)

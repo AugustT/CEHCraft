@@ -9,7 +9,7 @@
   dtm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif"),
   postcode = "OX108BB", name = NULL, radius = 2500, outputDir = ".",
   exagerate_elevation = 2, includeRoads = TRUE, verbose = FALSE,
-  agri_ex = FALSE)
+  agri_ex = FALSE, seminat_exp = FALSE)
 }
 \arguments{
 \item{lcm_raster}{lcm raster. Defaults to files on W drive}
