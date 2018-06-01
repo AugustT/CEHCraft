@@ -57,7 +57,7 @@ format_raster <- function(lcm,
   }
   
   # rotate to get north in the right place
-  dtm <- t(apply(dtm, 2, rev))
+  dtm <- apply(t(dtm),2,rev)
   
   cat('\nMinimum height: ', min(dtm))
   cat('\nMaximum height: ', max(dtm))
@@ -104,7 +104,7 @@ format_raster <- function(lcm,
   lcm <- lcm[, rev(1:ncol(lcm))]
   
   # rotate to get north in the right place
-  lcm <- t(apply(lcm, 2, rev))
+  lcm <- apply(t(lcm),2,rev)
   
   # Add snow to this bit
   for(i in unique(as.vector(lcm))){

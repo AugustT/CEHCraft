@@ -62,20 +62,22 @@ convert_within_clumps <- function(clumps, id_to_expand, proportion_needed, ids_t
   freq_a <- freq(clumps)[2:nrow(freq(clumps)),]
   tot_ara <- sum(freq_a[,2])
   current_area <- sum(freq_a[freq_a[,1]>=(id_to_expand*1000) & freq_a[,1]<((id_to_expand+1)*1000),2])
-  target_area <- (tot_ara*proportion_needed) - current_area 
-  freq_tochange <- freq_a[freq_a[,1]<(id_to_expand*1000) | freq_a[,1]>=((id_to_expand+1)*1000),]
+  target_area <- tot_ara*proportion_needed 
+  freq_tochange <- freq_a[freq_a[,1] < (id_to_expand * 1000) | freq_a[,1] >= ((id_to_expand + 1) * 1000),]
   if(!is.null(ids_to_not_change)){
     for(i in ids_to_not_change){
-      freq_tochange <- freq_tochange[freq_tochange[,1]<(i*1000) | freq_tochange[,1]>=((i+1)*1000),]
+      freq_tochange <- freq_tochange[freq_tochange[,1]<(i*1000) | freq_tochange[,1]>=((i+1)*1000),,drop=FALSE]
     }
   }
   tot <- 0 
   n <- 1 
+  tc <- NULL
   while(tot < target_area & n != nrow(freq_tochange)){
     to_convert <- freq_tochange[sample(1:nrow(freq_tochange), size = n, replace = FALSE),,drop=FALSE]
+    tc <- to_convert[,1]
     tot = sum(to_convert[,2])
     n = n + 1
   }
   if(tot < target_area){warning('target conversion not reached')}
-  return(to_convert)
+  return(tc)
 }

@@ -4,10 +4,20 @@
 \alias{agricultural_expansion}
 \title{Perform agricultural expansion scenario}
 \usage{
-agricultural_expansion(lcm_path)
+agricultural_expansion(lcm_path, arable_expansion = 0.2,
+  improved_grassland_expansion = 0.1, prop_winter_wheat = 0.55,
+  prop_oilseed_rape = 0.3)
 }
 \arguments{
 \item{lcm_path}{A character string giving the path to the lcm csv}
+
+\item{arable_expansion}{0.2}
+
+\item{improved_grassland_expansion}{0.1}
+
+\item{prop_winter_wheat}{0.55}
+
+\item{prop_oilseed_rape}{0.3}
 }
 \description{
 Perform agricultural expansion scenario
