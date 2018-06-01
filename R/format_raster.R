@@ -119,6 +119,8 @@ format_raster <- function(lcm,
       # do nothing
     } else if(i %in% 100:102){ #roads
       # do nothing
+    } else if(i == 888){ # glass walls
+      # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass
     }
