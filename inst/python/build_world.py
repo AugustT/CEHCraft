@@ -388,14 +388,13 @@ def buildWorld(x, z):
       # Carve a little channel for active water so it doesn't overflow.
       start_at -= 1
 #            stop_at -= 1
-      
-      if random.random() < 0.002:
+      choice = random.random() 
+      if choice < 0.05:
+        if choice < 0.01:
           Squid = Entity.Create('Squid')
           Entity.setpos(Squid, (x, actual_y - 1, z))
           world.addEntity(Squid)
-      
-      # GP TO GET THESE TO WORK THIS    
-      if random.random() < 0.1: 
+        else:
           world.setBlockAt(x, elev +2, z , 111) # Lily pad
           world.setBlockDataAt(x, elev +2, z, 0)
   
@@ -732,7 +731,7 @@ def buildWorld(x, z):
       if choice < 0.2:
           if choice < 0.1:
               world.setBlockAt(x, elev + 1, z , 38)
-              world.setBlockDataAt(x, elev + 1, z, 1)
+              world.setBlockDataAt(x, elev + 1, z, 4)
           else:
               world.setBlockAt(x, elev + 1, z , 38)
               world.setBlockDataAt(x, elev + 1, z, 3)
@@ -752,8 +751,8 @@ def buildWorld(x, z):
 		  
   elif my_id == 313: # Good quality semi-improved grassland
       choice = random.random()
-      if choice < 0.1:
-          if choice < 0.04: # add horse
+      if choice < 0.05:
+          if choice < 0.01: # add horse
               Horse = Entity.Create('Horse')
               Entity.setpos(Horse, (x, actual_y + 3, z))
               Horse['Variant'] = nbt.TAG_Int(random.choice([0]))
