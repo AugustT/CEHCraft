@@ -45,7 +45,7 @@ block_id_lookup = {
     7 : (m.Stone.ID, m.Stone.blockData, 2), # Sea cliffs
     3 : (3, 1, 1), # Salt flats/marsh
     6 : (13, 0, 1), # vegitated shingle
-    8 : (8, 0, 1), # non woodland river
+    8 : (m.WaterActive.ID, m.WaterActive.blockData, 1), # non woodland river
     1 : (m.Dirt.ID, 2, 2), # non woodland bare area
     10 : (3, 2, 0), # Upland fens and swamp
     2 : (4, 0, 1), # littoral rock
@@ -78,13 +78,15 @@ block_id_lookup = {
     37 : (m.Farmland.ID, 7, 0), # winter barley
     38 : (m.Farmland.ID, 7, 0), # winter wheat
     78 : (m.Stone.ID, m.Stone.blockData, 2), # Snow
-    100 : (159, 7, 1), # motorway
+    100 : (35, 7, 1), # motorway
     101 : (159, 15, 1), # other roads
     102 : (m.WaterActive.ID, m.WaterActive.blockData, 1), # bridges (all road types)
     131 : (m.Grass.ID, m.Grass.blockData, 2), # Neutral grassland
     132 : (m.Grass.ID, m.Grass.blockData, 2), # gr (Improved grassland)
     133 : (m.Grass.ID, m.Grass.blockData, 2), # Lowland meadows
     999 : (25, 0, 2), # unknown
+	313 : (m.Grass.ID, m.Grass.blockData, 2), # Meadows and improved grassland
+	314 : (m.Grass.ID, m.Grass.blockData, 2), # Meadows and improved grassland
 }
 
 
@@ -476,9 +478,9 @@ def buildWorld(x, z):
         world.setBlockAt(x, elev + 1, z , 31)
         world.setBlockDataAt(x, elev + 1, z, 1)
                   
-  elif my_id == 24: # inland limestone rock
-      world.setBlockAt(x, elev + 1, z , m.Crops.ID)
-      world.setBlockDataAt(x, elev + 1, z, 6)
+  #elif my_id == 24: # non woodland-Agricultural land
+  #    world.setBlockAt(x, elev + 1, z , m.Crops.ID)
+  #    world.setBlockDataAt(x, elev + 1, z, 6)
               
   elif my_id == 29: # Beetroot
       world.setBlockAt(x, elev + 1, z , 141)
@@ -521,8 +523,8 @@ def buildWorld(x, z):
       world.setBlockDataAt(x, elev + 1, z, 6)
       
   elif my_id == 102: # bridge
-      world.setBlockAt(x, elev + 1, z , 44)
-      world.setBlockDataAt(x, elev + 1, z, 5)
+      world.setBlockAt(x, elev + 2, z , 44)
+      world.setBlockDataAt(x, elev + 2, z, 6)
   
   elif my_id == 25: # Urban
       
@@ -744,19 +746,12 @@ def buildWorld(x, z):
           Pig = Entity.Create('Pig')
           Entity.setpos(Pig, (x, actual_y + 3, z))
           Pig['Variant'] = nbt.TAG_Int(random.choice([0]))
-          world.addEntity(Pig)        
-
-  elif my_id == 132: # improved grassland #2
-      if random.random() < 0.01: # add Cow
-          Cow = Entity.Create('Cow')
-          Entity.setpos(Cow, (x, actual_y + 3, z))
-          Cow['Variant'] = nbt.TAG_Int(random.choice([0]))
-          world.addEntity(Cow) 
-
-  elif my_id == 133: # lowland meadows
+          world.addEntity(Pig)   
+		  
+  elif my_id == 313: # Good quality semi-improved grassland
       choice = random.random()
-      if choice < 0.05:
-          if choice < 0.02: # add horse
+      if choice < 0.1:
+          if choice < 0.04: # add horse
               Horse = Entity.Create('Horse')
               Entity.setpos(Horse, (x, actual_y + 3, z))
               Horse['Variant'] = nbt.TAG_Int(random.choice([0]))
@@ -767,6 +762,35 @@ def buildWorld(x, z):
               Entity.setpos(Rabbit, (x, actual_y + 3, z))
               Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
               world.addEntity(Rabbit)
+	
+  elif my_id == 314: # Good quality semi-improved grassland - UPDATE THIS TO ADD MORE FLOWER DIVERSITY
+      choice = random.random()
+      if choice < 0.6:
+          if choice < 0.08: # add Rabbit
+              Rabbit = Entity.Create('Rabbit')
+              Entity.setpos(Rabbit, (x, actual_y + 3, z))
+              Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
+              world.addEntity(Rabbit)
+          else:
+              world.setBlockAt(x, elev + 1, z , 38)
+              world.setBlockDataAt(x, elev + 1, z, 0)# add flower
+	
+  elif my_id == 132: # improved grassland #2
+      if random.random() < 0.01: # add Cow
+          Cow = Entity.Create('Cow')
+          Entity.setpos(Cow, (x, actual_y + 3, z))
+          Cow['Variant'] = nbt.TAG_Int(random.choice([0]))
+          world.addEntity(Cow) 
+
+
+  elif my_id == 133: # lowland meadows
+      choice = random.random()
+      if choice < 0.05:
+          Rabbit = Entity.Create('Rabbit')
+          Entity.setpos(Rabbit, (x, actual_y + 3, z))
+          Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
+          world.addEntity(Rabbit)
+		  
   # add snow
   elif my_id == 78:
     world.setBlockAt(x, elev + 1, z, m.SnowLayer.ID)
