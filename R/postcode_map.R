@@ -73,21 +73,25 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                               buffer = 30,
                               out_type = 1.008)
   
-  waterways <- rbind(small_rivers, big_rivers, canals)
+  if(sum(sapply(list(small_rivers, big_rivers, canals), FUN = nrow)) > 0){
   
-  uk_waterways <- raster::rasterize(as(waterways,'Spatial'),
-                                       lcm_cr,
-                                       field = 'out_type')
+    waterways <- rbind(small_rivers, big_rivers, canals)
+    
+    uk_waterways <- raster::rasterize(as(waterways,'Spatial'),
+                                         lcm_cr,
+                                         field = 'out_type')
+    
+    #smooth dtm
+    smooth_elev_cr <- raster::focal(elev_cr, matrix(1,7,7), min, na.rm = TRUE, pad = TRUE)
+    elev_cr[!is.na(uk_waterways)] <- smooth_elev_cr[!is.na(uk_waterways)]
+    
+    uk_waterways[is.na(uk_waterways)] <- lcm_cr[is.na(uk_waterways)]
+    
+    lcm_cr <- uk_waterways
+    rm(list = c('uk_waterways','waterways'))
+  }
   
-  #smooth dtm
-  smooth_elev_cr <- raster::focal(elev_cr, matrix(1,7,7), min, na.rm = TRUE, pad = TRUE)
-  elev_cr[!is.na(uk_waterways)] <- smooth_elev_cr[!is.na(uk_waterways)]
-  
-  uk_waterways[is.na(uk_waterways)] <- lcm_cr[is.na(uk_waterways)]
-  
-  lcm_cr <- uk_waterways
-  
-  rm(list = c('uk_waterways','waterways','canals', 'big_rivers',
+  rm(list = c('canals', 'big_rivers',
               'small_rivers', 'uk_canals', 'uk_rivers' ))
   
   cat('done\n')
