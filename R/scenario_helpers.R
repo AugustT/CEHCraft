@@ -23,7 +23,12 @@ clumpIDs <- function(raster, ids){
 #' @export
 getClumpsToconvert <- function(from, to, expansion_of_to = NULL, target_area = NULL){
   if(is.null(expansion_of_to) & is.null(target_area)) stop('target_area and expansion_of_to cannot both be NULL')
-  to_area <- sum(freq(to)[2:nrow(freq(to)),2])
+  
+  if(sum(to@data@values) == 0){
+    to_area = 0
+  } else {
+    to_area <- sum(freq(to)[2:nrow(freq(to)),2])
+  }
   
   if(is.null(target_area)){
     target_area <- expansion_of_to * to_area
@@ -64,22 +69,22 @@ getClumpsToconvert <- function(from, to, expansion_of_to = NULL, target_area = N
 # returns the clump ids of those that need to change
 #' @export
 convert_within_clumps <- function(clumps, id_to_expand, proportion_needed, ids_to_not_change = NULL){
-  freq_a <- freq(clumps)[2:nrow(freq(clumps)),]
+  freq_a <- freq(clumps)[2:nrow(freq(clumps)),,drop=FALSE]
   tot_ara <- sum(freq_a[,2])
   current_area <- sum(freq_a[freq_a[,1]>=(id_to_expand*1000) & freq_a[,1]<((id_to_expand+1)*1000),2])
   target_area <- tot_ara*proportion_needed 
-  freq_tochange <- freq_a[freq_a[,1] < (id_to_expand * 1000) | freq_a[,1] >= ((id_to_expand + 1) * 1000),]
+  freq_tochange <- freq_a[freq_a[,1] < (id_to_expand * 1000) | freq_a[,1] >= ((id_to_expand + 1) * 1000),,drop = FALSE]
   if(!is.null(ids_to_not_change)){
     for(i in ids_to_not_change){
       freq_tochange <- freq_tochange[freq_tochange[,1]<(i*1000) | freq_tochange[,1]>=((i+1)*1000),,drop=FALSE]
     }
   }
   tot <- 0 
-  n <- 1 
+  n <- 0 
   tc <- NULL
   while(tot < target_area & n != nrow(freq_tochange)){
     to_convert <- freq_tochange[sample(1:nrow(freq_tochange), size = n, replace = FALSE),,drop=FALSE]
-    tc <- to_convert[,1]
+    tc <- to_convert[,1,drop = FALSE]
     tot = sum(to_convert[,2])
     n = n + 1
   }

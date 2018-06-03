@@ -1,3 +1,4 @@
+
 #' Perform semi-natural habitat expansion scenario
 #' 
 #' @param lcm_path A character string giving the path to the lcm csv
