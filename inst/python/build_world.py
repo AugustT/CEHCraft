@@ -49,7 +49,7 @@ block_id_lookup = {
     1 : (m.Dirt.ID, 2, 2), # non woodland bare area
     10 : (3, 2, 0), # Upland fens and swamp
     2 : (4, 0, 1), # littoral rock
-    11 : (48, 0, 1), # Marsh fens and swamp
+    11 : (3, 2, 0), # Marsh fens and swamp
     12 : (m.Grass.ID, m.Grass.blockData, 2), # Calcareous grassland
     13 : (m.Grass.ID, m.Grass.blockData, 2), # Meadows and improved grassland
     14 : (m.Grass.ID, m.Grass.blockData, 2), # Heather grassland
@@ -395,8 +395,8 @@ def buildWorld(x, z):
           Entity.setpos(Squid, (x, actual_y - 1, z))
           world.addEntity(Squid)
         else:
-          world.setBlockAt(x, elev +2, z , 111) # Lily pad
-          world.setBlockDataAt(x, elev +2, z, 0)
+          world.setBlockAt(x, elev, z , 111) # Lily pad, not sure what elev works for this
+          world.setBlockDataAt(x, elev, z, 0)
   
   for elev in range(start_at, stop_at):
       world.setBlockAt(x, elev, z, block_id)
@@ -407,13 +407,9 @@ def buildWorld(x, z):
       world.setBlockAt(x, elev + 1, z , 31)
       world.setBlockDataAt(x, elev + 1, z, 2)
   
-  #elif my_id == 11: # Marsh fens and swamp
-  #    world.setBlockAt(x, elev + 1, z , 83)
-  #    world.setBlockDataAt(x, elev + 1, z, 2)
-  
-  #if my_id == 13: # Improved grassland
-  #    world.setBlockAt(x, elev + 1, z , 31)
-  #    world.setBlockDataAt(x, elev + 1, z, 1)
+  elif my_id == 11: # Marsh fens and swamp
+      world.setBlockAt(x, elev + 1, z , 31)
+      world.setBlockDataAt(x, elev + 1, z, 1)
   
   elif my_id == 14: # Heather grassland
       choice = random.random()
@@ -427,6 +423,30 @@ def buildWorld(x, z):
       else:
         world.setBlockAt(x, elev + 1, z , 31)
         world.setBlockDataAt(x, elev + 1, z, 1)
+  
+  elif my_id == 15: # Calcareous grassland
+      choice = random.random()
+      if choice < 0.02:
+        Rabbit = Entity.Create('Rabbit')
+        Entity.setpos(Rabbit, (x, actual_y + 3, z))
+        Rabbit['Variant'] = nbt.TAG_Int(random.choice([0]))
+        world.addEntity(Rabbit)
+    
+      if 0.02 <= choice <= 0.2: # add red flowers
+        world.setBlockAt(x, elev + 1, z , 38)
+        world.setBlockDataAt(x, elev + 1, z, 7)
+      
+      if 0.2001 <= choice <= 0.6: # add white flowers
+        world.setBlockAt(x, elev + 1, z , 38)
+        world.setBlockDataAt(x, elev + 1, z, 4)
+      
+      if choice > 0.6: # add grass
+        world.setBlockAt(x, elev + 1, z , 31)
+        world.setBlockDataAt(x, elev + 1, z, 1)
+  
+  elif my_id == 16: # Non-woodland grassland
+      world.setBlockAt(x, elev + 1, z , 31)
+      world.setBlockDataAt(x, elev + 1, z, 1)
   
   elif my_id == 17: # Upland heather
       choice = random.random()
@@ -503,9 +523,9 @@ def buildWorld(x, z):
         world.setBlockAt(x, elev + 1, z , 31)
         world.setBlockDataAt(x, elev + 1, z, 1)
                   
-  #elif my_id == 24: # non woodland-Agricultural land
-  #    world.setBlockAt(x, elev + 1, z , m.Crops.ID)
-  #    world.setBlockDataAt(x, elev + 1, z, 6)
+  elif my_id == 24: # non woodland-Agricultural land
+      world.setBlockAt(x, elev + 1, z , m.Crops.ID)
+      world.setBlockDataAt(x, elev + 1, z, 6)
               
   elif my_id == 29: # Beetroot
       world.setBlockAt(x, elev + 1, z , 141)
@@ -767,11 +787,11 @@ def buildWorld(x, z):
           world.addEntity(Sheep)
   
   elif my_id == 13: # improved grassland #1
-      if random.random() < 0.01: # add Pig
-          Pig = Entity.Create('Pig')
-          Entity.setpos(Pig, (x, actual_y + 3, z))
-          Pig['Variant'] = nbt.TAG_Int(random.choice([0]))
-          world.addEntity(Pig)   
+      if random.random() < 0.01: # add Sheep
+          Sheep = Entity.Create('Sheep')
+          Entity.setpos(Sheep, (x, actual_y + 3, z))
+          Sheep['Variant'] = nbt.TAG_Int(random.choice([0]))
+          world.addEntity(Sheep)   
 		  
   elif my_id == 313: # Good quality semi-improved grassland
       choice = random.random()
