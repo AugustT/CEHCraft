@@ -56,19 +56,19 @@ agricultural_expansion <- function(lcm_path,
   arable <- clumpIDs(lcm, c(29:38))
   improved_grassland <- clumpIDs(lcm, c(13, 132))
   
-  # now change these crop types
-  convert_to_WW <- convert_within_clumps(arable, 38, prop_winter_wheat, 32)
-  
-  # add to the lcm
-  lcm[arable %in% convert_to_WW] <- 38
-  for(i in convert_to_WW) arable[arable == i] <- 38000 + (i/1000)
-  
   # oilseed rape
   covert_to_OR <- convert_within_clumps(arable, 32, prop_oilseed_rape, 38)
   
   # add to the lcm
   lcm[arable %in% covert_to_OR] <- 32
   for(i in covert_to_OR) arable[arable == i] <- 32000 + (i/1000)
+  
+  # now change these crop types
+  convert_to_WW <- convert_within_clumps(arable, 38, prop_winter_wheat, 32)
+  
+  # add to the lcm
+  lcm[arable %in% convert_to_WW] <- 38
+  for(i in convert_to_WW) arable[arable == i] <- 38000 + (i/1000)
   
   ## CREATE MORE IMPROVED GRASSLAND
   # expand by 10%

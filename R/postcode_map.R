@@ -100,7 +100,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   
   if(includeRoads){
     
-    cat('Adding roads')
+    cat('Adding roads...')
     uk_roads_123 <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
     uk_roads_motorway <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
     

@@ -113,13 +113,13 @@ format_raster <- function(lcm,
   for(i in unique(as.vector(lcm))){
     if(i %in% lcm_class$LCLU){
       lcm[lcm == i] <- lcm_class$EUNIS2_CODE[lcm_class$LCLU == i]
-    } else if(i == 250){ #sea
+    } else if(identical(i,250)){ #sea
       lcm[lcm == i] <- 4 # sea = water
-    } else if(i == 78){ #snow
+    } else if(identical(i, 78)){ #snow
       # do nothing
     } else if(i %in% 100:102){ #roads
       # do nothing
-    } else if(i == 888){ # glass walls
+    } else if(identical(i, 888)){ # glass walls
       # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass

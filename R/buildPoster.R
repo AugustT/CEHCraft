@@ -1,4 +1,5 @@
 #' @export
+#' @import imager
 
 buildPoster <- function(path, outDir = '.'){
   
