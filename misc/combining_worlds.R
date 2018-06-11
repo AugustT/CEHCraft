@@ -1,28 +1,10 @@
-#' Create Minecraft world from Postcode
-#' 
-#' This wraps around other functions to create a minecraft world
-#' from a postcode.
-#' 
-#' @param lcm_raster lcm raster. Defaults to files on W drive
-#' @param dtm_raster lcm raster. Defaults to files on W drive
-#' @param postcode Character, valid UK postcode to centre map on.
-#' @param name Character, the name to give the save file, if null (default) the postcode is used
-#' @param radius Numeric, radius of the map in meters
-#' @param outputDir Character, path to output directory
-#' @param exagerate_elevation The factor by which elevation should be exaggerated
-#' @param includeRoads logical, if TRUE roads are added
-#' @param verbose Should python progress be printed. This is a bit buggy.
-#' @param agri_ex Logical, should the agricultural expansion scenario be applied?
-#'  
-#' @export
-#' 
-#' @return Path to the minecraft map
-
-postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
+# Combining worlds
+rm(list = ls())
+build_map_csvs <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
                           dtm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif'),
                           postcode = 'OX108BB',
                           name = NULL,
-                          radius = 2500,
+                          radius = 5000,
                           outputDir = '.',
                           exagerate_elevation = 2,
                           includeRoads = TRUE,
@@ -30,10 +12,12 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                           agri_ex = FALSE,
                           seminat_exp = FALSE){
   
+  require(CEHcraft)
+  
   postcode <- toupper(gsub(' ', '', postcode))
   
   if(agri_ex & seminat_exp) stop('Only one scenario can be applied at a time')
-    
+  
   cat('\n\n##########################',
       '\nBuilding world for', postcode,
       '\n##########################\n\n')
@@ -74,12 +58,12 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                               out_type = 1.008)
   
   if(sum(sapply(list(small_rivers, big_rivers, canals), FUN = nrow)) > 0){
-  
+    
     waterways <- rbind(small_rivers, big_rivers, canals)
     
     uk_waterways <- raster::rasterize(as(waterways,'Spatial'),
-                                         lcm_cr,
-                                         field = 'out_type')
+                                      lcm_cr,
+                                      field = 'out_type')
     
     #smooth dtm
     smooth_elev_cr <- raster::focal(elev_cr, matrix(1,7,7), min, na.rm = TRUE, pad = TRUE)
@@ -100,7 +84,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   
   if(includeRoads){
     
-    cat('Adding roads...')
+    cat('Adding roads')
     uk_roads_123 <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
     uk_roads_motorway <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
     
@@ -139,8 +123,6 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                                   name = postcode,
                                   exagerate_elevation = exagerate_elevation)
   
-  cat('\ndone\n')
-  
   if(agri_ex){
     cat('Applying agricultural expansion ...')  
     agricultural_expansion(formatted_maps[[1]])
@@ -153,11 +135,58 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
     cat('done\n')
   } 
   
-  cat('Creating Minecraft World\n')  
-  map_path <- build_map(lcm = formatted_maps[[1]],
-                        dtm = formatted_maps[[2]],
-                        outDir = outputDir,
-                        verbose = verbose,
-                        name = name)
-  
+  return(formatted_maps)
 }
+
+
+norm <- build_map_csvs(postcode = 'SG8 7NT')
+dtm <- read.csv(norm[[2]], header = FALSE)
+norm <- read.csv(norm[[1]], header = FALSE)
+  
+agri <- build_map_csvs(postcode = 'SG8 7NT', agri_ex = TRUE)
+agri <- read.csv(agri[[1]], header = FALSE)
+
+seminat <- build_map_csvs(postcode = 'SG8 7NT', seminat_exp = TRUE)
+seminat <- read.csv(seminat[[1]], header = FALSE)
+
+wall_V <- matrix(888, nrow(norm), 1)
+wall_H <- matrix(888, 1, (ncol(norm)*3)+2)
+
+combo_lcm <- rbind(as.matrix(cbind(norm, wall_V,
+                                   agri, wall_V,
+                                   seminat)),
+                   as.matrix(wall_H),
+                   as.matrix(cbind(seminat, wall_V,
+                                   agri, wall_V,
+                                   norm)))
+raster::plot(raster::raster(combo_lcm))
+
+wall_V <- matrix(60, nrow(dtm), 1)
+wall_H <- matrix(60, 1, (ncol(dtm)*3)+2)
+
+combo_dtm <- rbind(as.matrix(cbind(dtm, wall_V,
+                                   dtm, wall_V,
+                                   dtm)),
+                   as.matrix(wall_H),
+                   as.matrix(cbind(dtm, wall_V,
+                                   dtm, wall_V,
+                                   dtm)))
+
+raster::plot(raster::raster(combo_dtm))
+
+lcm_file <- tempfile()
+write.table(combo_lcm, file = lcm_file, sep = ',',
+            row.names = FALSE, col.names = FALSE)
+
+dtm_file <- tempfile()
+write.table(combo_dtm, file = dtm_file, sep = ',',
+            row.names = FALSE, col.names = FALSE)
+
+map_path <- CEHcraft::build_map(lcm = lcm_file,
+                                dtm = dtm_file,
+                                outDir = 'C:/Users/tomaug/AppData/Roaming/.minecraft/saves',
+                                verbose = TRUE,
+                                name = 'duxford_combo')
+dir.create('misc/overviewer/duxford_combo')
+overview('C:/Users/tomaug/AppData/Roaming/.minecraft/saves/duxford_combo',
+         outPath = 'misc/overviewer/duxford_combo')

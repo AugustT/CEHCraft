@@ -4,8 +4,7 @@
 \alias{build_map}
 \title{Convert formatted rasters to minecraft worlds}
 \usage{
-build_map(lcm, dtm, name = gsub("^dtm-", "", gsub(".csv$", "",
-  basename(dtm))), outDir = ".", verbose = FALSE)
+build_map(lcm, dtm, name = NULL, outDir = ".", verbose = FALSE)
 }
 \arguments{
 \item{lcm}{Character, path to formatted lcm}

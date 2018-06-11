@@ -57,7 +57,7 @@ format_raster <- function(lcm,
   }
   
   # rotate to get north in the right place
-  dtm <- t(apply(dtm, 2, rev))
+  dtm <- apply(t(dtm),2,rev)
   
   cat('\nMinimum height: ', min(dtm))
   cat('\nMaximum height: ', max(dtm))
@@ -97,6 +97,10 @@ format_raster <- function(lcm,
   lcm_class[lcm_class$LCLU_Name == "gr (Improved grassland)", "EUNIS2_CODE"] <- 132
   lcm_class[lcm_class$LCLU_Name == "Lowland meadows", "EUNIS2_CODE"] <- 133
   
+  # customise the improved grassland for more variation
+  lcm_class[lcm_class$LCLU_Name == "Good quality semi-improved grassland", "EUNIS2_CODE"] <- 313
+  lcm_class[lcm_class$LCLU_Name == "Upland hay meadow", "EUNIS2_CODE"] <- 314
+  
   
   lcm <- round(raster::as.matrix(lcm), digits = 3)
   
@@ -104,17 +108,18 @@ format_raster <- function(lcm,
   lcm <- lcm[, rev(1:ncol(lcm))]
   
   # rotate to get north in the right place
-  lcm <- t(apply(lcm, 2, rev))
+  lcm <- apply(t(lcm),2,rev)
   
-  # Add snow to this bit
   for(i in unique(as.vector(lcm))){
     if(i %in% lcm_class$LCLU){
       lcm[lcm == i] <- lcm_class$EUNIS2_CODE[lcm_class$LCLU == i]
-    } else if(i == 250){ #sea
+    } else if(identical(i,250)){ #sea
       lcm[lcm == i] <- 4 # sea = water
-    } else if(i == 78){ #snow
+    } else if(identical(i, 78)){ #snow
       # do nothing
     } else if(i %in% 100:102){ #roads
+      # do nothing
+    } else if(identical(i, 888)){ # glass walls
       # do nothing
     } else {
       lcm[lcm == i] <- 13 # unknown = grass
