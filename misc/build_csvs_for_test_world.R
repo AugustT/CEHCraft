@@ -8,3 +8,10 @@ test_map_elev <- matrix(rep(c(rep(10,10), rep(11,10), rep(12,10)), times = 20), 
 
 write.table(test_map_lc, file = 'misc/test_map_lc.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 write.table(test_map_elev, file = 'misc/test_map_elev.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+
+library(CEHcraft)
+
+build_map(lcm = 'misc/test_map_lc.csv',
+          dtm = 'misc/test_map_elev.csv',
+          name = 'test_speed',
+          outDir = 'C:/Users/Tom/AppData/Roaming/.minecraft/saves')
