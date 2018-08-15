@@ -5,6 +5,8 @@
 #' 
 #' @param lcm_raster lcm raster. Defaults to files on W drive
 #' @param dtm_raster lcm raster. Defaults to files on W drive
+#' @param uk_rivers path to rivers shape file
+#' @param uk_canals path to canals shape file
 #' @param postcode Character, valid UK postcode to centre map on.
 #' @param name Character, the name to give the save file, if null (default) the postcode is used
 #' @param radius Numeric, radius of the map in meters
@@ -13,6 +15,7 @@
 #' @param includeRoads logical, if TRUE roads are added
 #' @param verbose Should python progress be printed. This is a bit buggy.
 #' @param agri_ex Logical, should the agricultural expansion scenario be applied?
+#' @param ... other arguements to build_map
 #'  
 #' @export
 #' 
@@ -20,6 +23,10 @@
 
 postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif'), 
                           dtm_raster = raster::raster('W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif'),
+                          uk_rivers = 'W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_rivers.shp',
+                          uk_canals = 'W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_canals.shp',
+                          uk_roads_123 = 'W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp',
+                          uk_roads_motorway = 'W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp',
                           postcode = 'OX108BB',
                           name = NULL,
                           radius = 2500,
@@ -28,7 +35,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                           includeRoads = TRUE,
                           verbose = FALSE,
                           agri_ex = FALSE,
-                          seminat_exp = FALSE){
+                          seminat_exp = FALSE,
+                          ...){
   
   postcode <- toupper(gsub(' ', '', postcode))
   
@@ -51,8 +59,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   cat('done\n')
   
   cat('Adding rivers...')
-  uk_rivers <- sf::st_read(quiet = TRUE, 'W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_rivers.shp')
-  uk_canals <- sf::st_read(quiet = TRUE, 'W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_canals.shp')
+  uk_rivers <- sf::st_read(quiet = TRUE, uk_rivers)
+  uk_canals <- sf::st_read(quiet = TRUE, uk_canals)
   
   
   small_rivers <- crop_linear_layer(postcode = postcode,
@@ -101,8 +109,8 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
   if(includeRoads){
     
     cat('Adding roads...')
-    uk_roads_123 <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_123.shp")
-    uk_roads_motorway <- sf::st_read(quiet = TRUE, "W:\\PYWELL_SHARED\\Pywell Projects\\BRC\\Tom August\\Minecraft\\base_layers\\uk_osm_roads\\uk_roads_motorway.shp")
+    uk_roads_123 <- sf::st_read(quiet = TRUE, uk_roads_123)
+    uk_roads_motorway <- sf::st_read(quiet = TRUE, uk_roads_motorway)
     
     motorways <- crop_linear_layer(postcode = postcode,
                                    radius_m = radius,
@@ -158,6 +166,7 @@ postcode_map <-  function(lcm_raster = raster::raster('W:/PYWELL_SHARED/Pywell P
                         dtm = formatted_maps[[2]],
                         outDir = outputDir,
                         verbose = verbose,
-                        name = name)
+                        name = name,
+                        ...)
   
 }
