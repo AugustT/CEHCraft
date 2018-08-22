@@ -7,14 +7,26 @@
 
   postcode_map(lcm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/landcover_composite_map.tif"),
   dtm_raster = raster::raster("W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_elev25.tif"),
+  uk_rivers = "W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_rivers.shp",
+  uk_canals = "W:/PYWELL_SHARED/Pywell Projects/BRC/Tom August/Minecraft/base_layers/uk_rivers/uk_canals.shp",
+  uk_roads_123 = "W:\\\\PYWELL_SHARED\\\\Pywell Projects\\\\BRC\\\\Tom August\\\\Minecraft\\\\base_layers\\\\uk_osm_roads\\\\uk_roads_123.shp",
+  uk_roads_motorway = "W:\\\\PYWELL_SHARED\\\\Pywell Projects\\\\BRC\\\\Tom August\\\\Minecraft\\\\base_layers\\\\uk_osm_roads\\\\uk_roads_motorway.shp",
   postcode = "OX108BB", name = NULL, radius = 2500, outputDir = ".",
-  exagerate_elevation = 2, includeRoads = TRUE, verbose = FALSE,
-  agri_ex = FALSE, seminat_exp = FALSE)
+  exagerate_elevation = 2, includeRoads = TRUE, includeWaterways = TRUE,
+  verbose = FALSE, agri_ex = FALSE, seminat_exp = FALSE, ...)
 }
 \arguments{
 \item{lcm_raster}{lcm raster. Defaults to files on W drive}
 
 \item{dtm_raster}{lcm raster. Defaults to files on W drive}
+
+\item{uk_rivers}{path to rivers shape file}
+
+\item{uk_canals}{path to canals shape file}
+
+\item{uk_roads_123}{path to roads data}
+
+\item{uk_roads_motorway}{path to motorways data}
 
 \item{postcode}{Character, valid UK postcode to centre map on.}
 
@@ -31,6 +43,8 @@
 \item{verbose}{Should python progress be printed. This is a bit buggy.}
 
 \item{agri_ex}{Logical, should the agricultural expansion scenario be applied?}
+
+\item{...}{other arguements to build_map}
 }
 \value{
 Path to the minecraft map
