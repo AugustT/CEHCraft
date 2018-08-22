@@ -40,7 +40,11 @@ format_raster <- function(lcm,
   
   # set NA values (I have found these in the sea) to the min
   dtm[is.na(dtm)] <- min(dtm, na.rm = TRUE)
-  
+  dtm[is.infinite(dtm)] <- min(dtm, na.rm = TRUE)
+  # set to sea
+  lcm[is.na(lcm)] <- 1.008
+  lcm[is.infinite(lcm)] <- 1.008
+    
   # flip lat for minecraft #
   dtm <- dtm[, rev(1:ncol(dtm))]
   
