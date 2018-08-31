@@ -12,7 +12,7 @@ import time
 import numpy
 import random
 from shutil import rmtree
-from pymclevel import mclevel, box, Entity, nbt
+from pymclevel import mclevel, box, Entity, nbt, TitleEntity
 from pymclevel.materials import alphaMaterials as m
 
 # let's try without this at the moment
@@ -401,6 +401,12 @@ def buildWorld(x, z):
       world.setBlockAt(x, elev, z, block_id)
       if block_data:
           world.setBlockDataAt(x, elev, z, block_data)
+      # world.setBlockAt(x, elev+1, z , 63) # sign block
+      # world.setBlockDataAt(x, elev+1, z, 0)
+      # Sign = TileEntity.Create("Sign")
+      # TileEntity.setpos(Sign, (x, elev+1, z))
+      # Sign['Text1'] = nbt.TAG_String('TA_test_1')
+      # world.addTileEntity(Sign)
 
   if my_id == 10: # Upland fens and swamp
       world.setBlockAt(x, elev + 1, z , 31)
@@ -760,7 +766,8 @@ def buildWorld(x, z):
                   Villager = Entity.Create('Villager')
                   Entity.setpos(Villager, (x, actual_y + 2, z)) # Where to put it
                   Villager['Profession'] = nbt.TAG_Int(random.choice([0,1,2,3,4,5])) # What kind of cat
-                  world.addEntity(Villager) # Add it                
+                  world.addEntity(Villager) # Add it  
+
   
   elif my_id == 12: # Grassland (semi-natural)
       choice = random.random()
