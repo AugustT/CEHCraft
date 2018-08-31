@@ -10,16 +10,22 @@
 #' from the input files by default.
 #' @param outDir Character, the location the save the results, usually a temporary location
 #' @param verbose Should python progress be printed. This is a bit buggy.
-#'  
+#' @param py_script The name of the python script (in the package's inst folder) to use. Should always be 'build_world.py'.
+#' 1 - all stone. 2 - grass snow and water. 3- same as 2 (add riers in R). 4 - add habitat blocks. 5 - add grassland and water features.
+#' 6 - add farmland. 7 - CHICKENS. 8 - non-human entities. 9 - Add woodlands. 10 - add simple urban. 11 - add complex urban.
+#' 12 - same as 11 (add roadsin R).
 #' @export
 #' 
 #' @return Path to the minecraft map
 
-build_map <- function(lcm, dtm, name = NULL,
-                      outDir = '.', verbose = FALSE){
+build_map <- function(lcm, dtm,
+                      name = NULL,
+                      outDir = '.',
+                      verbose = FALSE,
+                      py_script = 'build_world.py'){
   
   if(is.null(name)) name = gsub('^dtm-','',gsub('.csv$','',basename(dtm)))
-  python_script <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', 'build_world.py')))
+  python_script <- make_quote(normalizePath(file.path(find.package('CEHcraft'), 'python', py_script)))
   
   # Build up args in a vector
   suppressWarnings({worlddir <- make_quote(normalizePath(file.path(outDir, name)))})

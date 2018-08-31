@@ -4,7 +4,8 @@
 \alias{build_map}
 \title{Convert formatted rasters to minecraft worlds}
 \usage{
-build_map(lcm, dtm, name = NULL, outDir = ".", verbose = FALSE)
+build_map(lcm, dtm, name = NULL, outDir = ".", verbose = FALSE,
+  py_script = "build_world.py")
 }
 \arguments{
 \item{lcm}{Character, path to formatted lcm}
@@ -17,6 +18,11 @@ from the input files by default.}
 \item{outDir}{Character, the location the save the results, usually a temporary location}
 
 \item{verbose}{Should python progress be printed. This is a bit buggy.}
+
+\item{py_script}{The name of the python script (in the package's inst folder) to use. Should always be 'build_world.py'.
+1 - all stone. 2 - grass snow and water. 3- same as 2 (add riers in R). 4 - add habitat blocks. 5 - add grassland and water features.
+6 - add farmland. 7 - CHICKENS. 8 - non-human entities. 9 - Add woodlands. 10 - add simple urban. 11 - add complex urban.
+12 - same as 11 (add roadsin R).}
 }
 \value{
 Path to the minecraft map

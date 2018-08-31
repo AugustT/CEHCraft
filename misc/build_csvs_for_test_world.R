@@ -15,4 +15,3 @@ test_map_elev_small <- matrix(rep(c(rep(10,20)), times = 20), length(test_lc$COD
 
 write.table(test_map_lc_small, file = 'misc/test_map_lc_small.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 write.table(test_map_elev_small, file = 'misc/test_map_elev_small.csv', sep = ',', row.names = FALSE, col.names = FALSE)
-
