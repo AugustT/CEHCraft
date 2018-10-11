@@ -1,0 +1,239 @@
+Data Source
+National Forest Inventory Woodland GB 2015 here
+Abstract:
+This is 2015 Forestry
+Commission National Forest Inventory (NFI) Map for S/E/W/GB. The NFI programme
+monitors woodland and trees across Great Britain. The NFI provides an extensive
+and unique record of key information about our forests and woodlands. This
+dataset includes Interpreted Forest Types (IFTs) for all woodland over 0.5ha
+and Interpreted Open Area (IOA) information for areas over 0.5ha that are
+completely surrounded by woodland.
+
+Licence (NFIW)
+OGL
+There are no public access constraints to this data. Use of this data is subject to the licence identified.
+
+#################
+
+CEH Land Cover ® Plus 2016 (CEH Crop Map - 2016)
+CEH Land Cover ® Plus 2017 (CEH Crop Map - 2017)
+Licence (LCplus) here
+Waiting for licence terms and conditions from the CEH licencing group.
+
+#################
+
+Natural England Priority Habitats Inventory version 2.1
+(published 15 th December 2015)
+From this product, we removed all data collected or derived from the Forest Commission and polygon with "Low" confidence
+
+Licence (NEPHI)
+OGL
+
+NE-SO
+
+See section 4. for Natural England's licence for Ordnance Survey data.
+
+Natural England confirms it has the right to issue the following third party
+data licences/terms:
+i. If the Data contains or is derived in whole or in part from Ordnance Survey data
+the terms of the Ordnance Survey End User Licence (Annex A) will apply. The
+following statement should be added to all products: “Contains, or is derived from,
+information supplied by Ordnance Survey. © Crown copyright and database rights
+[insert year of supply]. Ordnance Survey 100022021.”
+If you intend to incorporate Ordnance Survey base or derived data that has been
+sourced from another organisation you should add the licence numbers for each
+source of data to the above statement.
+
+#################
+
+CEH Land Cover Map 2015 here
+Licence (LCM-2015)
+You must cite: Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane, G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (vector, GB). NERC Environmental Information Data Centre. https://doi.org/10.5285/6c6c9203-7333-4d96-88ab-78925e7a4e73
+Supporting information can be downloaded here
+
+#################
+
+Ordnance Survey Great Britain grid
+Vector files for various Ordnance Survey National Grids (i.e. 1, 5, 10, 20, 25, 50 and 100 Km) from this github repository
+
+Licence
+charlesroper/OSGB_Grids is licensed under the Creative Commons Zero v1.0 Universal see licence
+
+#################
+
+Source for Digital Elevation Model (25m)
+DATA IDENTIFICATION
+Resource title: European Digital Elevation Model (EU-DEM), version 1.1information.png Resource abstract: The EU-DEM v1.1 is a resulting dataset of the EU-DEM v1.0 upgrade which enhances the correction of geo-positioning issues, reducing the number of artefacts, improving the vertical accuracy of EU-DEM using ICESat as reference and ensuring consistency with EU-Hydro public beta.
+
+EU-DEM v1.1 is available in Geotiff 32 bits format. It is a contiguous dataset divided into 100x100 km tiles, resulting in a total of 1992 tiles of 4000x4000 pixel at 25m resolution with vertical accuracy: +/- 7 meters RMSE. The tiles have been grouped in big regions:
+
+- EUDEM2_ASIA (Turkey)
+
+- EUDEM2_ATLAN (Hondo and Fr_Islands)
+
+- EUDEM2_BRITAIN (Thames, Shannon and Tweed)
+
+- EUDEM2_EUROPE_1 (Duero, Ebro, Tajo, Guadalquivir and Jucar)
+
+- EUDEM2_EUROPE_2 (Tirso, Mesima, Tevere and Po)
+
+- EUDEM2_EUROPE_3 (Garonne, Rhone, Loire, Seine and western Rhine)
+
+- EUDEM2_EUROPE_4 (Danube)
+
+- EUDEM2_EUROPE_5 (Skjern, Nemunas, Vistula, Oder, Elbe and Eastern Rhine)
+
+- EUDEM2_EUROPE_6 (Bulgaria and Pinios)
+
+- EUDEM2_ICELAND (Iceland)
+
+- EUDEM2_SCAND (Vorma, Gota, Angerman, Tana, Kemi and Neva)
+
+- EUDEM2_SOUTH_AMERICA (Fr_Guiana)
+EU-DEM v1.1 upgrade was coordinated by the European Environment Agency (EEA) in the frame of the EU Copernicus programme.
+
+Resource type:
+Resource Locator: http://land.copernicus.eu/pan-european/satellite-derived-products/eu-dem/eu-dem-v1.1/view
+
+CLASSIFICATION OF SPATIAL DATA
+Topic of category: Climatology/Meteorology/Atmosphere, Environment information.png Keyword: Copernicus Elevation Digital Elevation Model DSM Copernicus Land hydrography
+
+GEOGRAPHIC REFERENCE
+Bounding Box:
+West = -54.925613
+
+East = 93.178583
+
+North = 71.899220
+
+South = -21.567515
+
+Coverage: Albania, Austria, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Macedonia the former Yugoslavian Republic of, Malta, Montenegro, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, United Kingdom information.png Geotags: Albania, Austria, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Macedonia (FYROM), Malta, Montenegro, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, United Kingdom information.png Coordinate Reference System: EPSG:3035 (ETRS89, LAEA)
+
+TEMPORAL REFERENCE
+Temporal extent: 2011information.png Date of publication: 20 Apr 2016
+
+QUALITY AND VALIDITY
+Lineage: Correction of geo-positioning issues in EU-DEM v1.0 as reference also using SPOT 2011 imagery
+Bias adjustment with ICESat points
+Screening and removal of artefacts in the EU-DEM v1.0, including the presence of blunders (i.e. negative or positive anomalies)
+Ensuring consistency with EU-Hydro to produce a better river network topology:
+Consistency of the coastline with the EU-HYDRO coastline, including the removal of DEM values outside the EU-HYDRO coastline
+Use of the EU-HYDRO coastline to smooth the gradient to the coast in flat regions
+Burning of EU-HYDRO water bodies to set EU-DEM to the minimum height inside the water body, smoothing the boundaries
+Spatial resolution:
+25 m
+
+CONFORMITY
+Specification:
+Commission Regulation (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services, Date of publication: 2010-12-08
+
+Degree: Null
+
+CONSTRAINTS RELATED TO ACCESS AND USE
+information.png Conditions applying to access and use:
+Access to data is based on a principle of full, open and free access as established by the Copernicus data and information policy Regulation (EU) No 1159/2013 of 12 July 2013. This regulation establishes registration and licensing conditions for GMES/Copernicus users and can be found here. Free, full and open access to this data set is made on the conditions that:
+
+When distributing or communicating Copernicus dedicated data and Copernicus service information to the public, users shall inform the public of the source of that data and information.
+
+Users shall make sure not to convey the impression to the public that the user's activities are officially endorsed by the Union.
+Where that data or information has been adapted or modified, the user shall clearly state this.
+
+The data remain the sole property of the European Union. Any information and data produced in the framework of the action shall be the sole property of the European Union. Any communication and publication by the beneficiary shall acknowledge that the data were produced “with funding by the European Union”.
+Limitation of public access:
+No Limitation
+
+RESPONSIBLE ORGANISATION
+Responsible party:
+European Environment Agency (EEA) under the framework of the Copernicus programme - copernicus@eea.europa.eu
+
+Responsible party role: Resource Provider
+
+#################
+
+EU-Hydro River Network
+Resource abstract:
+EU-Hydro is a dataset for all EEA39 countries providing photo-interpreted river network, consistent of surface interpretation of water bodies (lakes and wide rivers), and a drainage model (also called Drainage Network), derived from EU-DEM, with catchments and drainage lines and nodes
+
+EU-Hydro river network is divided into 35 basins (covering all EEA39 countries) available in geodatabase format with geometries and attributes (including HYDRO Feature Dataset with 12 Feature Classes in turn): Oder, Elbe, Rhine, Seine, Vistula, Skjern, Loire, Garonne, Rhone, Duero, Ebro, Tajo, Jucar, Guadalquivir, Shannon, Thames, Tweed, Iceland, French Guiana, French Islands, Hondo, Mesima, Tevere, Po, Tirso, Pinios/Bulgaria, Nemunas, Danube, Gota, Angerman, Neva, Kemi, Tana, Vorma, Turkey.
+
+The production of EU-Hydro public beta and the derived layers was coordinated by the European Environment Agency in the frame of the EU Copernicus programme.
+
+Resource type: Dataset
+Resource Locator: http://land.copernicus.eu/pan-european/satellite-derived-products/eu-hydro/eu-hydro-public-beta/eu-hydro-river-network/view
+CLASSIFICATION OF SPATIAL DATA
+Topic of category: Environment, Imagery/Base Maps/Earth Cover
+Keyword: Catchment Copernicus hydrography Copernicus Land River Network
+GEOGRAPHIC REFERENCE
+Bounding Box:
+West = -10.61982
+
+East = 44.82124
+
+North = 71.18545
+
+South = 34.56192
+
+Bounding Box:
+West = -31.26842
+
+East = -13.41985
+
+North = 66.56622
+
+South = 27.63750
+
+Coverage: Albania, Austria, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Macedonia the former Yugoslavian Republic of, Malta, Montenegro, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, United Kingdom
+
+Geotags: Albania, Austria, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Macedonia (FYROM), Malta, Montenegro, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, United Kingdom
+
+Coordinate Reference System: EPSG:3035 (ETRS89, LAEA)
+TEMPORAL REFERENCE
+Temporal extent: 2006-2012
+Date of publication: 20 Apr 2016
+QUALITY AND VALIDITY
+Lineage:
+EU-Hydro river network has been derived from 20 metres resolution imagery. The feature data extraction has been performed by photointerpretation of Very High Resolution Image Data (2011 - 2013), with resolution of 2.5 meters.
+
+Spatial resolution:
+1:50 000
+
+CONFORMITY
+Specification:
+Commission Regulation (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services, Date of publication: 2010-12-08
+
+Degree: Null
+CONSTRAINTS RELATED TO ACCESS AND USE
+Conditions applying to access and use:
+Access to data is based on a principle of full, open and free access as established by the Copernicus data and information policy Regulation (EU) No 1159/2013 of 12 July 2013. This regulation establishes registration and licensing conditions for GMES/Copernicus users and can be found here. Free, full and open access to this data set is made on the conditions that:
+
+When distributing or communicating Copernicus dedicated data and Copernicus service information to the public, users shall inform the public of the source of that data and information.
+Users shall make sure not to convey the impression to the public that the user's activities are officially endorsed by the Union.
+Where that data or information has been adapted or modified, the user shall clearly state this.
+The data remain the sole property of the European Union. Any information and data produced in the framework of the action shall be the sole property of the European Union. Any communication and publication by the beneficiary shall acknowledge that the data were produced “with funding by the European Union”.
+Limitation of public access:
+No Limitation
+
+RESPONSIBLE ORGANISATION
+Responsible party:
+European Environment Agency (EEA) under the framework of the Copernicus programme - copernicus@eea.europa.eu
+
+#################
+
+OpenStreetMap
+The files in this archive have been created from OpenStreetMap data
+and are licensed under the Open Database 1.0 License. See
+www.openstreetmap.org for details about the project.
+
+This file contains OpenStreetMap data as of 2018-02-21T21:43:03Z. Every day
+a new version of this file will be made available at:
+
+http://download.geofabrik.de/europe/great-britain/england-latest-free.shp.zip
+
+A documentation of the layers in this shape file is available here:
+
+http://download.geofabrik.de/osm-data-in-gis-formats-free.pdf
+
+Geofabrik also makes extended shapefiles to order; please see
+http://www.geofabrik.de/data/shapefiles.html for details and example
+downloads.
