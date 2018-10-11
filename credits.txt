@@ -1,5 +1,5 @@
 Data Source
-National Forest Inventory Woodland GB 2015 here
+National Forest Inventory Woodland GB 2015 here (http://data-forestry.opendata.arcgis.com/datasets?t=GB)
 Abstract:
 This is 2015 Forestry
 Commission National Forest Inventory (NFI) Map for S/E/W/GB. The NFI programme
@@ -10,14 +10,14 @@ and Interpreted Open Area (IOA) information for areas over 0.5ha that are
 completely surrounded by woodland.
 
 Licence (NFIW)
-OGL
+OGL (http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
 There are no public access constraints to this data. Use of this data is subject to the licence identified.
 
 #################
 
 CEH Land Cover ® Plus 2016 (CEH Crop Map - 2016)
 CEH Land Cover ® Plus 2017 (CEH Crop Map - 2017)
-Licence (LCplus) here
+Licence (LCplus) here (https://www.ceh.ac.uk/crops2015)
 Waiting for licence terms and conditions from the CEH licencing group.
 
 #################
@@ -27,9 +27,9 @@ Natural England Priority Habitats Inventory version 2.1
 From this product, we removed all data collected or derived from the Forest Commission and polygon with "Low" confidence
 
 Licence (NEPHI)
-OGL
+OGL (http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
 
-NE-SO
+NE-SO (https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/409507/NE-terms-of-use.pdf)
 
 See section 4. for Natural England's licence for Ordnance Survey data.
 
@@ -46,18 +46,18 @@ source of data to the above statement.
 
 #################
 
-CEH Land Cover Map 2015 here
+CEH Land Cover Map 2015 here (https://www.ceh.ac.uk/services/land-cover-map-2015)
 Licence (LCM-2015)
 You must cite: Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane, G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (vector, GB). NERC Environmental Information Data Centre. https://doi.org/10.5285/6c6c9203-7333-4d96-88ab-78925e7a4e73
-Supporting information can be downloaded here
+Supporting information can be downloaded here (http://eidc.ceh.ac.uk/metadata/6c6c9203-7333-4d96-88ab-78925e7a4e73/zip_export/)
 
 #################
 
 Ordnance Survey Great Britain grid
-Vector files for various Ordnance Survey National Grids (i.e. 1, 5, 10, 20, 25, 50 and 100 Km) from this github repository
+Vector files for various Ordnance Survey National Grids (i.e. 1, 5, 10, 20, 25, 50 and 100 Km) from this github repository (https://github.com/charlesroper/OSGB_Grids)
 
 Licence
-charlesroper/OSGB_Grids is licensed under the Creative Commons Zero v1.0 Universal see licence
+charlesroper/OSGB_Grids is licensed under the Creative Commons Zero v1.0 Universal see licence (https://github.com/charlesroper/OSGB_Grids/blob/master/LICENSE.txt)
 
 #################
 
